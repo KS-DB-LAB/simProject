@@ -12,13 +12,13 @@ function LoginScreen() {
                 <Image source = {require('../images/slogan.jpg')} style = {styles.logoImage}  />
             </View>
             <View style={styles.container}>
-                <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
-                <View style={styles.container}>
-                    <TextInput style={styles.accountInputBox}>  아이디</TextInput>
-                    <TextInput style={styles.accountInputBox}>  패스워드</TextInput>
-                </View>
-                <View style={styles.container}>
-                    <View style={styles.loginButtonStyle}>
+                        <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
+                        <View style={styles.container}>
+                            <TextInput style={styles.accountInputBox}>  아이디</TextInput>
+                            <TextInput style={styles.accountInputBox}>  패스워드</TextInput>
+                        </View>
+                        <View style={styles.container}>
+                            <View style={styles.loginButtonStyle}>
                         <Pressable onPress={() => { // @ts-ignore
                             navigation.navigate('MainScreen');}}><Text>로그인</Text></Pressable>
                     </View>
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems:'center',
         justifyContent:'center',
+        backgroundColor : '#ffffff',
     },
 
     logoImage : {

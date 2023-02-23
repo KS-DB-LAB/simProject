@@ -201,7 +201,7 @@ function SalesAndProfitScreen(){
                     <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
                         <View style={styles.ddangeoyoTagColor}></View>
                         <View style={styles.moneyDataBoxStyle}>
-                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
+                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기 dd*/}
                             <Text>0원</Text>
                         </View>
                     </View>

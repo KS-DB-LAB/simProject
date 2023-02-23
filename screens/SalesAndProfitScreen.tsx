@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {StyleSheet, View, Text, Image, Pressable, Modal, Alert} from "react-native";
+import {StyleSheet, View, Text, Image, Pressable, Modal, Alert, ScrollView} from "react-native";
 
 import PickedDateStart from "../components/PickedDateStart";
 import PickedDateEnd from "../components/PickedDateEnd";
@@ -76,6 +76,9 @@ function SalesAndProfitScreen(){
                 <Pressable onPress={() => showDatePicker('end')} style = {styles.selectDateOfSalesStyle}>
                     <PickedDateEnd dateString={selectedDateEndString}/>
                 </Pressable>
+                <Pressable style = {[styles.selectDateOfSalesStyle, {marginLeft: 10, width: 50}]}>
+                    <Text>확인</Text>
+                </Pressable>
             </View>
 
             <DatePickerModal
@@ -84,7 +87,129 @@ function SalesAndProfitScreen(){
                 onConfirm={handleConfirmStartDate}
                 onCancel={hideStartDatePicker}
             />
-            
+
+            <View style ={styles.salesTitleContainerStyle}>
+                <View style = {styles.salesTextTitleBoxContainerStyle}>
+                    <Text>매출</Text>
+                </View>
+
+                <View style = {[styles.salesTextTitleBoxContainerStyle, {marginLeft : 10}]}>
+                    <Text>지출</Text>
+                </View>
+
+                <View style = {[styles.salesTextTitleBoxContainerStyle, {marginLeft : 10}]}>
+                    <Text>수익</Text>
+                </View>
+            </View>
+
+            <ScrollView>
+                <View style ={styles.platformContainerStyle}>
+                    <View style = {styles.platformBoxContainerStyle}>
+                        <View style={styles.baeminTagColor}></View>
+                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
+                            <Text>0원</Text>
+                        </View>
+                    </View>
+
+                    <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
+                        <View style={styles.baeminTagColor}></View>
+                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
+                            <Text>0원</Text>
+                        </View>
+                    </View>
+
+                    <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
+                        <View style={styles.baeminTagColor}></View>
+                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
+                            <Text>0원</Text>
+                        </View>
+                    </View>
+                </View>
+
+                <View style ={styles.platformContainerStyle}>
+                    <View style = {styles.platformBoxContainerStyle}>
+                        <View style={styles.coupangEatsTagColor}></View>
+                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
+                            <Text>0원</Text>
+                        </View>
+                    </View>
+
+                    <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
+                        <View style={styles.coupangEatsTagColor}></View>
+                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
+                            <Text>0원</Text>
+                        </View>
+                    </View>
+
+                    <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
+                        <View style={styles.coupangEatsTagColor}></View>
+                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
+                            <Text>0원</Text>
+                        </View>
+                    </View>
+                </View>
+
+                <View style ={styles.platformContainerStyle}>
+                    <View style = {styles.platformBoxContainerStyle}>
+                        <View style={styles.yogiyoTagColor}></View>
+                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
+                            <Text>0원</Text>
+                        </View>
+                    </View>
+
+                    <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
+                        <View style={styles.yogiyoTagColor}></View>
+                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
+                            <Text>0원</Text>
+                        </View>
+                    </View>
+
+                    <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
+                        <View style={styles.yogiyoTagColor}></View>
+                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
+                            <Text>0원</Text>
+                        </View>
+                    </View>
+                </View>
+
+                <View style ={styles.platformContainerStyle}>
+                    <View style = {styles.platformBoxContainerStyle}>
+                        <View style={styles.ddangeoyoTagColor}></View>
+                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
+                            <Text>0원</Text>
+                        </View>
+                    </View>
+
+                    <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
+                        <View style={styles.ddangeoyoTagColor}></View>
+                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
+                            <Text>0원</Text>
+                        </View>
+                    </View>
+
+                    <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
+                        <View style={styles.ddangeoyoTagColor}></View>
+                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
+                            <Text>0원</Text>
+                        </View>
+                    </View>
+                </View>
+
+
+            </ScrollView>
+
         </View>
 
     )
@@ -108,7 +233,7 @@ const styles = StyleSheet.create({
     },
 
     titleContainerStyle : {
-        paddingRight : 180,
+        paddingRight : 250,
         paddingTop : 40,
         paddingBottom : 20,
     },
@@ -139,6 +264,59 @@ const styles = StyleSheet.create({
     salesDateFromAndToSignStyle: {
         padding : 15,
     },
+
+    salesTextTitleBoxContainerStyle: {
+        width : 110,
+        height : 35,
+        borderRadius : 10,
+        backgroundColor : '#D9D9D9',
+        alignItems : 'center',
+        justifyContent : 'center',
+        marginTop : 20
+    },
+    salesTitleContainerStyle: {
+        flexDirection : 'row',
+    },
+
+    platformContainerStyle: {
+        flexDirection : 'row',
+    },
+    platformBoxContainerStyle: {
+        width : 110,
+        height : 70,
+        borderRadius : 10,
+        backgroundColor : '#D9D9D9',
+        alignItems : 'flex-start',
+        justifyContent : 'flex-start',
+        flexDirection : 'row',
+        marginTop : 20
+    },
+
+    baeminTagColor: {
+        width: 40,
+        height: 70,
+        backgroundColor:'#39C5C4',
+        borderRadius : 10,
+    },
+    yogiyoTagColor: {
+        width: 40,
+        height: 70,
+        backgroundColor:'#FA0050',
+        borderRadius : 10,
+    },
+    coupangEatsTagColor: {
+        width: 40,
+        height: 70,
+        backgroundColor: '#31B4DD',
+        borderRadius: 10,
+    },
+    ddangeoyoTagColor:{
+        width: 40,
+        height: 70,
+        backgroundColor: '#FB521C',
+        borderRadius: 10,
+    }
+
 
 })
 

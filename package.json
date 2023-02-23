@@ -26,8 +26,10 @@
     "react-native-screens": "~3.18.0",
     "react-native-shadow": "^1.2.2",
     "react-native-shadow-2": "^7.0.6",
+    "react-native-simple-modal": "^9.0.1",
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "13.4.0",
+    "save": "^2.9.0",
     "typescript": "^4.6.3"
   },
   "devDependencies": {

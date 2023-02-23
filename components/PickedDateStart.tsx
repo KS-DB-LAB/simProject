@@ -1,33 +1,31 @@
-import React from 'react';
-import {StyleSheet, Text} from "react-native";
+import React, {useState} from 'react';
+import {Pressable, StyleSheet, Text, View} from "react-native";
+import DatePicker from 'react-native-date-picker-select';
+import Modal from 'react-native-simple-modal';
 
 
 
-function PickedDateStart() {
+function PickedDateStart({dateString}){
 
-    const currentDateSet = () => {
-        let now = new Date();
-        let time = {
-            year : now.getFullYear(),
-            month : now.getMonth() > 9 ? now.getMonth() + 1 : '0' + (now.getMonth() + 1) ,
-            day : now.getDate() > 9 ? now.getDate() : '0' + now.getDate(),
-            hours : now.getHours(),
-            minutes : now.getMinutes(),
-        };
 
-        return `${time.year}.${time.month}.01`;
-    }
-    if (true){
-        return <Text style ={styles.dateTextStyle}>{currentDateSet()}</Text>
-    }
-
+    return (
+        <View>
+            <Text style={styles.dateTextStyle}>{dateString}</Text>
+        </View>
+    );
 }
-
-
 const styles = StyleSheet.create({
     dateTextStyle : {
         fontSize : 15,
-    }
+    },
+    selectDateOfSalesStyle : {
+        width : 100,
+        height: 25,
+        backgroundColor : "#ffffff",
+        borderRadius : 10,
+        alignItems : 'center',
+        justifyContent : 'center',
+    },
 })
 
 export default PickedDateStart;

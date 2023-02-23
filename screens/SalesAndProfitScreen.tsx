@@ -106,7 +106,7 @@ function SalesAndProfitScreen(){
                 <View style ={styles.platformContainerStyle}>
                     <View style = {styles.platformBoxContainerStyle}>
                         <View style={styles.baeminTagColor}></View>
-                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                        <View style={styles.moneyDataBoxStyle}>
                             {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
                             <Text>0원</Text>
                         </View>
@@ -114,7 +114,7 @@ function SalesAndProfitScreen(){
 
                     <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
                         <View style={styles.baeminTagColor}></View>
-                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                        <View style={styles.moneyDataBoxStyle}>
                             {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
                             <Text>0원</Text>
                         </View>
@@ -122,7 +122,7 @@ function SalesAndProfitScreen(){
 
                     <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
                         <View style={styles.baeminTagColor}></View>
-                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                        <View style={styles.moneyDataBoxStyle}>
                             {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
                             <Text>0원</Text>
                         </View>
@@ -132,7 +132,7 @@ function SalesAndProfitScreen(){
                 <View style ={styles.platformContainerStyle}>
                     <View style = {styles.platformBoxContainerStyle}>
                         <View style={styles.coupangEatsTagColor}></View>
-                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                        <View style={styles.moneyDataBoxStyle}>
                             {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
                             <Text>0원</Text>
                         </View>
@@ -140,7 +140,7 @@ function SalesAndProfitScreen(){
 
                     <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
                         <View style={styles.coupangEatsTagColor}></View>
-                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                        <View style={styles.moneyDataBoxStyle}>
                             {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
                             <Text>0원</Text>
                         </View>
@@ -148,7 +148,7 @@ function SalesAndProfitScreen(){
 
                     <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
                         <View style={styles.coupangEatsTagColor}></View>
-                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                        <View style={styles.moneyDataBoxStyle}>
                             {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
                             <Text>0원</Text>
                         </View>
@@ -158,7 +158,7 @@ function SalesAndProfitScreen(){
                 <View style ={styles.platformContainerStyle}>
                     <View style = {styles.platformBoxContainerStyle}>
                         <View style={styles.yogiyoTagColor}></View>
-                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                        <View style={styles.moneyDataBoxStyle}>
                             {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
                             <Text>0원</Text>
                         </View>
@@ -166,7 +166,7 @@ function SalesAndProfitScreen(){
 
                     <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
                         <View style={styles.yogiyoTagColor}></View>
-                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                        <View style={styles.moneyDataBoxStyle}>
                             {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
                             <Text>0원</Text>
                         </View>
@@ -174,7 +174,7 @@ function SalesAndProfitScreen(){
 
                     <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
                         <View style={styles.yogiyoTagColor}></View>
-                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                        <View style={styles.moneyDataBoxStyle}>
                             {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
                             <Text>0원</Text>
                         </View>
@@ -184,7 +184,7 @@ function SalesAndProfitScreen(){
                 <View style ={styles.platformContainerStyle}>
                     <View style = {styles.platformBoxContainerStyle}>
                         <View style={styles.ddangeoyoTagColor}></View>
-                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                        <View style={styles.moneyDataBoxStyle}>
                             {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
                             <Text>0원</Text>
                         </View>
@@ -192,7 +192,7 @@ function SalesAndProfitScreen(){
 
                     <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
                         <View style={styles.ddangeoyoTagColor}></View>
-                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                        <View style={styles.moneyDataBoxStyle}>
                             {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
                             <Text>0원</Text>
                         </View>
@@ -200,7 +200,7 @@ function SalesAndProfitScreen(){
 
                     <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
                         <View style={styles.ddangeoyoTagColor}></View>
-                        <View style={{width: 60, height: 70, alignItems:'flex-end', justifyContent: 'center'}}>
+                        <View style={styles.moneyDataBoxStyle}>
                             {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
                             <Text>0원</Text>
                         </View>
@@ -291,7 +291,12 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         marginTop : 20
     },
-
+    moneyDataBoxStyle : {
+        width: 60,
+        height: 70,
+        alignItems:'flex-end',
+        justifyContent: 'center',
+    },
     baeminTagColor: {
         width: 40,
         height: 70,

@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
         height : 60,
         borderRadius : 7,
         marginBottom : 25,
+
     }
 
 })

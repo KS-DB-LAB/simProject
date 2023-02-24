@@ -11,7 +11,6 @@ import DatePickerModal from "react-native-modal-datetime-picker";
 function SalesAndProfitScreen(){
 
 
-
     let now = new Date();
     let time = {
         year : now.getFullYear(),
@@ -60,9 +59,22 @@ function SalesAndProfitScreen(){
     }
 
 
+    const [sideMenuIconState , setSideMenuIconState] = useState('open');
+    const handleSideMenuIconState = () => {
+        sideMenuIconState == 'open' ? setSideMenuIconState('close') : setSideMenuIconState('open');
+
+    }
+
+
     return(
         <View style={styles.container}>
-            <Image source = {require('../images/logo.jpg')} style = {styles.logoImage} />
+            <View style={styles.upperComponentsContainerStyle}>
+                <Image source = {require('../images/logo.jpg')} style = {styles.logoImage} />
+                <Pressable style={styles.sideBarIconContainerStyle}>
+                    <Image source = {require('../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
+                </Pressable>
+
+            </View>
 
             <View style = {styles.titleContainerStyle}>
                 <Text style ={styles.titleStyle}>매출 / 수익</Text>
@@ -193,7 +205,7 @@ function SalesAndProfitScreen(){
                     <View style = {[styles.platformBoxContainerStyle, {marginLeft : 10}]}>
                         <View style={styles.ddangeoyoTagColor}></View>
                         <View style={styles.moneyDataBoxStyle}>
-                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기 Test*/}
+                            {/*TODO : 데이터 크롤링으로 가져온 데이터 뿌려주기*/}
                             <Text>0원</Text>
                         </View>
                     </View>
@@ -207,8 +219,8 @@ function SalesAndProfitScreen(){
                     </View>
                 </View>
 
-
             </ScrollView>
+
 
         </View>
 
@@ -216,9 +228,25 @@ function SalesAndProfitScreen(){
 }
 
 
-
-
 const styles = StyleSheet.create({
+    upperComponentsContainerStyle: {
+        flex:1,
+        flexDirection : 'row',
+        alignItems : 'center',
+        justifyContent : 'center',
+        marginTop: 30,
+    },
+    sideBarIconContainerStyle:{
+        marginTop: -5,
+        marginLeft : 300 ,
+    },
+    sideBarIconStyle: {
+        resizeMode : 'contain',
+        width:35,
+        height:25,
+
+    },
+
     container :{
         flex:1,
         alignItems : 'center',
@@ -229,7 +257,8 @@ const styles = StyleSheet.create({
         resizeMode : 'stretch',
         width: 100,
         height: 80,
-        backgroundColor: '(0,0,0,0.5)',
+        backgroundColor: '#ffffff',
+        position : 'absolute',
     },
 
     titleContainerStyle : {
@@ -320,7 +349,7 @@ const styles = StyleSheet.create({
         height: 70,
         backgroundColor: '#FB521C',
         borderRadius: 10,
-    }
+    },
 
 
 })

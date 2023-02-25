@@ -1,15 +1,16 @@
+// @ts-ignore
 import React, {useState} from "react";
 import {StyleSheet, View, Text, Image, Pressable, Modal, Alert, ScrollView} from "react-native";
-
+import {NavigationContainer} from "@react-navigation/native";
+import {createDrawerNavigator} from "@react-navigation/drawer";
+import 'react-native-gesture-handler'
 import PickedDateStart from "../components/PickedDateStart";
 import PickedDateEnd from "../components/PickedDateEnd";
 
 import DatePickerModal from "react-native-modal-datetime-picker";
 
 
-
-function SalesAndProfitScreen(){
-
+function SalesAndProfitScreen({navigation}){
 
     let now = new Date();
     let time = {
@@ -59,18 +60,12 @@ function SalesAndProfitScreen(){
     }
 
 
-    const [sideMenuIconState , setSideMenuIconState] = useState('open');
-    const handleSideMenuIconState = () => {
-        sideMenuIconState == 'open' ? setSideMenuIconState('close') : setSideMenuIconState('open');
-
-    }
-
-
     return(
         <View style={styles.container}>
+
             <View style={styles.upperComponentsContainerStyle}>
                 <Image source = {require('../images/logo.jpg')} style = {styles.logoImage} />
-                <Pressable style={styles.sideBarIconContainerStyle}>
+                <Pressable onPress={() => navigation.openDrawer()} style={styles.sideBarIconContainerStyle}>
                     <Image source = {require('../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
                 </Pressable>
 

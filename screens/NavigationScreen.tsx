@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from "react";
 import 'react-native-gesture-handler'
 
@@ -6,16 +7,17 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import MainScreen from "./MainScreen";
 import LoginScreen from "./LoginScreen";
-import SalesAndProfitScreen from "./SalesAndProfitScreen";
+import SideMenu from "../components/SideMenu"
+
 
 
 const Stack = createStackNavigator();
 function NavigationScreen() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="SalesAndProfitScreen" screenOptions={{headerShown : false}}>
+            <Stack.Navigator initialRouteName="SideMenu" screenOptions={{headerShown : false}}>
                 <Stack.Screen name="MainScreen" component={MainScreen}/>
-                <Stack.Screen name="SalesAndProfitScreen" component={SalesAndProfitScreen}/>
+                <Stack.Screen name="SideMenu" component={SideMenu}/>
                 <Stack.Screen name="LoginScreen" component={LoginScreen}/>
             </Stack.Navigator>
         </NavigationContainer>

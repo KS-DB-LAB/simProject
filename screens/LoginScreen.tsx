@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from "react";
 import {View, Text, StyleSheet, Image, TextInput, SafeAreaView, Pressable} from "react-native";
 import {useNavigation} from "@react-navigation/native";

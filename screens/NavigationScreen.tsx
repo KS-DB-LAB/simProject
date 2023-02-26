@@ -17,7 +17,6 @@ function NavigationScreen() {
         <NavigationContainer>
             <Stack.Navigator initialRouteName="LoginScreen" screenOptions={{headerShown : false}}>
                 <Stack.Screen name="LoginScreen" component={LoginScreen}/>
-                <Stack.Screen name="MainScreen" component={MainScreen}/>
                 <Stack.Screen name="SideMenu" component={SideMenu}/>
             </Stack.Navigator>
         </NavigationContainer>

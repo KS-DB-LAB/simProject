@@ -1,7 +1,6 @@
 import React from "react";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-
 import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity} from "react-native";
 
 import 'react-native-gesture-handler'
@@ -10,7 +9,9 @@ import SideMenu from "../components/SideMenu";
 import LoginScreen from "./LoginScreen";
 
 
+
 function MainScreen({navigation}) {
+
     {/*TODO : 크롤링으로 가져온 데이터 삽입*/}
     return (
 
@@ -27,21 +28,6 @@ function MainScreen({navigation}) {
             <Text style={styles.cheerText}>점장님을 응원합니다 !</Text>
 
             <View style={{top :15}}>
-
-
-
-
-
-
-function MainScreen({navigation}) {
-
-    return (
-
-
-        <View style={styles.container}>
-            <Image source = {require('../images/logo.jpg')} style = {styles.logoImage}  />
-            <Text style={styles.cheerText}>점장님을 응원합니다 !</Text>
-            <View style={{top : 30}}>
 
                 <View style={styles.wholeDash}>
                     <Text style={styles.wholeText}>예상 가게 매출</Text>
@@ -88,14 +74,11 @@ function MainScreen({navigation}) {
                     </View>
                 </View>
 
-
                 <View>
                     <TouchableOpacity activeOpacity={0.8} style={styles.detailed} onPress={() => navigation.navigate("SalesAndProfitScreen")}>
                         <Text style={styles.detailed}>자세히 보기</Text>
                     </TouchableOpacity>
                 </View>
-
-
 
             </View>
         </View>
@@ -144,7 +127,6 @@ const styles = StyleSheet.create({
         fontWeight : 'bold',
         color : 'black',
         position : 'absolute',
-
         top : 105,
         left : 30,
 
@@ -214,62 +196,10 @@ const styles = StyleSheet.create({
     detailed: {
         fontSize : 18,
         alignItems: 'center',
-       // backgroundColor: '#DDDDDD',
+        // backgroundColor: '#DDDDDD',
         //padding: 10,
-       opacity : 0.8,
-
-        top : 125,
-        left : 30,
-
-
+        opacity : 0.8,
     },
-
-    wholeDash : {
-//         alignItems: 'flex-start',
-//         justifyContent: 'flex-start',
-        backgroundColor : '#D8D8D8',
-        width : 350,
-        height : 200,
-        borderRadius : 7,
-        marginBottom : 12,
-    },
-
-    seperateDash : {
-        //         alignItems: 'flex-start',
-        //         justifyContent: 'flex-start',
-        backgroundColor : '#D8D8D8',
-        width : 350,
-        height : 60,
-        borderRadius : 7,
-        marginBottom : 12,
-
-    },
-
-    baeminTagColor: {
-        width: 40,
-        height: 60,
-        backgroundColor:'#39C5C4',
-        borderRadius : 10,
-    },
-    yogiyoTagColor: {
-        width: 40,
-        height: 60,
-        backgroundColor:'#FA0050',
-        borderRadius : 10,
-    },
-    coupangEatsTagColor: {
-        width: 40,
-        height: 60,
-        backgroundColor: '#31B4DD',
-        borderRadius: 10,
-    },
-    ddangeoyoTagColor:{
-        width: 40,
-        height: 60,
-        backgroundColor: '#FB521C',
-        borderRadius: 10,
-    },
-
 })
 
 export default MainScreen;

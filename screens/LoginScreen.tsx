@@ -2,11 +2,11 @@
 import React, {useState} from "react";
 import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable} from "react-native";
 import {useNavigation} from "@react-navigation/native";
-
+import {createDrawerNavigator} from "@react-navigation/drawer";
 
 import { createClient } from '@supabase/supabase-js';
 
-import MainScreen from "./MainScreen";
+import SideMenu from "../components/SideMenu";
 
 
 
@@ -17,6 +17,7 @@ function LoginScreen() {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     const navigation = useNavigation();
+    const drawerNavigation = createDrawerNavigator();
 
     const [memberId, setMemberId] = useState('');
     const [memberPassword, setMemberPassword] = useState('');
@@ -38,7 +39,7 @@ function LoginScreen() {
             setErrorModalVisible(true);
         } else {
             // @ts-ignore
-            data[0].member_password == memberPassword ? navigation.navigate('MainScreen') : setErrorModalVisible(true);
+            data[0].member_password == memberPassword ? navigation.navigate('SideMenu') : setErrorModalVisible(true);
         }
     };
 

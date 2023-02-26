@@ -30,17 +30,17 @@ function LoginScreen() {
     const handleSearch = async () => {
         const { data, error } = await supabase
             .from('member_table')
-            .insert([
-                { id: 2, created_at:new Date().toISOString(), member_name:"장홍준", member_id:'aasdasd',member_password:'asdkasd',member_shops:'밀면제작소',location_address:'기장'}
-            ]);
+            .select('*')
+            .eq('member_id',memberId)
 
         if (error) {
-            console.log("!!")
             console.log(error);
         } else {
-            console.log(data);
+            data[0].member_password == memberPassword ? console.log("Success") : console.log("Wrong Password") ;
         }
     };
+
+
 
     // const { data, error } = await supabase
     //     .from('member_table')

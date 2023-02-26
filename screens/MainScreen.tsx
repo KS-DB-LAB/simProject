@@ -5,8 +5,9 @@ import {View, Text, StyleSheet, Image, Button} from "react-native";
 
 
 
-function MainScreen() {
-    {/*TODO : 크롤링으로 가져온 데이터 삽입*/}
+
+function MainScreen({navigation}) {
+
     return (
 
 

@@ -1,11 +1,12 @@
 // @ts-ignore
 import React, {useState} from "react";
-import {View, Text, StyleSheet, Image, TextInput, SafeAreaView, Pressable} from "react-native";
+import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 
 
 import { createClient } from '@supabase/supabase-js';
-import { URL } from 'url-parse';
+
+import MainScreen from "./MainScreen";
 
 
 
@@ -33,56 +34,53 @@ function LoginScreen() {
             .select('*')
             .eq('member_id',memberId)
 
-        if (error) {
-            console.log(error);
+        if (error || memberId=='') {
+            setErrorModalVisible(true);
         } else {
-            data[0].member_password == memberPassword ? console.log("Success") : console.log("Wrong Password") ;
+            // @ts-ignore
+            data[0].member_password == memberPassword ? navigation.navigate('MainScreen') : setErrorModalVisible(true);
         }
     };
 
 
-
-    // const { data, error } = await supabase
-    //     .from('member_table')
-    //     .select('*')
-    //     .eq('member_name', '장홍준')
-    //
-    // if (error) {
-    //     console.log(error.message);
-    //     return;
-    // }
-    // else {
-    //     if (data.length > 0) {
-    //         const firstTask = data[0];
-    //         console.log('First task by name:', firstTask);
-    //     } else {
-    //         console.log(memberId);
-    //         console.log('No tasks found with name:', data[0]);
-    //     }
-    // }
+    const [errorModalVisible, setErrorModalVisible] = useState(false);
 
 
     return (
     <View style={styles.container}>
+        <Modal
+            visible={errorModalVisible}
+            animationType="slide"
+            onRequestClose={() => setErrorModalVisible(false)}>
+            <View style={styles.errorModalMessageContainer}>
+                <View style={styles.errorModalMessageBox}>
+                    <Text style={{marginBottom:30, fontSize:15,}}>아이디나 비밀번호를 잘못 입력하셨습니다.</Text>
+                    <Pressable onPress={() => setErrorModalVisible(false)}>
+                        <Text style={{fontSize:15,}}>확인</Text>
+                    </Pressable>
+                </View>
+            </View>
+
+        </Modal>
         <View style={styles.container}>
             <Image source = {require('../images/slogan.jpg')} style = {styles.logoImage}  />
         </View>
         <View style={styles.container}>
-                    <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
-                    <View style={styles.container}>
-                        <TextInput style={styles.accountInputBox} onChangeText={handleInputChange} placeholder="  아이디" />
-                        <TextInput secureTextEntry={true} style={styles.accountInputBox} onChangeText={handleInputPasswordChange} placeholder="  패스워드" />
+            <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
+            <View style={styles.container}>
+                <TextInput style={styles.accountInputBox} onChangeText={handleInputChange} placeholder="  아이디" />
+                <TextInput secureTextEntry={true} style={styles.accountInputBox} onChangeText={handleInputPasswordChange} placeholder="  패스워드" />
+            </View>
+            <View style={styles.container}>
+                <Pressable onPress={handleSearch}>
+                    <View style={styles.loginButtonStyle}>
+                        <Text>로그인</Text>
                     </View>
-                    <View style={styles.container}>
-                        <Pressable onPress={handleSearch}>
-                            <View style={styles.loginButtonStyle}>
-                                <Text>로그인</Text>
-                            </View>
-                        </Pressable>
-                    </View>
-                    <View style={styles.container}></View>
-                </View>
+                </Pressable>
+            </View>
+            <View style={styles.container}></View>
          </View>
+    </View>
     );
 }
 
@@ -93,7 +91,20 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         backgroundColor : '#ffffff',
     },
+    errorModalMessageContainer: {
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    errorModalMessageBox:{
+        width:300,
+        height:200,
+        backgroundColor:"#d9d9d9",
+        borderRadius:10,
+        alignItems:'center',
+        justifyContent:'center',
 
+    },
     logoImage : {
         resizeMode : 'stretch',
         width: 344,
@@ -121,7 +132,8 @@ const styles = StyleSheet.create({
     },
     commentForLogin: {
         marginBottom : 20
-    }
+    },
+
 
 })
 export default LoginScreen;

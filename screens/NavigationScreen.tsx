@@ -8,6 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import MainScreen from "./MainScreen";
 import LoginScreen from "./LoginScreen";
 import SideMenu from "../components/SideMenu"
+import SalesAndProfitScreen from "./SalesAndProfitScreen";
 
 
 

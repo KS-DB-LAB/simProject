@@ -15,11 +15,11 @@ const Drawer = createDrawerNavigator();
 function CustomDrawerContent({navigation}){
     const drawerItems =[
         {
-            label : 'MainScreen',
+            label  : '메인 홈',
             onPress: () => navigation.navigate('MainScreen'),
         },
         {
-            label: 'SalesAndProfitScreen',
+            label: '매출/수익',
             onPress: () => navigation.navigate('SalesAndProfitScreen'),
         },
 
@@ -35,7 +35,7 @@ function CustomDrawerContent({navigation}){
             <View style ={styles.drawerButtonsContainerStyle}>
                 {drawerItems.map((item, index) => (
                     <Pressable key={index} style={styles.drawerButtonStyle} onPress={item.onPress}>
-                        <Text>{item.label}</Text>
+                        <Text style={styles.label}>{item.label}</Text>
                     </Pressable>
                 ))}
             </View>
@@ -100,7 +100,11 @@ const styles = StyleSheet.create({
         marginTop : 20,
         marginRight: 35,
     },
-
+    label: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign : "center",
+    },
 })
 
 

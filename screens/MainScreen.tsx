@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from "react";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
@@ -17,17 +18,22 @@ function MainScreen({navigation}) {
 
         <View style={styles.container}>
 
-            <View>
-                <Pressable onPress={() => navigation.openDrawer()} style={styles.sideBarIconContainerStyle}>
-                    <Image source = {require('../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
-                </Pressable>
+            <View style ={styles.upperComponentGroupStyle}>
+                <View style={styles.upperComponentsContainerStyle}>
+                    <Image source = {require('../images/logo.jpg')} style = {styles.logoImage} />
+                    <Pressable onPress={() => navigation.openDrawer()} style={styles.sideBarIconContainerStyle}>
+                        <Image source = {require('../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
+                    </Pressable>
+                </View>
+
+                <View style = {styles.titleContainerStyle}>
+                    <Text style ={styles.titleStyle}>점장님을 응원합니다!</Text>
+                </View>
             </View>
 
-            <Image source = {require('../images/logo.jpg')} style = {styles.logoImage}  />
 
-            <Text style={styles.cheerText}>점장님을 응원합니다 !</Text>
 
-            <View style={{top :15}}>
+            <View style={{marginTop:100,}}>
 
                 <View style={styles.wholeDash}>
                     <Text style={styles.wholeText}>예상 가게 매출</Text>
@@ -91,18 +97,42 @@ function MainScreen({navigation}) {
 const styles = StyleSheet.create({
     container :{
         flex:1,
-        alignItems:'center',
-        justifyContent:'center',
+        alignItems : 'center',
+        justifyContent : 'center',
         backgroundColor : '#ffffff',
-
+    },
+    upperComponentGroupStyle:{
+        flex:1,
+        top:10,
+        position:'absolute',
+    },
+    upperComponentsContainerStyle: {
+        flex:1,
+        flexDirection : 'row',
+        alignItems : 'center',
+        justifyContent : 'center',
+        marginTop: 30,
     },
 
     logoImage : {
         resizeMode : 'stretch',
         width: 100,
-        height: 70,
-        backgroundColor: '(0,0,0,0.5)',
-        bottom : 35
+        height: 80,
+        backgroundColor: '#ffffff',
+        position : 'absolute',
+    },
+
+
+    titleContainerStyle : {
+        paddingTop : 40,
+        paddingBottom : 20,
+        alignSelf:'flex-start',
+    },
+
+    titleStyle : {
+        fontSize : 18,
+        fontWeight : 'bold',
+        textAlign:'left',
     },
 
     wholeText : {
@@ -190,7 +220,6 @@ const styles = StyleSheet.create({
         resizeMode : 'contain',
         width:35,
         height:25,
-        top : 10
     },
 
     detailed: {

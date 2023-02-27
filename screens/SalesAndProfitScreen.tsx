@@ -63,16 +63,17 @@ function SalesAndProfitScreen({navigation}){
     return(
         <View style={styles.container}>
 
-            <View style={styles.upperComponentsContainerStyle}>
-                <Image source = {require('../images/logo.jpg')} style = {styles.logoImage} />
-                <Pressable onPress={() => navigation.openDrawer()} style={styles.sideBarIconContainerStyle}>
-                    <Image source = {require('../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
-                </Pressable>
+            <View style ={styles.upperComponentGroupStyle}>
+                <View style={styles.upperComponentsContainerStyle}>
+                    <Image source = {require('../images/logo.jpg')} style = {styles.logoImage} />
+                    <Pressable onPress={() => navigation.openDrawer()} style={styles.sideBarIconContainerStyle}>
+                        <Image source = {require('../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
+                    </Pressable>
+                </View>
 
-            </View>
-
-            <View style = {styles.titleContainerStyle}>
-                <Text style ={styles.titleStyle}>매출 / 수익</Text>
+                <View style = {styles.titleContainerStyle}>
+                    <Text style ={styles.titleStyle}>점장님을 응원합니다!</Text>
+                </View>
             </View>
 
             <View style = {styles.dateSelectBoxContainerStyle}>
@@ -224,6 +225,11 @@ function SalesAndProfitScreen({navigation}){
 
 
 const styles = StyleSheet.create({
+    upperComponentGroupStyle:{
+        flex:1,
+        top:10,
+        position:'absolute',
+    },
     upperComponentsContainerStyle: {
         flex:1,
         flexDirection : 'row',
@@ -239,9 +245,7 @@ const styles = StyleSheet.create({
         resizeMode : 'contain',
         width:35,
         height:25,
-
     },
-
     container :{
         flex:1,
         alignItems : 'center',
@@ -257,16 +261,19 @@ const styles = StyleSheet.create({
     },
 
     titleContainerStyle : {
-        paddingRight : 250,
         paddingTop : 40,
         paddingBottom : 20,
+        alignSelf:'flex-start',
     },
 
     titleStyle : {
-        fontSize : 20,
+        fontSize : 18,
+        fontWeight : 'bold',
+        textAlign:'left',
     },
 
     dateSelectBoxContainerStyle : {
+        marginTop:150,
         width : 350,
         height : 55,
         borderRadius : 10,

@@ -1,6 +1,6 @@
 // @ts-ignore
 import React, {useState} from "react";
-import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable} from "react-native";
+import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable, KeyboardAvoidingView} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 
@@ -66,18 +66,17 @@ function LoginScreen() {
         <View style={styles.container}>
             <Image source = {require('../images/slogan.jpg')} style = {styles.logoImage}  />
         </View>
-        <View style={styles.container}>
+        <View style={styles.loginSectionContainer}>
             <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
             <View style={styles.container}>
                 <TextInput style={styles.accountInputBox} onChangeText={handleInputChange} placeholder="  아이디" />
                 <TextInput secureTextEntry={true} style={styles.accountInputBox} onChangeText={handleInputPasswordChange} placeholder="  패스워드" />
             </View>
             <View style={styles.container}>
-                <Pressable onPress={handleSearch}>
-                    <View style={styles.loginButtonStyle}>
-                        <Text>로그인</Text>
-                    </View>
+                <Pressable onPress={handleSearch} style={styles.loginButtonStyle}>
+                    <Text>로그인</Text>
                 </Pressable>
+
             </View>
             <View style={styles.container}></View>
          </View>
@@ -91,6 +90,13 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         backgroundColor : '#ffffff',
+    },
+    loginSectionContainer : {
+        flex:1.5,
+        alignItems:'center',
+        width:500,
+        height:100,
+
     },
     errorModalMessageContainer: {
         flex:1,
@@ -119,7 +125,6 @@ const styles = StyleSheet.create({
         borderColor:'black',
         marginBottom: 10,
         color : 'gray',
-
     },
     loginButtonStyle: {
         justifyContent:'center',
@@ -128,8 +133,8 @@ const styles = StyleSheet.create({
         height:32,
         borderRadius : 10,
         borderWidth:1,
-        borderColor:'black'
-
+        borderColor:'black',
+        position:'absolute',
     },
     commentForLogin: {
         marginBottom : 20

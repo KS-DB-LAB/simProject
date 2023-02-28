@@ -3,21 +3,21 @@ import React, {useState} from "react";
 import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable, KeyboardAvoidingView} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
-
+import 'react-native-url-polyfill/auto';
 import { createClient } from '@supabase/supabase-js';
+// @ts-ignore
+import {SUPABASE_API_KEY, SUPABASE_URL} from "@env"
+const supabase = createClient(SUPABASE_URL, SUPABASE_API_KEY);
+
 
 import SideMenu from "../components/SideMenu";
-import JoinScreen from "../screens/JoinScreen";
 
 
 
 
-function LoginScreen({navigation}) {
-    const supabaseUrl = 'https://bnllcyoecriysucewobs.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubGxjeW9lY3JpeXN1Y2V3b2JzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzcwNTIwMzksImV4cCI6MTk5MjYyODAzOX0.UMWikpFryLUojMWw4d4qBzPN-SGCLv8zSC-k91dkBas'
-    const supabase = createClient(supabaseUrl, supabaseKey);
+function LoginScreen() {
 
-    // const navigation = useNavigation();
+    const navigation = useNavigation();
     const drawerNavigation = createDrawerNavigator();
 
     const [memberId, setMemberId] = useState('');
@@ -44,10 +44,10 @@ function LoginScreen({navigation}) {
         }
     };
 
+
     const [errorModalVisible, setErrorModalVisible] = useState(false);
 
 
-    // @ts-ignore
     return (
     <View style={styles.container}>
         <Modal
@@ -77,11 +77,7 @@ function LoginScreen({navigation}) {
                 <Pressable onPress={handleSearch} style={styles.loginButtonStyle}>
                     <Text>로그인</Text>
                 </Pressable>
-            </View>
-            <View style={styles.container}>
-                <Pressable onPress={()=>navigation.navigate('JoinScreen')} style={styles.loginButtonStyle}>
-                    <Text>회원가입</Text>
-                </Pressable>
+
             </View>
             <View style={styles.container}></View>
          </View>

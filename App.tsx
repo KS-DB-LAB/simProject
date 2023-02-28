@@ -4,7 +4,7 @@ import SplashScreen from "./screens/SplashScreen";
 // @ts-ignore
 import NavigationScreen from "./screens/NavigationScreen"
 
-import 'react-native-url-polyfill/auto';;
+import 'react-native-url-polyfill/auto';
 
 
 export default class extends React.Component {

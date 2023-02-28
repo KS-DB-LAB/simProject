@@ -3,21 +3,13 @@ import React, {useState} from "react";
 import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable, KeyboardAvoidingView} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
-
-import { createClient } from '@supabase/supabase-js';
-
+import 'react-native-url-polyfill/auto';
+import {supabase} from "../lib/supabase";
 import SideMenu from "../components/SideMenu";
 import JoinScreen from "../screens/JoinScreen";
 
-
-
-
 function LoginScreen({navigation}) {
-    const supabaseUrl = 'https://bnllcyoecriysucewobs.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubGxjeW9lY3JpeXN1Y2V3b2JzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzcwNTIwMzksImV4cCI6MTk5MjYyODAzOX0.UMWikpFryLUojMWw4d4qBzPN-SGCLv8zSC-k91dkBas'
-    const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // const navigation = useNavigation();
     const drawerNavigation = createDrawerNavigator();
 
     const [memberId, setMemberId] = useState('');
@@ -32,7 +24,7 @@ function LoginScreen({navigation}) {
 
     const handleSearch = async () => {
         const { data, error } = await supabase
-            .from('member_table')
+            .from('shop_owner_table')
             .select('*')
             .eq('member_id',memberId)
 
@@ -47,7 +39,6 @@ function LoginScreen({navigation}) {
     const [errorModalVisible, setErrorModalVisible] = useState(false);
 
 
-    // @ts-ignore
     return (
     <View style={styles.container}>
         <Modal

@@ -3,8 +3,12 @@ import React, {useState} from "react";
 import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable, KeyboardAvoidingView} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
-
+import 'react-native-url-polyfill/auto';
 import { createClient } from '@supabase/supabase-js';
+// @ts-ignore
+import {SUPABASE_API_KEY, SUPABASE_URL} from "@env"
+const supabase = createClient(SUPABASE_URL, SUPABASE_API_KEY);
+
 
 import SideMenu from "../components/SideMenu";
 
@@ -12,9 +16,6 @@ import SideMenu from "../components/SideMenu";
 
 
 function LoginScreen() {
-    const supabaseUrl = 'https://bnllcyoecriysucewobs.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubGxjeW9lY3JpeXN1Y2V3b2JzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzcwNTIwMzksImV4cCI6MTk5MjYyODAzOX0.UMWikpFryLUojMWw4d4qBzPN-SGCLv8zSC-k91dkBas'
-    const supabase = createClient(supabaseUrl, supabaseKey);
 
     const navigation = useNavigation();
     const drawerNavigation = createDrawerNavigator();

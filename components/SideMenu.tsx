@@ -8,6 +8,7 @@ import {Pressable, View, Image, Text,StyleSheet} from 'react-native';
 
 import MainScreen from "../screens/MainScreen";
 import SalesAndProfitScreen from "../screens/SalesAndProfitScreen";
+import OrderScreen from "../screens/OrderScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -21,6 +22,10 @@ function CustomDrawerContent({navigation}){
         {
             label: '매출/수익',
             onPress: () => navigation.navigate('SalesAndProfitScreen'),
+        },
+        {
+            label: '발주',
+            onPress: () => navigation.navigate('OrderScreen'),
         },
 
     ]
@@ -52,6 +57,7 @@ function SideMenu(){
                 drawerContent={props => <CustomDrawerContent {...props}/>}>
                 <Drawer.Screen name="SalesAndProfitScreen" component={SalesAndProfitScreen} />
                 <Drawer.Screen name="MainScreen" component={MainScreen} />
+                <Drawer.Screen name="OrderScreen" component={OrderScreen} />
             </Drawer.Navigator>
         </NavigationContainer>
     )

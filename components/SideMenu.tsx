@@ -55,8 +55,8 @@ function SideMenu(){
                 initialRouteName="MainScreen"
                 screenOptions={{drawerPosition: 'right', headerShown : false}}
                 drawerContent={props => <CustomDrawerContent {...props}/>}>
-                <Drawer.Screen name="SalesAndProfitScreen" component={SalesAndProfitScreen} />
                 <Drawer.Screen name="MainScreen" component={MainScreen} />
+                <Drawer.Screen name="SalesAndProfitScreen" component={SalesAndProfitScreen} />
                 <Drawer.Screen name="OrderScreen" component={OrderScreen} />
             </Drawer.Navigator>
         </NavigationContainer>

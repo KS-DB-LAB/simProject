@@ -1,8 +1,8 @@
 // @ts-ignore
-import React from "react";
+import React, {useEffect} from "react";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity} from "react-native";
+import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, BackHandler, Alert} from "react-native";
 
 import 'react-native-gesture-handler'
 import SalesAndProfitScreen from "./SalesAndProfitScreen";
@@ -12,6 +12,33 @@ import LoginScreen from "./LoginScreen";
 
 
 function MainScreen({navigation}) {
+
+    useEffect(() => {
+        const backAction = () => {
+            Alert.alert(
+                '종료',
+                '앱을 종료하시겠습니까?',
+                [
+                    {
+                        text: '취소',
+                        onPress: () => null,
+                        style: 'cancel',
+                    },
+                    { text: '확인', onPress: () => BackHandler.exitApp() },
+                ],
+                { cancelable: false }
+            );
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction
+        );
+
+        return () => backHandler.remove();
+    },[]);
+
 
     {/*TODO : 크롤링으로 가져온 데이터 삽입*/}
     return (

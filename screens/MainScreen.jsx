@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, BackHandler, Alert} from "react-native";
@@ -9,11 +9,16 @@ import SalesAndProfitScreen from "./SalesAndProfitScreen";
 import SideMenu from "../components/SideMenu";
 import LoginScreen from "./LoginScreen";
 
+import {getData} from "../lib/asyncstorage";
+
 
 
 function MainScreen({navigation}) {
 
+    const [ownerName, setOwnerName] = useState('');
+
     useEffect(() => {
+        getData('owner_name').then(res => setOwnerName(res));
         const backAction = () => {
             Alert.alert(
                 '종료',
@@ -40,6 +45,7 @@ function MainScreen({navigation}) {
     },[]);
 
 
+
     {/*TODO : 크롤링으로 가져온 데이터 삽입*/}
     return (
 
@@ -54,7 +60,7 @@ function MainScreen({navigation}) {
                 </View>
 
                 <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>점장님을 응원합니다!</Text>
+                    <Text style ={styles.titleStyle}>{ownerName} 점장님을 응원합니다!</Text>
                 </View>
             </View>
 

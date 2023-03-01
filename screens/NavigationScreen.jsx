@@ -9,17 +9,25 @@ import LoginScreen from "./LoginScreen";
 import JoinScreen from "./JoinScreen";
 import SideMenu from "../components/SideMenu"
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {getData} from "../lib/asyncstorage";
 
 const Stack = createStackNavigator();
 function NavigationScreen() {
+    const navigationRef = React.useRef(null);
 
+    useEffect(() => {
+        try{
+            getData('loginData').then(res => {res == 'true' && navigationRef.current
+                ? navigationRef.current.navigate('SideMenu') : navigationRef.current.navigate('LoginScreen')})
+        }
+        catch{
+        }
 
-
+    }, [])
 
 
     return (
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
             <Stack.Navigator initialRouteName="LoginScreen" screenOptions={{headerShown : false}}>
                 <Stack.Screen name="LoginScreen" component={LoginScreen}/>
                 <Stack.Screen name="JoinScreen" component={JoinScreen}/>

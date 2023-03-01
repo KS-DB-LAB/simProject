@@ -11,16 +11,6 @@ import JoinScreen from "../screens/JoinScreen";
 
 function LoginScreen({navigation}) {
 
-    useEffect(() => {
-        try{
-            getData('loginData').then(res => {res == 'true' ? navigation.navigate('SideMenu') : ''})
-        }
-        catch{
-        }
-
-    }, [])
-
-
 
     const drawerNavigation = createDrawerNavigator();
 
@@ -43,7 +33,7 @@ function LoginScreen({navigation}) {
         if (error || memberId=='') {
             setErrorModalVisible(true);
         } else {
-            
+
             data[0].member_password == memberPassword ?  ifLoginSucceededFunction(data[0]) : setErrorModalVisible(true);
         }
     };
@@ -64,38 +54,38 @@ function LoginScreen({navigation}) {
 
 
     return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
-        <Modal
-            visible={errorModalVisible}
-            animationType="slide"
-            onRequestClose={() => setErrorModalVisible(false)}>
-            <View style={styles.errorModalMessageContainer}>
-                <View style={styles.errorModalMessageBox}>
-                    <Text style={{marginBottom:30, fontSize:15,}}>아이디나 비밀번호를 잘못 입력하셨습니다.</Text>
-                    <Pressable onPress={() => setErrorModalVisible(false)}>
-                        <Text style={{fontSize:15,}}>확인</Text>
-                    </Pressable>
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
+            <Modal
+                visible={errorModalVisible}
+                animationType="slide"
+                onRequestClose={() => setErrorModalVisible(false)}>
+                <View style={styles.errorModalMessageContainer}>
+                    <View style={styles.errorModalMessageBox}>
+                        <Text style={{marginBottom:30, fontSize:15,}}>아이디나 비밀번호를 잘못 입력하셨습니다.</Text>
+                        <Pressable onPress={() => setErrorModalVisible(false)}>
+                            <Text style={{fontSize:15,}}>확인</Text>
+                        </Pressable>
+                    </View>
                 </View>
+
+            </Modal>
+            <View style={styles.container}>
+                <Image source = {require('../images/slogan.jpg')} style = {styles.logoImage}  />
             </View>
 
-        </Modal>
-        <View style={styles.container}>
-            <Image source = {require('../images/slogan.jpg')} style = {styles.logoImage}  />
-        </View>
+            <View style={styles.loginSectionContainer}>
+                <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
+                <TextInput style={styles.accountInputBox} onChangeText={handleInputChange} placeholder="  아이디" />
+                <TextInput secureTextEntry={true} style={styles.accountInputBox} onChangeText={handleInputPasswordChange} placeholder="  패스워드" />
+                <Pressable onPress={handleSearch} style={styles.loginButtonStyle}>
+                    <Text>로그인</Text>
+                </Pressable>
+                <Pressable onPress={()=>navigation.navigate('JoinScreen')} style={styles.loginButtonStyle}>
+                    <Text>회원가입</Text>
+                </Pressable>
+            </View>
 
-        <View style={styles.loginSectionContainer}>
-            <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
-            <TextInput style={styles.accountInputBox} onChangeText={handleInputChange} placeholder="  아이디" />
-            <TextInput secureTextEntry={true} style={styles.accountInputBox} onChangeText={handleInputPasswordChange} placeholder="  패스워드" />
-            <Pressable onPress={handleSearch} style={styles.loginButtonStyle}>
-                <Text>로그인</Text>
-            </Pressable>
-            <Pressable onPress={()=>navigation.navigate('JoinScreen')} style={styles.loginButtonStyle}>
-                <Text>회원가입</Text>
-            </Pressable>
-        </View>
-
-    </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
 
     );
 }

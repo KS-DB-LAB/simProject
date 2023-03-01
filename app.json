@@ -1,18 +1,15 @@
 {
   "expo": {
-    "name": "sim",
-    "slug": "sim",
+    "name": "AwesomeProject",
+    "slug": "AwesomeProject",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
@@ -23,11 +20,17 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.qnoze.AwesomeProject"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f0ed1b10-69fa-4ee7-840c-a0bbb4d33421"
+      }
     }
   }
 }

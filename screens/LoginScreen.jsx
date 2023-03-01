@@ -1,4 +1,4 @@
-// @ts-ignore
+
 import React, {useState} from "react";
 import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable, KeyboardAvoidingView} from "react-native";
 import {useNavigation} from "@react-navigation/native";
@@ -31,7 +31,7 @@ function LoginScreen({navigation}) {
         if (error || memberId=='') {
             setErrorModalVisible(true);
         } else {
-            // @ts-ignore
+            
             data[0].member_password == memberPassword ? navigation.navigate('SideMenu') : setErrorModalVisible(true);
         }
     };
@@ -68,12 +68,11 @@ function LoginScreen({navigation}) {
                 <Pressable onPress={handleSearch} style={styles.loginButtonStyle}>
                     <Text>로그인</Text>
                 </Pressable>
-            </View>
-            <View style={styles.container}>
                 <Pressable onPress={()=>navigation.navigate('JoinScreen')} style={styles.loginButtonStyle}>
                     <Text>회원가입</Text>
                 </Pressable>
             </View>
+
             <View style={styles.container}></View>
          </View>
     </View>
@@ -130,7 +129,8 @@ const styles = StyleSheet.create({
         borderRadius : 10,
         borderWidth:1,
         borderColor:'black',
-        position:'absolute',
+        position : 'relative',
+        marginTop:10,
     },
     commentForLogin: {
         marginBottom : 20

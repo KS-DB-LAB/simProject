@@ -1,5 +1,4 @@
 import {Image, Pressable, StyleSheet, Text, View} from "react-native";
-// @ts-ignore
 import React from "react";
 
 function OrderSpecificScreen({navigation}){

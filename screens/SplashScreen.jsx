@@ -1,4 +1,3 @@
-// @ts-ignore
 import React from "react";
 import {View, Text, StyleSheet, Image, Platform} from "react-native";
 import {Shadow} from "react-native-shadow-2";

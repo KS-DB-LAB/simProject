@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "AwesomeProject",
-    "slug": "AwesomeProject",
+    "name": "sim",
+    "slug": "sim",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,14 +22,14 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.qnoze.AwesomeProject"
+      "package": "com.qnoze.sim"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "f0ed1b10-69fa-4ee7-840c-a0bbb4d33421"
+        "projectId": "413815ce-c1da-4552-97b2-49aea7c79e56"
       }
     }
   }

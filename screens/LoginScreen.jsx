@@ -1,14 +1,26 @@
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable, KeyboardAvoidingView, Platform, StatusBar } from "react-native";
-import {useNavigation} from "@react-navigation/native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import 'react-native-url-polyfill/auto';
 import {supabase} from "../lib/supabase";
+import {getData, storeData} from "../lib/asyncstorage"
+
 import SideMenu from "../components/SideMenu";
 import JoinScreen from "../screens/JoinScreen";
 
 function LoginScreen({navigation}) {
+
+    useEffect(() => {
+        try{
+            getData('loginData').then(res => {res == 'true' ? navigation.navigate('SideMenu') : ''})
+        }
+        catch{
+        }
+
+    }, [])
+
+
 
     const drawerNavigation = createDrawerNavigator();
 
@@ -32,9 +44,21 @@ function LoginScreen({navigation}) {
             setErrorModalVisible(true);
         } else {
             
-            data[0].member_password == memberPassword ? navigation.navigate('SideMenu') : setErrorModalVisible(true);
+            data[0].member_password == memberPassword ?  ifLoginSucceededFunction(data[0]) : setErrorModalVisible(true);
         }
     };
+
+    const ifLoginSucceededFunction = (data) => {
+        storeData('loginData', 'true')
+        storeData('owner_name', data.member_name)
+        storeData('owner_brands', data.member_brands)
+
+
+
+        navigation.navigate('SideMenu')
+    }
+
+
 
     const [errorModalVisible, setErrorModalVisible] = useState(false);
 

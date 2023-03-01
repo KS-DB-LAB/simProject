@@ -1,5 +1,4 @@
-// @ts-ignore
-import React, { SetStateAction, useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet, Pressable, SafeAreaView } from "react-native";
 import { supabase } from "../lib/supabase";
 import { Formik, Field } from "formik";
@@ -34,7 +33,7 @@ const JoinScreen = ({ navigation }) => {
 								business_number: values.businessRegNumber,
 							},
 						])
-						.then((res: { error: any; data: any }) => {
+						.then((res) => {
 							if (res.error) {
 								// 	insert 에러 처리
 							} else {

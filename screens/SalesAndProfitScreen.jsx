@@ -1,4 +1,3 @@
-// @ts-ignore
 import React, {useState} from "react";
 import {StyleSheet, View, Text, Image, Pressable, Modal, Alert, ScrollView} from "react-native";
 import {NavigationContainer} from "@react-navigation/native";

@@ -71,7 +71,7 @@ function SalesAndProfitScreen({navigation}){
                 </View>
 
                 <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>점장님을 응원합니다!</Text>
+                    <Text style ={styles.titleStyle}>매출 / 수익</Text>
                 </View>
             </View>
 

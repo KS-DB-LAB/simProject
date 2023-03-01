@@ -1,6 +1,6 @@
 
 import React, {useState} from "react";
-import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable, KeyboardAvoidingView} from "react-native";
+import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable, KeyboardAvoidingView, Platform, StatusBar } from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import 'react-native-url-polyfill/auto';
@@ -40,7 +40,7 @@ function LoginScreen({navigation}) {
 
 
     return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
         <Modal
             visible={errorModalVisible}
             animationType="slide"
@@ -58,24 +58,21 @@ function LoginScreen({navigation}) {
         <View style={styles.container}>
             <Image source = {require('../images/slogan.jpg')} style = {styles.logoImage}  />
         </View>
+
         <View style={styles.loginSectionContainer}>
             <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
-            <View style={styles.container}>
-                <TextInput style={styles.accountInputBox} onChangeText={handleInputChange} placeholder="  아이디" />
-                <TextInput secureTextEntry={true} style={styles.accountInputBox} onChangeText={handleInputPasswordChange} placeholder="  패스워드" />
-            </View>
-            <View style={styles.container}>
-                <Pressable onPress={handleSearch} style={styles.loginButtonStyle}>
-                    <Text>로그인</Text>
-                </Pressable>
-                <Pressable onPress={()=>navigation.navigate('JoinScreen')} style={styles.loginButtonStyle}>
-                    <Text>회원가입</Text>
-                </Pressable>
-            </View>
+            <TextInput style={styles.accountInputBox} onChangeText={handleInputChange} placeholder="  아이디" />
+            <TextInput secureTextEntry={true} style={styles.accountInputBox} onChangeText={handleInputPasswordChange} placeholder="  패스워드" />
+            <Pressable onPress={handleSearch} style={styles.loginButtonStyle}>
+                <Text>로그인</Text>
+            </Pressable>
+            <Pressable onPress={()=>navigation.navigate('JoinScreen')} style={styles.loginButtonStyle}>
+                <Text>회원가입</Text>
+            </Pressable>
+        </View>
 
-            <View style={styles.container}></View>
-         </View>
-    </View>
+    </KeyboardAvoidingView>
+
     );
 }
 
@@ -87,10 +84,8 @@ const styles = StyleSheet.create({
         backgroundColor : '#ffffff',
     },
     loginSectionContainer : {
-        flex:1.5,
+        flex:1,
         alignItems:'center',
-        width:500,
-        height:100,
 
     },
     errorModalMessageContainer: {
@@ -120,6 +115,15 @@ const styles = StyleSheet.create({
         borderColor:'black',
         marginBottom: 10,
         color : 'gray',
+    },
+    loginButtonsContainerStyle:{
+        flex:1,
+    },
+    loginButtonBoxStyle:{
+        flex:0.5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
     },
     loginButtonStyle: {
         justifyContent:'center',

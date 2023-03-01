@@ -32,7 +32,7 @@ function LoginScreen() {
 
     const handleSearch = async () => {
         const { data, error } = await supabase
-            .from('member_table')
+            .from('shop_owner_table')
             .select('*')
             .eq('member_id',memberId)
 

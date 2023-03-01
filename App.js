@@ -11,7 +11,6 @@ export default class extends React.Component {
     setTimeout(() => {this.setState({isLoading: false})}, 3000);
   }
   render() {
-
     if (this.state.isLoading) {
       return <SplashScreen/>
     }

@@ -7,27 +7,22 @@ import SalesAndProfitScreen from "./SalesAndProfitScreen";
 import SideMenu from "../components/SideMenu";
 import LoginScreen from "./LoginScreen";
 
-const RainbowSheetPage = ({
-                              item,
-                          }: {
-    item: {
-        id: number;
-        color: string;
-    };
-}) => {
-    return (<View style={styles.wholeDash}>
-        <Text style={styles.wholeText}>예상 가게 매출</Text>
-        <Text style={styles.wholeSales}> 원</Text>
-    </View>)
+
+const DashboardList =
+    [
+        {id: 0, name: "예상 가게 매출"},
+        {id: 1, name: "예상 가게 지출"},
+        {id: 2, name: "예상 가게 수익"},
+    ]
+
+const DashboardPages = ({ item }) => {
+    return (
+        <View style={styles.wholeDash}>
+            <Text style={styles.wholeText}>{item.name}</Text>
+            <Text style={styles.wholeSales}> 원</Text>
+        </View>
+    );
 };
-
-const RainbowSheet = [
-    {id: 0, color: 'red'},
-    {id: 1, color: 'orange'},
-    {id: 2, color: 'yellow'},
-
-];
-
 
 
 function MainScreen({navigation}) {
@@ -52,21 +47,18 @@ function MainScreen({navigation}) {
                 </View>
             </View>
 
-           <View style={{marginTop : 100}}>
-               <Carousel
-                   page={page}
-                   setPage={setPage}
-                   gap={15}
-                   data={RainbowSheet}
-                   pageWidth={350}
-                   RenderItem={RainbowSheetPage}
-               />
-           </View>
+            <View style={{marginTop : 100}}>
+                <Carousel
+                    page={page}
+                    setPage={setPage}
+                    gap={15}
+                    data={DashboardList}
+                    pageWidth={350}
+                    RenderItem={DashboardPages}
+                />
+            </View>
 
             <View>
-
-
-
                 <View style={styles.seperateDash}>
                     <View style={styles.baeminTagColor}></View>
                     <View style={{left : 50, bottom : 42}}>

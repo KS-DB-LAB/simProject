@@ -54,9 +54,11 @@ function MainScreen({navigation}) {
             <View style ={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>
                     <Image source = {require('../images/logo.jpg')} style = {styles.logoImage} />
-                    <Pressable onPress={() => navigation.openDrawer()} style={styles.sideBarIconContainerStyle}>
-                        <Image source = {require('../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
-                    </Pressable>
+                    <View style={{flexDirection:'row', alignItems:'flex-end', justifyContent:'flex-end'}}>
+                        <Pressable onPress={() => navigation.openDrawer()} style={styles.sideBarIconContainerStyle}>
+                            <Image source = {require('../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
+                        </Pressable>
+                    </View>
                 </View>
 
                 <View style = {styles.titleContainerStyle}>

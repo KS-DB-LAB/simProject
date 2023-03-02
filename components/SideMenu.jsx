@@ -31,12 +31,17 @@ function CustomDrawerContent({navigation}){
     ]
     return (
         <View style={styles.drawerBackgroundStyle}>
-            <View style={styles.upperComponentsContainerStyle}>
-                <Pressable onPress={() => navigation.closeDrawer()} style={styles.sideBarCloseIconContainerStyle}>
-                    <Image source = {require('../images/sideBarCloseIcon.jpg')} style = {styles.logoImage} />
-                </Pressable>
+            <View style={styles.upperComponentGroupStyle}>
+                <View style={styles.upperComponentsContainerStyle}>
 
+                    <Pressable onPress={() => navigation.closeDrawer()} style={styles.sideBarCloseIconContainerStyle}>
+                        <Image source = {require('../images/sideBarCloseIcon.jpg')} style = {styles.logoImage} />
+                    </Pressable>
+
+
+                </View>
             </View>
+
             <View style ={styles.drawerButtonsContainerStyle}>
                 {drawerItems.map((item, index) => (
                     <Pressable key={index} style={styles.drawerButtonStyle} onPress={item.onPress}>
@@ -66,11 +71,17 @@ function SideMenu(){
 
 
 const styles = StyleSheet.create({
-    upperComponentsContainerStyle:{
-        flexDirection : 'row',
+    upperComponentGroupStyle:{
+        flex:1,
+        top:10,
 
-        justifyContent : 'flex-end',
-        marginTop: 30,
+    },
+    upperComponentsContainerStyle:{
+        marginTop:15,
+        marginLeft:40,
+        flexDirection : 'row',
+        justifyContent : 'center',
+
     },
     logoImage: {
         resizeMode : 'contain',
@@ -79,7 +90,7 @@ const styles = StyleSheet.create({
 
     },
     sideBarCloseIconContainerStyle:{
-        marginRight:30,
+        marginRight:10,
         marginTop:5,
     },
     drawerBackgroundStyle: {
@@ -88,7 +99,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
     },
     drawerButtonsContainerStyle:{
-        flex:1,
+        flex:10,
         backgroundColor: '#D9D9D9',
         alignItems:'center',
         justifyContent:'center',

@@ -41,8 +41,8 @@ function LoginScreen({navigation}) {
     const ifLoginSucceededFunction = (data) => {
         storeData('loginStatus', 'true')
         storeData('owner_name', data.member_name)
+        storeData('owner_id', data.member_id)
         storeData('owner_brands', data.member_brands)
-
 
 
         navigation.navigate('SideMenu')

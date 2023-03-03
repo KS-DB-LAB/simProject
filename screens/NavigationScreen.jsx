@@ -5,7 +5,7 @@ import 'react-native-gesture-handler'
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import LoginScreen from "./LoginScreen";
+import LoginScreen from "./LoginScreen";``
 import JoinScreen from "./JoinScreen";
 import SideMenu from "../components/SideMenu"
 
@@ -17,7 +17,7 @@ function NavigationScreen() {
 
     useEffect(() => {
         try{
-            getData('loginData').then(res => {res == 'true' && navigationRef.current
+            getData('loginStatus').then(res => {res == 'true' && navigationRef.current
                 ? navigationRef.current.navigate('SideMenu') : navigationRef.current.navigate('LoginScreen')})
         }
         catch{

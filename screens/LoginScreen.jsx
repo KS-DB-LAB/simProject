@@ -39,7 +39,7 @@ function LoginScreen({navigation}) {
     };
 
     const ifLoginSucceededFunction = (data) => {
-        storeData('loginData', 'true')
+        storeData('loginStatus', 'true')
         storeData('owner_name', data.member_name)
         storeData('owner_brands', data.member_brands)
 

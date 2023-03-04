@@ -1,50 +1,33 @@
 // @ts-ignore
-import React, {useEffect, useState} from "react";
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
-import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, BackHandler, Alert} from "react-native";
-
+import React, {useState} from "react";
+import Carousel from "../components/Carousel.jsx";
+import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, Dimensions} from "react-native";
 import 'react-native-gesture-handler'
 import SalesAndProfitScreen from "./SalesAndProfitScreen";
-import SideMenu from "../components/SideMenu";
-import LoginScreen from "./LoginScreen";
+import SideMenu from "../components/SideMenu.jsx";
+import LoginScreen from "./LoginScreen.jsx";
 
-import {getData} from "../lib/asyncstorage";
 
+const DashboardList =
+    [
+        {id: 0, name: "예상 가게 매출"},
+        {id: 1, name: "예상 가게 지출"},
+        {id: 2, name: "예상 가게 수익"},
+    ]
+
+const DashboardPages = ({ item }) => {
+    return (
+        <View style={styles.wholeDash}>
+            <Text style={styles.wholeText}>{item.name}</Text>
+            <Text style={styles.wholeSales}> 원</Text>
+        </View>
+    );
+};
 
 
 function MainScreen({navigation}) {
 
-    const [ownerName, setOwnerName] = useState('');
-
-    useEffect(() => {
-        getData('owner_name').then(res => setOwnerName(res));
-        const backAction = () => {
-            Alert.alert(
-                '종료',
-                '앱을 종료하시겠습니까?',
-                [
-                    {
-                        text: '취소',
-                        onPress: () => null,
-                        style: 'cancel',
-                    },
-                    { text: '확인', onPress: () => BackHandler.exitApp() },
-                ],
-                { cancelable: false }
-            );
-            return true;
-        };
-
-        const backHandler = BackHandler.addEventListener(
-            'hardwareBackPress',
-            backAction
-        );
-
-        return () => backHandler.remove();
-    },[]);
-
-
+    const [page, setPage] = useState(0);
 
     {/*TODO : 크롤링으로 가져온 데이터 삽입*/}
     return (
@@ -54,27 +37,28 @@ function MainScreen({navigation}) {
             <View style ={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>
                     <Image source = {require('../images/logo.jpg')} style = {styles.logoImage} />
-                    <View style={{flexDirection:'row', alignItems:'flex-end', justifyContent:'flex-end'}}>
-                        <Pressable onPress={() => navigation.openDrawer()} style={styles.sideBarIconContainerStyle}>
-                            <Image source = {require('../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
-                        </Pressable>
-                    </View>
+                    <Pressable onPress={() => navigation.openDrawer()} style={styles.sideBarIconContainerStyle}>
+                        <Image source = {require('../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
+                    </Pressable>
                 </View>
 
                 <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>{ownerName} 점장님을 응원합니다!</Text>
+                    <Text style ={styles.titleStyle}>점장님을 응원합니다!</Text>
                 </View>
             </View>
 
+            <View style={{marginTop : 100}}>
+                <Carousel
+                    page={page}
+                    setPage={setPage}
+                    gap={15}
+                    data={DashboardList}
+                    pageWidth={350}
+                    RenderItem={DashboardPages}
+                />
+            </View>
 
-
-            <View style={{marginTop:100,}}>
-
-                <View style={styles.wholeDash}>
-                    <Text style={styles.wholeText}>예상 가게 매출</Text>
-                    <Text style={styles.wholeSales}> 원</Text>
-                </View>
-
+            <View>
                 <View style={styles.seperateDash}>
                     <View style={styles.baeminTagColor}></View>
                     <View style={{left : 50, bottom : 42}}>

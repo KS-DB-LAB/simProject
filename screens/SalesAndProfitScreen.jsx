@@ -70,7 +70,6 @@ function SalesAndProfitScreen({navigation}){
         const day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
         const temporaryDateString = `${year}.${month}.${day}`
         if (selectedStartOrEnd == 'start'){
-            console.log(temporaryDateString)
             if (checkIfEndAheadStart(selectedDateEndString,temporaryDateString) == true){
                 setSelectedDateStartString(temporaryDateString)
             }
@@ -111,6 +110,7 @@ function SalesAndProfitScreen({navigation}){
                 </View>
 
             </Modal>
+
 
             <View style ={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>

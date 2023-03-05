@@ -84,7 +84,6 @@ function SalesAndProfitScreen({navigation}){
             else {
                 setSelectedDateEndString(selectedDateEndString)
             }
-
         }
 
         hideStartDatePicker();

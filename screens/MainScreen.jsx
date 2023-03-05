@@ -4,8 +4,7 @@ import Carousel from "../components/Carousel.jsx";
 import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, Dimensions} from "react-native";
 import 'react-native-gesture-handler'
 import SalesAndProfitScreen from "./SalesAndProfitScreen";
-import SideMenu from "../components/SideMenu.jsx";
-import LoginScreen from "./LoginScreen.jsx";
+
 
 
 const DashboardList =

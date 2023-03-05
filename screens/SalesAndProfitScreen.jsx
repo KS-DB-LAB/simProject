@@ -62,8 +62,6 @@ function SalesAndProfitScreen({navigation}){
         return true;
     }
 
-
-
     const handleConfirmStartDate = (date) => {
         const year = date.getFullYear();
         const month = date.getMonth()>  9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1) ;
@@ -72,16 +70,14 @@ function SalesAndProfitScreen({navigation}){
         if (selectedStartOrEnd == 'start'){
             if (checkIfEndAheadStart(selectedDateEndString,temporaryDateString) == true){
                 setSelectedDateStartString(temporaryDateString)
-            }
-            else {
+            } else {
                 setSelectedDateStartString(selectedDateStartString)
             }
         }
         else {
             if (checkIfEndAheadStart(temporaryDateString,selectedDateStartString) == true){
                 setSelectedDateEndString(temporaryDateString)
-            }
-            else {
+            } else {
                 setSelectedDateEndString(selectedDateEndString)
             }
         }

@@ -14,7 +14,7 @@ function LoginScreen({navigation}) {
 
     const drawerNavigation = createDrawerNavigator();
 
-    const [memberId, setMemberId] = useState('');
+    const [memberId,    setMemberId] = useState('');
     const [memberPassword, setMemberPassword] = useState('');
 
     const handleInputChange = (text) => {

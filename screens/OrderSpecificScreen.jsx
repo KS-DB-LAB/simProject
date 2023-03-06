@@ -1,7 +1,7 @@
 import {Image, Pressable, StyleSheet, Text, View} from "react-native";
 import React from "react";
 
-function OrderSpecificScreen({navigation}){
+
     return (
         <View style={styles.container}>
             <View style ={styles.upperComponentGroupStyle}>
@@ -11,11 +11,17 @@ function OrderSpecificScreen({navigation}){
                     <Image source = {require('../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
                 </Pressable>
                 </View>
-
                     <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>점장님을 응원합니다!</Text>
+                    <Text style ={styles.titleStyle}>재료 / 발주 (소분류)</Text>
                 </View>
             </View>
+
+            {itemSpecificClassList.map((itemSpecificClass,index) => (
+                <Pressable key={index} style={styles.seperateDash}
+                           onPress={() => navigation.navigate('OrderSpecificScreen', {itemSpecificClass : itemSpecificClass})}>
+                    <Text style={styles.label}>{itemSpecificClass}</Text>
+                </Pressable>
+            ))}
         </View>
     )
 }
@@ -67,7 +73,21 @@ const styles = StyleSheet.create({
         fontWeight : 'bold',
         textAlign:'left',
     },
+    seperateDash : {
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor : '#D8D8D8',
+        width : 350,
+        height : 60,
+        borderRadius : 7,
+        marginBottom : 12,
 
+    },
+    label: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign : "center",
+    },
 })
 
 export default OrderSpecificScreen;

@@ -7,7 +7,7 @@ import {supabase} from "../lib/supabase";
 
 function BrandListScreen({navigation}){
 
-    const [brandList, setBrandList] = useState([]);
+    const [orderList, setOrderList] = useState([]);
 
 
 
@@ -18,7 +18,7 @@ function BrandListScreen({navigation}){
             .eq('member_id',ownerId)
         if (error) {
         } else {
-            setBrandList([].concat(data[0].member_brands.split(', ')))
+            setOrderList([].concat(data[0].member_brands.split(', ')))
             // brandsList.map(item => console.log(item))
         }
     }
@@ -45,8 +45,8 @@ function BrandListScreen({navigation}){
                 </View>
             </View>
 
-            {brandList.map((brandName,index) => (
-                    <Pressable key={index} style={styles.seperateDash}><Text style={styles.label}>{brandName}</Text></Pressable>
+            {orderList.map((listName,index) => (
+                    <Pressable key={index} style={styles.seperateDash}><Text style={styles.label}>{listName}</Text></Pressable>
             ))}
 
         </View>

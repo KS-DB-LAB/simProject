@@ -1,5 +1,55 @@
-import {Image, Pressable, StyleSheet, Text, View} from "react-native";
-import React from "react";
+import {Alert, BackHandler, Image, Pressable, StyleSheet, Text, View} from "react-native";
+import React, {useEffect, useState} from "react";
+import {useNavigation} from "@react-navigation/native";
+import {supabase} from "../lib/supabase";
+
+
+function OrderSpecificScreen({ navigation, route}){
+    const { itemClass } = route.params;
+
+    const [itemSpecificClassList, setItemSpecificClassList] = useState([]);
+
+
+    const handleSearchItemSpecificClass = async (itemClass) => {
+        const { data, error } = await supabase
+            .from('supply_item_table')
+            .select('supply_item_specify_class')
+            .eq('supply_item_class',itemClass)
+
+        if (error){
+        } else{
+            let tempList = [];
+
+            setItemSpecificClassList([...tempList])
+
+            data.map(itemSpecificClass => {
+                if (!(tempList.includes(itemSpecificClass.supply_item_specify_class))){
+
+                    tempList.push(itemSpecificClass.supply_item_specify_class)
+                }
+            });
+            setItemSpecificClassList(tempList);
+
+        }
+    }
+
+    useEffect(() => {
+        setItemSpecificClassList([])
+        handleSearchItemSpecificClass(itemClass);
+
+        const backAction = () => {
+             navigation.navigate('OrderScreen')
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction
+        );
+
+        return () => backHandler.remove();
+
+    }, [itemClass])
 
 
     return (

@@ -9,6 +9,7 @@ import {Pressable, View, Image, Text,StyleSheet} from 'react-native';
 import MainScreen from "../screens/MainScreen";
 import SalesAndProfitScreen from "../screens/SalesAndProfitScreen";
 import OrderScreen from "../screens/OrderScreen";
+import OrderSpecificScreen from "../screens/OrderSpecificScreen";
 import PlatformAddScreen from "../screens/PlatformAddScreen";
 
 const Drawer = createDrawerNavigator();
@@ -66,6 +67,7 @@ function SideMenu(){
                 <Drawer.Screen name="MainScreen" component={MainScreen} />
                 <Drawer.Screen name="SalesAndProfitScreen" component={SalesAndProfitScreen} />
                 <Drawer.Screen name="OrderScreen" component={OrderScreen} />
+                <Drawer.Screen name="OrderSpecificScreen" component={OrderSpecificScreen} />
                 <Drawer.Screen name="PlatformAddScreen" component={PlatformAddScreen} />
             </Drawer.Navigator>
         </NavigationContainer>

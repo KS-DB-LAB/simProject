@@ -3,8 +3,10 @@ import {Image, Pressable, StyleSheet, Text, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {getData} from "../lib/asyncstorage";
 import {supabase} from "../lib/supabase";
+import {useNavigation} from "@react-navigation/native";
 
 function OrderScreen({navigation}){
+
 
     const [brandList, setBrandList] = useState([]);
     const [itemClassList, setItemClassList] = useState([]);
@@ -20,7 +22,12 @@ function OrderScreen({navigation}){
         } else{
             let tempList = [];
 
-            data.map(itemClass => tempList.push(itemClass.supply_item_class));
+            data.map(itemClass => {
+                if (!(tempList.includes(itemClass.supply_item_class))){
+                    tempList.push(itemClass.supply_item_class)
+                }
+
+            });
             setItemClassList(prevItemClassList => [...prevItemClassList, ...tempList]);
         }
     }
@@ -56,12 +63,15 @@ function OrderScreen({navigation}){
                 </View>
 
                 <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>점장님을 응원합니다!</Text>
+                    <Text style ={styles.titleStyle}>재료 / 발주</Text>
                 </View>
             </View>
 
             {itemClassList.map((itemClass,index) => (
-                <Pressable key={index} style={styles.seperateDash}><Text style={styles.label}>{itemClass}</Text></Pressable>
+                <Pressable key={index} style={styles.seperateDash}
+                           onPress={() => navigation.navigate('OrderSpecificScreen', {itemClass : itemClass})}>
+                    <Text style={styles.label}>{itemClass}</Text>
+                </Pressable>
             ))}
 
         </View>

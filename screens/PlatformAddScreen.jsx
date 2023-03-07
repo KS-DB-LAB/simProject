@@ -2,7 +2,7 @@ import {Image, Pressable, StyleSheet, Text, View} from "react-native";
 // @ts-ignore
 import React from "react";
 
-function OrderSpecificClickedScreen({navigation}){
+function PlatformAddScreen({navigation}){
     return (
         <View style={styles.container}>
             <View style ={styles.upperComponentGroupStyle}>
@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default OrderSpecificClickedScreen;
+export default PlatformAddScreen;

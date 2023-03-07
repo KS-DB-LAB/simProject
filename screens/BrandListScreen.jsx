@@ -1,36 +1,15 @@
 import {Image, Pressable, StyleSheet, Text, View} from "react-native";
 // @ts-ignore
 import React, {useEffect, useState} from "react";
-import {getData} from "../lib/asyncstorage";
+import {getData} from "../lib/asyncstorage.js";
 import {supabase} from "../lib/supabase";
-import {useNavigation} from "@react-navigation/native";
-
-function OrderScreen({navigation}){
 
 
-    const [brandList, setBrandList] = useState([]);
-    const [itemClassList, setItemClassList] = useState([]);
+function BrandListScreen({navigation}){
+
+    const [orderList, setOrderList] = useState([]);
 
 
-    const handleSearchItemClass = async (brandName, brandList) => {
-        const { data, error } = await supabase
-            .from('supply_item_table')
-            .select('supply_item_class')
-            .eq('brands',brandName)
-
-        if (error){
-        } else{
-            let tempList = [];
-
-            data.map(itemClass => {
-                if (!(tempList.includes(itemClass.supply_item_class))){
-                    tempList.push(itemClass.supply_item_class)
-                }
-
-            });
-            setItemClassList(prevItemClassList => [...prevItemClassList, ...tempList]);
-        }
-    }
 
     const handleSearch = async (ownerId) => {
         const { data, error } = await supabase
@@ -39,18 +18,17 @@ function OrderScreen({navigation}){
             .eq('member_id',ownerId)
         if (error) {
         } else {
-            const brandListTemp = data[0].member_brands.split(', ')
-            setBrandList(brandListTemp)
-            brandListTemp.map(async(brandName) => await handleSearchItemClass(brandName, brandListTemp));
+            setOrderList([].concat(data[0].member_brands.split(', ')))
+            // brandsList.map(item => console.log(item))
         }
     }
 
     useEffect(() => {
-            getData('owner_id').then(ownerId => {
+        getData('owner_id').then(ownerId => {
                 handleSearch(ownerId)
             })
         }
-        ,[])
+    ,[])
 
     return (
         <View style={styles.container}>
@@ -63,15 +41,12 @@ function OrderScreen({navigation}){
                 </View>
 
                 <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>재료 / 발주</Text>
+                    <Text style ={styles.titleStyle}>재료 구매 / 발주</Text>
                 </View>
             </View>
 
-            {itemClassList.map((itemClass,index) => (
-                <Pressable key={index} style={styles.seperateDash}
-                           onPress={() => navigation.navigate('OrderSpecificScreen', {itemClass : itemClass})}>
-                    <Text style={styles.label}>{itemClass}</Text>
-                </Pressable>
+            {orderList.map((listName,index) => (
+                    <Pressable key={index} style={styles.seperateDash}><Text style={styles.label}>{listName}</Text></Pressable>
             ))}
 
         </View>
@@ -142,4 +117,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default OrderScreen;
+export default BrandListScreen;

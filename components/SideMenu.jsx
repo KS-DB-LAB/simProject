@@ -9,6 +9,8 @@ import {Pressable, View, Image, Text,StyleSheet} from 'react-native';
 import MainScreen from "../screens/MainScreen";
 import SalesAndProfitScreen from "../screens/SalesAndProfitScreen";
 import OrderScreen from "../screens/OrderScreen";
+import OrderSpecificScreen from "../screens/OrderSpecificScreen";
+import PlatformAddScreen from "../screens/PlatformAddScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -27,18 +29,20 @@ function CustomDrawerContent({navigation}){
             label: '발주',
             onPress: () => navigation.navigate('OrderScreen'),
         },
+        {
+            // Test 용 버튼
+            label: 'PlatformAddScreen',
+            onPress: () => navigation.navigate('PlatformAddScreen'),
+        },
 
     ]
     return (
         <View style={styles.drawerBackgroundStyle}>
             <View style={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>
-
                     <Pressable onPress={() => navigation.closeDrawer()} style={styles.sideBarCloseIconContainerStyle}>
                         <Image source = {require('../images/sideBarCloseIcon.jpg')} style = {styles.logoImage} />
                     </Pressable>
-
-
                 </View>
             </View>
 
@@ -63,6 +67,8 @@ function SideMenu(){
                 <Drawer.Screen name="MainScreen" component={MainScreen} />
                 <Drawer.Screen name="SalesAndProfitScreen" component={SalesAndProfitScreen} />
                 <Drawer.Screen name="OrderScreen" component={OrderScreen} />
+                <Drawer.Screen name="OrderSpecificScreen" component={OrderSpecificScreen} />
+                <Drawer.Screen name="PlatformAddScreen" component={PlatformAddScreen} />
             </Drawer.Navigator>
         </NavigationContainer>
     )

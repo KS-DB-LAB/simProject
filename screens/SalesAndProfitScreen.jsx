@@ -49,18 +49,63 @@ function SalesAndProfitScreen({navigation}){
         setIsDatePickerVisible(false);
     }
 
+    const checkIfEndAheadStart = (selectedDateEndString, selectedDateStartString)  => {
+
+        if (parseInt(selectedDateEndString.split('.').at(0)) < parseInt(selectedDateStartString.split('.').at(0)) ||
+            parseInt(selectedDateEndString.split('.').at(1)) < parseInt(selectedDateStartString.split('.').at(1)) ||
+            parseInt(selectedDateEndString.split('.').at(2)) < parseInt(selectedDateStartString.split('.').at(2)) ) {
+
+            setErrorModalVisible(true);
+
+            return false;
+        }
+        return true;
+    }
+
     const handleConfirmStartDate = (date) => {
         const year = date.getFullYear();
         const month = date.getMonth()>  9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1) ;
         const day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
         const temporaryDateString = `${year}.${month}.${day}`
-        selectedStartOrEnd == 'start' ? setSelectedDateStartString(temporaryDateString) : setSelectedDateEndString(temporaryDateString)
+        if (selectedStartOrEnd == 'start'){
+            if (checkIfEndAheadStart(selectedDateEndString,temporaryDateString) == true){
+                setSelectedDateStartString(temporaryDateString)
+            } else {
+                setSelectedDateStartString(selectedDateStartString)
+            }
+        }
+        else {
+            if (checkIfEndAheadStart(temporaryDateString,selectedDateStartString) == true){
+                setSelectedDateEndString(temporaryDateString)
+            } else {
+                setSelectedDateEndString(selectedDateEndString)
+            }
+        }
+
         hideStartDatePicker();
     }
 
 
+    const [errorModalVisible, setErrorModalVisible] = useState(false);
+
     return(
         <View style={styles.container}>
+
+            <Modal
+                visible={errorModalVisible}
+                animationType="slide"
+                onRequestClose={() => setErrorModalVisible(false)}>
+                <View style={styles.errorModalMessageContainer}>
+                    <View style={styles.errorModalMessageBox}>
+                        <Text style={{marginBottom:30, fontSize:15, textAlign:'center'}}>끝 날짜는 시작 날짜보다 미래로 설정하셔야 합니다.</Text>
+                        <Pressable onPress={() => setErrorModalVisible(false)}>
+                            <Text style={{fontSize:15,}}>확인</Text>
+                        </Pressable>
+                    </View>
+                </View>
+
+            </Modal>
+
 
             <View style ={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>
@@ -327,6 +372,21 @@ const styles = StyleSheet.create({
         alignItems:'flex-end',
         justifyContent: 'center',
     },
+    errorModalMessageContainer: {
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    errorModalMessageBox:{
+        width:350,
+        height:200,
+        backgroundColor:"#d9d9d9",
+        borderRadius:10,
+        alignItems:'center',
+        justifyContent:'center',
+
+    },
+
     baeminTagColor: {
         width: 40,
         height: 70,

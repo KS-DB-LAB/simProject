@@ -1,12 +1,12 @@
-import {Image, Pressable, StyleSheet, Text, View} from "react-native";
+import {BackHandler, Image, Pressable, StyleSheet, Text, View} from "react-native";
 // @ts-ignore
 import React, {useEffect, useState} from "react";
-import {getData} from "../lib/asyncstorage";
-import {supabase} from "../lib/supabase";
+import {getData} from "../../lib/asyncstorage";
+import {supabase} from "../../lib/supabase";
 import {useNavigation} from "@react-navigation/native";
 
-function OrderScreen({navigation}){
-
+function OrderScreen({navigation, drawerNavigation}){
+    const drawer =  drawerNavigation.params;
 
     const [brandList, setBrandList] = useState([]);
     const [itemClassList, setItemClassList] = useState([]);
@@ -56,9 +56,9 @@ function OrderScreen({navigation}){
         <View style={styles.container}>
             <View style ={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>
-                    <Image source = {require('../images/logo.jpg')} style = {styles.logoImage} />
-                    <Pressable onPress={() => navigation.openDrawer()} style={styles.sideBarIconContainerStyle}>
-                        <Image source = {require('../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
+                    <Image source = {require('../../images/logo.jpg')} style = {styles.logoImage} />
+                    <Pressable onPress={() => drawer.openDrawer()} style={styles.sideBarIconContainerStyle}>
+                        <Image source = {require('../../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
                     </Pressable>
                 </View>
 

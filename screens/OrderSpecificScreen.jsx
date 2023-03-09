@@ -1,40 +1,54 @@
 import {Alert, BackHandler, Image, Pressable, StyleSheet, Text, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
-import {supabase} from "../../lib/supabase";
+import {supabase} from "../lib/supabase";
 
 
-function OrderSuppliesScreen({ navigation, route}){
-    const { itemClass, itemSpecificClass } = route.params;
+function OrderSpecificScreen({ navigation, route}){
+    const { itemClass } = route.params;
 
-    const [itemNameList, setItemNameList] = useState([]);
+    const [itemSpecificClassList, setItemSpecificClassList] = useState([]);
 
 
-    const handleSearchItemName = async (itemClass, itemSpecificClass) => {
+    const handleSearchItemSpecificClass = async (itemClass) => {
         const { data, error } = await supabase
             .from('supply_item_table')
-            .select('supply_item_name')
+            .select('supply_item_specify_class')
             .eq('supply_item_class',itemClass)
-            .eq('supply_item_specify_class',itemSpecificClass)
 
         if (error){
         } else{
             let tempList = [];
-            setItemNameList([...tempList])
 
-            data.map(itemName => {
-                if (!(tempList.includes(itemName.supply_item_name))){
-                    tempList.push(itemName.supply_item_name)
+            setItemSpecificClassList([...tempList])
+
+            data.map(itemSpecificClass => {
+                if (!(tempList.includes(itemSpecificClass.supply_item_specify_class))){
+
+                    tempList.push(itemSpecificClass.supply_item_specify_class)
                 }
             });
-            setItemNameList(tempList);
+            setItemSpecificClassList(tempList);
 
         }
     }
 
     useEffect(() => {
-        setItemNameList([])
-        handleSearchItemName(itemClass, itemSpecificClass);
+        setItemSpecificClassList([])
+        handleSearchItemSpecificClass(itemClass);
+
+        const backAction = () => {
+             navigation.navigate('OrderScreen')
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction
+        );
+
+        return () => backHandler.remove();
+
     }, [itemClass])
 
 
@@ -42,19 +56,20 @@ function OrderSuppliesScreen({ navigation, route}){
         <View style={styles.container}>
             <View style ={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>
-                    <Image source = {require('../../images/logo.jpg')} style = {styles.logoImage} />
+                    <Image source = {require('../images/logo.jpg')} style = {styles.logoImage} />
                     <Pressable onPress={() => navigation.openDrawer()} style={styles.sideBarIconContainerStyle}>
-                        <Image source = {require('../../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
-                    </Pressable>
+                    <Image source = {require('../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
+                </Pressable>
                 </View>
-                <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>재료 / 발주 (이름 리스트)</Text>
+                    <View style = {styles.titleContainerStyle}>
+                    <Text style ={styles.titleStyle}>재료 / 발주 (소분류)</Text>
                 </View>
             </View>
 
-            {itemNameList.map((itemName,index) => (
-                <Pressable key={index} style={styles.seperateDash}>
-                    <Text style={styles.label}>{itemName}</Text>
+            {itemSpecificClassList.map((itemSpecificClass,index) => (
+                <Pressable key={index} style={styles.seperateDash}
+                           onPress={() => navigation.navigate('OrderSpecificScreen', {itemSpecificClass : itemSpecificClass})}>
+                    <Text style={styles.label}>{itemSpecificClass}</Text>
                 </Pressable>
             ))}
         </View>
@@ -125,4 +140,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default OrderSuppliesScreen;
+export default OrderSpecificScreen;

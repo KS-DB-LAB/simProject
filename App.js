@@ -1,6 +1,6 @@
 import React from "react";
 import SplashScreen from "./screens/SplashScreen";
-import NavigationScreen from "./screens/navigate_related_screen/NavigationScreen"
+import NavigationScreen from "./screens/NavigationScreen"
 import 'react-native-url-polyfill/auto';
 
 export default class extends React.Component {

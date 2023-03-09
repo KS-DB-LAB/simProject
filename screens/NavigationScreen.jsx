@@ -7,6 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import LoginScreen from "./LoginScreen";``
 import JoinScreen from "./JoinScreen";
+import PlatformAddScreen from "./PlatformAddScreen";
 import SideMenu from "../components/SideMenu"
 
 import {getData} from "../lib/asyncstorage";
@@ -31,6 +32,7 @@ function NavigationScreen() {
             <Stack.Navigator initialRouteName="LoginScreen" screenOptions={{headerShown : false}}>
                 <Stack.Screen name="LoginScreen" component={LoginScreen}/>
                 <Stack.Screen name="JoinScreen" component={JoinScreen}/>
+                <Stack.Screen name="PlatformAddScreen" component={PlatformAddScreen}/>
                 <Stack.Screen name="SideMenu" component={SideMenu}/>
             </Stack.Navigator>
         </NavigationContainer>

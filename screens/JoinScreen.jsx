@@ -39,7 +39,7 @@ const JoinScreen = ({ navigation }) => {
 									member_id: values.id,
 									member_password: values.password,
 									location_address:
-										values.address + " " + addressDetail,
+										values.address + " " + values.addressDetail,
 									business_number: values.businessRegNumber,
 								},
 							])
@@ -51,7 +51,7 @@ const JoinScreen = ({ navigation }) => {
 								}
 							})
 							.then(() => {
-								navigation.navigate("LoginScreen");
+								navigation.navigate("PlatformAddScreen", {member_id: values.id});
 							});
 					}}
 				>

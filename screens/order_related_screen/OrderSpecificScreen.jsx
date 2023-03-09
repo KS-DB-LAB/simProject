@@ -1,79 +1,64 @@
-import {Image, Pressable, StyleSheet, Text, View} from "react-native";
-// @ts-ignore
+import {Alert, BackHandler, Image, Pressable, StyleSheet, Text, View} from "react-native";
 import React, {useEffect, useState} from "react";
-import {getData} from "../lib/asyncstorage";
-import {supabase} from "../lib/supabase";
 import {useNavigation} from "@react-navigation/native";
-
-function OrderScreen({navigation}){
-
-
-    const [brandList, setBrandList] = useState([]);
-    const [itemClassList, setItemClassList] = useState([]);
+import {supabase} from "../../lib/supabase";
 
 
-    const handleSearchItemClass = async (brandName, brandList) => {
+function OrderSpecificScreen({ navigation, route}){
+    const { drawer, itemClass } = route.params;
+
+    const [itemSpecificClassList, setItemSpecificClassList] = useState([]);
+
+
+    const handleSearchItemSpecificClass = async (itemClass) => {
         const { data, error } = await supabase
             .from('supply_item_table')
-            .select('supply_item_class')
-            .eq('brands',brandName)
+            .select('supply_item_specify_class')
+            .eq('supply_item_class',itemClass)
 
         if (error){
         } else{
             let tempList = [];
 
-            data.map(itemClass => {
-                if (!(tempList.includes(itemClass.supply_item_class))){
-                    tempList.push(itemClass.supply_item_class)
+            setItemSpecificClassList([...tempList])
+
+            data.map(itemSpecificClass => {
+                if (!(tempList.includes(itemSpecificClass.supply_item_specify_class))){
+
+                    tempList.push(itemSpecificClass.supply_item_specify_class)
                 }
-
             });
-            setItemClassList(prevItemClassList => [...prevItemClassList, ...tempList]);
-        }
-    }
+            setItemSpecificClassList(tempList);
 
-    const handleSearch = async (ownerId) => {
-        const { data, error } = await supabase
-            .from('shop_owner_table')
-            .select('*')
-            .eq('member_id',ownerId)
-        if (error) {
-        } else {
-            const brandListTemp = data[0].member_brands.split(', ')
-            setBrandList(brandListTemp)
-            brandListTemp.map(async(brandName) => await handleSearchItemClass(brandName, brandListTemp));
         }
     }
 
     useEffect(() => {
-            getData('owner_id').then(ownerId => {
-                handleSearch(ownerId)
-            })
-        }
-        ,[])
+        setItemSpecificClassList([])
+        handleSearchItemSpecificClass(itemClass);
+    }, [itemClass])
+
 
     return (
         <View style={styles.container}>
             <View style ={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>
-                    <Image source = {require('../images/logo.jpg')} style = {styles.logoImage} />
-                    <Pressable onPress={() => navigation.openDrawer()} style={styles.sideBarIconContainerStyle}>
-                        <Image source = {require('../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
+                    <Image source = {require('../../images/logo.jpg')} style = {styles.logoImage} />
+                    <Pressable onPress={() => drawer.openDrawer()} style={styles.sideBarIconContainerStyle}>
+                        <Image source = {require('../../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
                     </Pressable>
                 </View>
-
                 <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>재료 / 발주</Text>
+                    <Text style ={styles.titleStyle}>재료 / 발주 (소분류)</Text>
                 </View>
             </View>
 
-            {itemClassList.map((itemClass,index) => (
+            {itemSpecificClassList.map((itemSpecificClass,index) => (
                 <Pressable key={index} style={styles.seperateDash}
-                           onPress={() => navigation.navigate('OrderSpecificScreen', {itemClass : itemClass})}>
-                    <Text style={styles.label}>{itemClass}</Text>
+                           onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass})}>
+                    <Text style={styles.label}>{itemSpecificClass}</Text>
                 </Pressable>
             ))}
-
         </View>
     )
 }
@@ -142,4 +127,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default OrderScreen;
+export default OrderSpecificScreen;

@@ -8,7 +8,8 @@ import {Pressable, View, Image, Text,StyleSheet} from 'react-native';
 
 import MainScreen from "../screens/MainScreen";
 import SalesAndProfitScreen from "../screens/SalesAndProfitScreen";
-import OrderNavigationScreen from "../screens/navigate_related_screen/OrderNavigationScreen";
+import OrderScreen from "../screens/OrderScreen";
+import OrderSpecificScreen from "../screens/OrderSpecificScreen";
 import PlatformAddScreen from "../screens/PlatformAddScreen";
 
 const Drawer = createDrawerNavigator();
@@ -26,7 +27,7 @@ function CustomDrawerContent({navigation}){
         },
         {
             label: '발주',
-            onPress: () => navigation.navigate('OrderNavigationScreen'),
+            onPress: () => navigation.navigate('OrderScreen'),
         },
         {
             // Test 용 버튼
@@ -65,7 +66,8 @@ function SideMenu(){
                 drawerContent={props => <CustomDrawerContent {...props}/>}>
                 <Drawer.Screen name="MainScreen" component={MainScreen} />
                 <Drawer.Screen name="SalesAndProfitScreen" component={SalesAndProfitScreen} />
-                <Drawer.Screen name="OrderNavigationScreen" component={OrderNavigationScreen} />
+                <Drawer.Screen name="OrderScreen" component={OrderScreen} />
+                <Drawer.Screen name="OrderSpecificScreen" component={OrderSpecificScreen} />
                 <Drawer.Screen name="PlatformAddScreen" component={PlatformAddScreen} />
             </Drawer.Navigator>
         </NavigationContainer>

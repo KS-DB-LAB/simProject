@@ -5,11 +5,11 @@ import 'react-native-gesture-handler'
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import LoginScreen from "../LoginScreen";``
-import JoinScreen from "../JoinScreen";
-import SideMenu from "../../components/SideMenu"
+import LoginScreen from "./LoginScreen";``
+import JoinScreen from "./JoinScreen";
+import SideMenu from "../components/SideMenu"
 
-import {getData} from "../../lib/asyncstorage";
+import {getData} from "../lib/asyncstorage";
 
 const Stack = createStackNavigator();
 function NavigationScreen() {

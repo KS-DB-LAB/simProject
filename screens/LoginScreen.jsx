@@ -61,7 +61,8 @@ function LoginScreen({navigation}) {
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
             <Modal
                 visible={errorModalVisible}
-                animationType="slide"
+                transparent={true}
+                animationType="fade"
                 onRequestClose={() => setErrorModalVisible(false)}>
                 <View style={styles.errorModalMessageContainer}>
                     <View style={styles.errorModalMessageBox}>
@@ -110,11 +111,12 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems:'center',
         justifyContent:'center',
+        backgroundColor :"rgba(0,0,0,0.5)"
     },
     errorModalMessageBox:{
         width:300,
         height:200,
-        backgroundColor:"#d9d9d9",
+        backgroundColor:"#ffffff",
         borderRadius:10,
         alignItems:'center',
         justifyContent:'center',

@@ -14,7 +14,7 @@ function LoginScreen({navigation}) {
 
     const drawerNavigation = createDrawerNavigator();
 
-    const [memberId,    setMemberId] = useState('');
+    const [memberId, setMemberId] = useState('');
     const [memberPassword, setMemberPassword] = useState('');
 
     const handleInputChange = (text) => {
@@ -24,6 +24,10 @@ function LoginScreen({navigation}) {
         setMemberPassword(text);
     }
 
+    const checkForAvailable = (data) => {
+        data[0].member_password == memberPassword ? ifLoginSucceededFunction(data[0]) : setErrorModalVisible(true)
+    }
+
     const handleSearch = async () => {
         const { data, error } = await supabase
             .from('shop_owner_table')
@@ -31,10 +35,10 @@ function LoginScreen({navigation}) {
             .eq('member_id',memberId)
 
         if (error || memberId=='') {
+            console.log('!')
             setErrorModalVisible(true);
         } else {
-
-            data[0].member_password == memberPassword ?  ifLoginSucceededFunction(data[0]) : setErrorModalVisible(true);
+            data === [] ? checkForAvailable(data) : setErrorModalVisible(true)
         }
     };
 

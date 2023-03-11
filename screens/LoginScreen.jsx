@@ -38,7 +38,7 @@ function LoginScreen({navigation}) {
             console.log('!')
             setErrorModalVisible(true);
         } else {
-            data === [] ? checkForAvailable(data) : setErrorModalVisible(true)
+            data.length == 0 ? setErrorModalVisible(true) : checkForAvailable(data)
         }
     };
 

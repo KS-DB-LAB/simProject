@@ -1,4 +1,4 @@
-import {BackHandler, Image, Pressable, StyleSheet, Text, View} from "react-native";
+import {BackHandler, Image, Pressable, StyleSheet, Text, View, ScrollView,SafeAreaView} from "react-native";
 // @ts-ignore
 import React, {useEffect, useState} from "react";
 import {getData} from "../../lib/asyncstorage";
@@ -10,7 +10,7 @@ function OrderScreen({navigation, route}){
 
     const [brandList, setBrandList] = useState([]);
     const [itemClassList, setItemClassList] = useState([]);
-
+    let tempList = [];
 
     const handleSearchItemClass = async (brandName, brandList) => {
         const { data, error } = await supabase
@@ -20,15 +20,16 @@ function OrderScreen({navigation, route}){
 
         if (error){
         } else{
-            let tempList = [];
+
+            setItemClassList([...tempList])
 
             data.map(itemClass => {
+
                 if (!(tempList.includes(itemClass.supply_item_class))){
                     tempList.push(itemClass.supply_item_class)
                 }
-
             });
-            setItemClassList(prevItemClassList => [...prevItemClassList, ...tempList]);
+            setItemClassList(tempList);
         }
     }
 
@@ -42,6 +43,35 @@ function OrderScreen({navigation, route}){
             const brandListTemp = data[0].member_brands.split(', ')
             setBrandList(brandListTemp)
             brandListTemp.map(async(brandName) => await handleSearchItemClass(brandName, brandListTemp));
+        }
+    }
+
+    const functionForMakingScrollView = () => {
+        if (itemClassList.length <= 4){
+            return(
+                <>
+                {itemClassList.map((itemClass,index) => (
+                        <Pressable key={index} style={styles.seperateDash}
+                                   onPress={() => navigation.navigate('OrderSpecificScreen', {drawer: drawer, itemClass : itemClass})}>
+                            <Text style={styles.label}>{itemClass}</Text>
+                        </Pressable>
+                    ))}
+                </>
+            )
+        }
+        else {
+            return (
+                <View style={styles.scrollContainerStyle}>
+                    <ScrollView style={styles.scrollStyle}>
+                        {itemClassList.map((itemClass,index) => (
+                            <Pressable key={index} style={styles.seperateDash}
+                                       onPress={() => navigation.navigate('OrderSpecificScreen', {drawer: drawer, itemClass : itemClass})}>
+                                <Text style={styles.label}>{itemClass}</Text>
+                            </Pressable>
+                        ))}
+                    </ScrollView>
+                </View>
+            )
         }
     }
 
@@ -67,14 +97,11 @@ function OrderScreen({navigation, route}){
                 </View>
             </View>
 
-            {itemClassList.map((itemClass,index) => (
-                <Pressable key={index} style={styles.seperateDash}
-                           onPress={() => navigation.navigate('OrderSpecificScreen', {drawer: drawer, itemClass : itemClass})}>
-                    <Text style={styles.label}>{itemClass}</Text>
-                </Pressable>
-            ))}
+            {functionForMakingScrollView()}
+
 
         </View>
+
     )
 }
 
@@ -139,6 +166,14 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         textAlign : "center",
+    },
+    scrollContainerStyle:{
+        flex:0.5,
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    scrollStyle: {
+        flex:0.5,
     },
 })
 

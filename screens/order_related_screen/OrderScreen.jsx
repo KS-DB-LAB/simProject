@@ -20,7 +20,7 @@ function OrderScreen({navigation, route}){
 
         if (error){
         } else{
-
+            // console.log(data.length)
             setItemClassList([...tempList])
 
             data.map(itemClass => {
@@ -41,6 +41,7 @@ function OrderScreen({navigation, route}){
         if (error) {
         } else {
             const brandListTemp = data[0].member_brands.split(', ')
+            // console.log(brandListTemp)
             setBrandList(brandListTemp)
             brandListTemp.map(async(brandName) => await handleSearchItemClass(brandName, brandListTemp));
         }
@@ -52,7 +53,7 @@ function OrderScreen({navigation, route}){
                 <>
                 {itemClassList.map((itemClass,index) => (
                         <Pressable key={index} style={styles.seperateDash}
-                                   onPress={() => navigation.navigate('OrderSpecificScreen', {drawer: drawer, itemClass : itemClass})}>
+                                   onPress={() => navigation.navigate('OrderSpecificScreen', {drawer: drawer, itemClass : itemClass, brandList : brandList})}>
                             <Text style={styles.label}>{itemClass}</Text>
                         </Pressable>
                     ))}
@@ -65,7 +66,7 @@ function OrderScreen({navigation, route}){
                     <ScrollView style={styles.scrollStyle}>
                         {itemClassList.map((itemClass,index) => (
                             <Pressable key={index} style={styles.seperateDash}
-                                       onPress={() => navigation.navigate('OrderSpecificScreen', {drawer: drawer, itemClass : itemClass})}>
+                                       onPress={() => navigation.navigate('OrderSpecificScreen', {drawer: drawer, itemClass : itemClass, brandList : brandList})}>
                                 <Text style={styles.label}>{itemClass}</Text>
                             </Pressable>
                         ))}
@@ -92,7 +93,7 @@ function OrderScreen({navigation, route}){
                     </Pressable>
                 </View>
 
-                <View style = {styles.titleContainerStyle}>
+                <View style = {styles.titleContthainerStyle}>
                     <Text style ={styles.titleStyle}>재료 / 발주</Text>
                 </View>
             </View>

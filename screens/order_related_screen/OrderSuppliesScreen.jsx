@@ -1,4 +1,4 @@
-import {Alert, BackHandler, Image, Pressable, StyleSheet, Text, View} from "react-native";
+import {Alert, BackHandler, Image, Pressable, StyleSheet, Text, View, ScrollView} from "react-native";
 import React, {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {supabase} from "../../lib/supabase";
@@ -32,6 +32,36 @@ function OrderSuppliesScreen({ navigation, route}){
         }
     }
 
+    const functionForMakingScrollView = () => {
+        if (itemNameList.length <= 4){
+            return(
+                <>
+                    {itemNameList.map((itemName,index) => (
+                        <Pressable key={index} style={styles.seperateDash}>
+                            <Text style={styles.label}>{itemName}</Text>
+                        </Pressable>
+                    ))}
+                </>
+            )
+        }
+        else {
+            return (
+                <View style={styles.scrollContainerStyle}>
+                    <ScrollView style={styles.scrollStyle}>
+                        {itemNameList.map((itemName,index) => (
+                            <Pressable key={index} style={styles.seperateDash}>
+                                <Text style={styles.label}>{itemName}</Text>
+                            </Pressable>
+                        ))}
+                    </ScrollView>
+                </View>
+            )
+        }
+    }
+
+
+
+
     useEffect(() => {
         setItemNameList([])
         handleSearchItemName(itemClass, itemSpecificClass);
@@ -52,11 +82,8 @@ function OrderSuppliesScreen({ navigation, route}){
                 </View>
             </View>
 
-            {itemNameList.map((itemName,index) => (
-                <Pressable key={index} style={styles.seperateDash}>
-                    <Text style={styles.label}>{itemName}</Text>
-                </Pressable>
-            ))}
+            {functionForMakingScrollView()}
+
         </View>
     )
 }
@@ -122,6 +149,14 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         textAlign : "center",
+    },
+    scrollContainerStyle:{
+        flex:0.5,
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    scrollStyle: {
+        flex:0.5,
     },
 })
 

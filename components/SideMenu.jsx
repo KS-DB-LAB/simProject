@@ -10,6 +10,7 @@ import MainScreen from "../screens/MainScreen";
 import SalesAndProfitScreen from "../screens/SalesAndProfitScreen";
 import OrderNavigationScreen from "../screens/navigation_screens/OrderNavigationScreen";
 import PlatformAddScreen from "../screens/PlatformAddScreen";
+import SettingNavigationScreen from "../screens/navigation_screens/SettingNavigationScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -32,6 +33,10 @@ function CustomDrawerContent({navigation}){
             // Test 용 버튼
             label: 'PlatformAddScreen',
             onPress: () => navigation.navigate('PlatformAddScreen'),
+        },
+        {
+            label: '설정',
+            onPress: () => navigation.navigate('SettingNavigationScreen'),
         },
 
     ]
@@ -67,6 +72,7 @@ function SideMenu(){
                 <Drawer.Screen name="SalesAndProfitScreen" component={SalesAndProfitScreen} />
                 <Drawer.Screen name="OrderNavigationScreen" component={OrderNavigationScreen} />
                 <Drawer.Screen name="PlatformAddScreen" component={PlatformAddScreen} />
+                <Drawer.Screen name="SettingNavigationScreen" component={SettingNavigationScreen} />
             </Drawer.Navigator>
         </NavigationContainer>
     )

@@ -5,20 +5,22 @@ import {supabase} from "../../lib/supabase";
 
 
 function OrderSpecificScreen({ navigation, route}){
-    const { drawer, itemClass } = route.params;
+    const { drawer, itemClass, brandList } = route.params;
 
     const [itemSpecificClassList, setItemSpecificClassList] = useState([]);
+    let tempList = [];
 
-
-    const handleSearchItemSpecificClass = async (itemClass) => {
+    const handleSearchItemSpecificClass = async (itemClass, brandName) => {
+        // console.log(brandName)
         const { data, error } = await supabase
             .from('supply_item_table')
             .select('supply_item_specify_class')
             .eq('supply_item_class',itemClass)
+            .eq('brands',brandName)
 
         if (error){
         } else{
-            let tempList = [];
+
 
             setItemSpecificClassList([...tempList])
 
@@ -40,7 +42,7 @@ function OrderSpecificScreen({ navigation, route}){
                 <>
                     {itemSpecificClassList.map((itemSpecificClass,index) => (
                         <Pressable key={index} style={styles.seperateDash}
-                                   onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass})}>
+                                   onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass, brandList : brandList})}>
                             <Text style={styles.label}>{itemSpecificClass}</Text>
                         </Pressable>
                     ))}
@@ -53,7 +55,7 @@ function OrderSpecificScreen({ navigation, route}){
                     <ScrollView style={styles.scrollStyle}>
                         {itemSpecificClassList.map((itemSpecificClass,index) => (
                             <Pressable key={index} style={styles.seperateDash}
-                                       onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass})}>
+                                       onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass, brandList : brandList})}>
                                 <Text style={styles.label}>{itemSpecificClass}</Text>
                             </Pressable>
                         ))}
@@ -68,8 +70,9 @@ function OrderSpecificScreen({ navigation, route}){
 
     useEffect(() => {
         setItemSpecificClassList([])
-        handleSearchItemSpecificClass(itemClass);
-    }, [itemClass])
+        brandList.map(async(brandName) => await handleSearchItemSpecificClass(itemClass, brandName));
+        // handleSearchItemSpecificClass(itemClass);
+    }, [brandList])
 
 
     return (

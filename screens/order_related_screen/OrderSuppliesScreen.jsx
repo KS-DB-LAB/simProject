@@ -5,17 +5,18 @@ import {supabase} from "../../lib/supabase";
 
 
 function OrderSuppliesScreen({ navigation, route}){
-    const { drawer, itemClass, itemSpecificClass } = route.params;
+    const { drawer, itemClass, itemSpecificClass, brandList } = route.params;
 
     const [itemNameList, setItemNameList] = useState([]);
 
 
-    const handleSearchItemName = async (itemClass, itemSpecificClass) => {
+    const handleSearchItemName = async (itemClass, itemSpecificClass,brandName) => {
         const { data, error } = await supabase
             .from('supply_item_table')
             .select('supply_item_name')
             .eq('supply_item_class',itemClass)
             .eq('supply_item_specify_class',itemSpecificClass)
+            .eq('brands',brandName)
 
         if (error){
         } else{
@@ -64,8 +65,9 @@ function OrderSuppliesScreen({ navigation, route}){
 
     useEffect(() => {
         setItemNameList([])
-        handleSearchItemName(itemClass, itemSpecificClass);
-    }, [itemClass])
+        brandList.map(async(brandName) => await handleSearchItemName(itemClass, itemSpecificClass, brandName));
+
+    }, [brandList])
 
 
     return (

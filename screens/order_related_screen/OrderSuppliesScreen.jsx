@@ -8,7 +8,7 @@ function OrderSuppliesScreen({ navigation, route}){
     const { drawer, itemClass, itemSpecificClass, brandList } = route.params;
 
     const [itemNameList, setItemNameList] = useState([]);
-
+    let tempList = [];
 
     const handleSearchItemName = async (itemClass, itemSpecificClass,brandName) => {
         const { data, error } = await supabase
@@ -20,7 +20,7 @@ function OrderSuppliesScreen({ navigation, route}){
 
         if (error){
         } else{
-            let tempList = [];
+
             setItemNameList([...tempList])
 
             data.map(itemName => {

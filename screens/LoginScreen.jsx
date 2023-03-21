@@ -36,7 +36,7 @@ function LoginScreen({navigation}) {
             .eq('member_id',memberId)
 
         if (error || memberId=='') {
-            console.log('!')
+
             setErrorModalVisible(true);
         } else {
             data.length == 0 ? setErrorModalVisible(true) : checkForAvailable(data)
@@ -49,11 +49,10 @@ function LoginScreen({navigation}) {
         storeData('owner_id', data.member_id)
         storeData('owner_brands', data.member_brands)
 
-
+        setMemberId('')
+        setMemberPassword('')
         navigation.navigate('SideMenu')
     }
-
-
 
     const [errorModalVisible, setErrorModalVisible] = useState(false);
 
@@ -106,8 +105,12 @@ function LoginScreen({navigation}) {
 
             <View style={styles.loginSectionContainer}>
                 <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
-                <TextInput style={styles.accountInputBox} onChangeText={handleInputChange} placeholder="  아이디" />
-                <TextInput secureTextEntry={true} style={styles.accountInputBox} onChangeText={handleInputPasswordChange} placeholder="  패스워드" />
+                <TextInput style={styles.accountInputBox} onChangeText={handleInputChange} placeholder="  아이디" >
+                    {memberId}
+                </TextInput>
+                <TextInput secureTextEntry={true} style={styles.accountInputBox} onChangeText={handleInputPasswordChange} placeholder="  패스워드" >
+                    {memberPassword}
+                </TextInput>
                 <Pressable onPress={handleSearch} style={styles.loginButtonStyle}>
                     <Text>로그인</Text>
                 </Pressable>

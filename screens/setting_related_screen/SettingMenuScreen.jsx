@@ -1,7 +1,20 @@
 import React from "react";
 import {View, Text, StyleSheet,Image, Pressable} from "react-native";
+import {getData, storeData} from "../../lib/asyncstorage"
 
-const SettingMenuScreen = ({navigation}) => {
+const SettingMenuScreen = ({navigation, route}) => {
+
+    const {navigationScreenNavigator} = route.params
+
+    const handleLogout = () => {
+        storeData('loginStatus', 'false')
+        storeData('owner_name', '')
+        storeData('owner_id', '')
+        storeData('owner_brands', '')
+
+        navigationScreenNavigator.navigate('LoginScreen')
+    }
+
     return (
         <View style={styles.container}>
 
@@ -39,7 +52,7 @@ const SettingMenuScreen = ({navigation}) => {
                     <Text style ={styles.titleStyle}>고객센터</Text>
                 </Pressable>
 
-                <Pressable style = {styles.menuSelectingOptionTitleStyle}>
+                <Pressable onPress = {() => handleLogout()} style = {styles.menuSelectingOptionTitleStyle}>
                     <Text style ={styles.titleStyle}>로그아웃</Text>
                 </Pressable>
 

@@ -9,13 +9,19 @@ import SettingMenuScreen from "../setting_related_screen/SettingMenuScreen"
 import PlatformChangeScreen from "../PlatformChangeScreen";
 
 const Stack = createStackNavigator();
-function SettingNavigationScreen() {
+function SettingNavigationScreen({route}) {
+
+    const {navigationScreenNavigator} = route.params
 
     return (
         <NavigationContainer independent={true}>
             <Stack.Navigator initialRouteName="SettingMenuScreen" screenOptions={{headerShown : false}}>
-                <Stack.Screen name="SettingMenuScreen" component={SettingMenuScreen}/>
+
+                <Stack.Screen name="SettingMenuScreen" component={SettingMenuScreen}
+                              initialParams ={{navigationScreenNavigator : navigationScreenNavigator}}/>
+
                 <Stack.Screen name="PlatformChangeScreen" component={PlatformChangeScreen}/>
+
             </Stack.Navigator>
         </NavigationContainer>
     );

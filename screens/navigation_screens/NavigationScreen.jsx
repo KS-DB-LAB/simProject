@@ -16,7 +16,6 @@ import {getData} from "../../lib/asyncstorage";
 const Stack = createStackNavigator();
 function NavigationScreen() {
     const navigationRef = React.useRef(null);
-
     useEffect(() => {
         try{
             getData('loginStatus').then(res => {res == 'true' && navigationRef.current
@@ -35,7 +34,7 @@ function NavigationScreen() {
                 <Stack.Screen name="LoginScreen" component={LoginScreen}/>
                 <Stack.Screen name="JoinScreen" component={JoinScreen}/>
                 <Stack.Screen name="PlatformAddScreen" component={PlatformAddScreen}/>
-                <Stack.Screen name="SideMenu" component={SideMenu}/>
+                <Stack.Screen name="SideMenu" component={SideMenu} initialParams ={{navigationScreenNavigator : this}}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

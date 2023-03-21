@@ -85,7 +85,7 @@ function OrderSpecificScreen({ navigation, route}){
                     </Pressable>
                 </View>
                 <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>재료 / 발주 (소분류)</Text>
+                    <Text style ={styles.titleStyle}>{itemClass}</Text>
                 </View>
             </View>
 

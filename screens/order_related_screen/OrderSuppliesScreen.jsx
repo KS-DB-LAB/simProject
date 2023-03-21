@@ -80,7 +80,7 @@ function OrderSuppliesScreen({ navigation, route}){
                     </Pressable>
                 </View>
                 <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>재료 / 발주 (이름 리스트)</Text>
+                    <Text style ={styles.titleStyle}>{itemSpecificClass}</Text>
                 </View>
             </View>
 

@@ -27,7 +27,7 @@ const SettingMenuScreen = ({navigation}) => {
                     <Text style ={styles.titleStyle}>가게 정보 변경</Text>
                 </Pressable>
 
-                <Pressable style = {styles.menuSelectingOptionTitleStyle}>
+                <Pressable style = {styles.menuSelectingOptionTitleStyle} onPress={()=>navigation.navigate("PlatformChangeScreen")}>
                     <Text style ={styles.titleStyle}>배달 플랫폼 계정 정보 변경</Text>
                 </Pressable>
 

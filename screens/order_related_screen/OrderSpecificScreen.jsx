@@ -11,7 +11,6 @@ function OrderSpecificScreen({ navigation, route}){
     let tempList = [];
 
     const handleSearchItemSpecificClass = async (itemClass, brandName) => {
-        // console.log(brandName)
         const { data, error } = await supabase
             .from('supply_item_table')
             .select('supply_item_specify_class')

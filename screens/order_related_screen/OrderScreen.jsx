@@ -92,9 +92,8 @@ function OrderScreen({navigation, route}){
                         <Image source = {require('../../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
                     </Pressable>
                 </View>
-
-                <View style = {styles.titleContthainerStyle}>
-                    <Text style ={styles.titleStyle}>재료 / 발주</Text>
+                <View style = {styles.titleContainerStyle}>
+                    <Text style ={styles.titleStyle}>발주 품목 (대분류)</Text>
                 </View>
             </View>
 

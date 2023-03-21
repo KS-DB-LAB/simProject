@@ -1,6 +1,7 @@
 
 import React, {useEffect, useState} from "react";
-import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable, KeyboardAvoidingView, Platform, StatusBar } from "react-native";
+import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable,
+    KeyboardAvoidingView, Platform, StatusBar, BackHandler, Alert } from "react-native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import 'react-native-url-polyfill/auto';
 import {supabase} from "../lib/supabase";
@@ -56,6 +57,31 @@ function LoginScreen({navigation}) {
 
     const [errorModalVisible, setErrorModalVisible] = useState(false);
 
+    useEffect(() => {
+        const backAction = () => {
+            Alert.alert(
+                '종료',
+                '앱을 종료하시겠습니까?',
+                [
+                    {
+                        text: '취소',
+                        onPress: () => null,
+                        style: 'cancel',
+                    },
+                    { text: '확인', onPress: () => BackHandler.exitApp() },
+                ],
+                { cancelable: false }
+            );
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction
+        );
+
+        return () => backHandler.remove();
+    },[])
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >

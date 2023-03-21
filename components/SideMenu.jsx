@@ -55,7 +55,9 @@ function CustomDrawerContent({navigation}){
     )
 }
 
-function SideMenu(){
+function SideMenu({navigation}){
+
+
     return (
         <NavigationContainer independent={true} >
             <Drawer.Navigator
@@ -65,7 +67,11 @@ function SideMenu(){
                 <Drawer.Screen name="MainScreen" component={MainScreen} />
                 <Drawer.Screen name="SalesAndProfitScreen" component={SalesAndProfitScreen} />
                 <Drawer.Screen name="OrderNavigationScreen" component={OrderNavigationScreen} />
-                <Drawer.Screen name="SettingNavigationScreen" component={SettingNavigationScreen} />
+
+                <Drawer.Screen name="PlatformAddScreen" component={PlatformAddScreen} />
+                <Drawer.Screen name="SettingNavigationScreen" component={SettingNavigationScreen}
+                               initialParams = {{navigationScreenNavigator : navigation}}/>
+
             </Drawer.Navigator>
         </NavigationContainer>
     )

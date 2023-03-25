@@ -10,7 +10,7 @@ function UserPasswordOnChangeScreen({navigation}){
             </View>
 
             <View style={styles.PasswordInputContainer}>
-                <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
+                <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하fis세요.</Text>
                 
                 <TextInput style={styles.accountInputBox}  placeholder="  새 비밀번호" />
                 <TextInput secureTextEntry={true} style={styles.accountInputBox} placeholder="  새 비밀번호 확인" />

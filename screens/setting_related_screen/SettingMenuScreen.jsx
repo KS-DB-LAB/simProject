@@ -129,5 +129,5 @@ const styles = StyleSheet.create({
         paddingBottom : 25
     }
 })
-//
+///
 export default SettingMenuScreen;

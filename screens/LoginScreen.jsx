@@ -1,6 +1,7 @@
 
 import React, {useEffect, useState} from "react";
-import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable, KeyboardAvoidingView, Platform, StatusBar } from "react-native";
+import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable,
+    KeyboardAvoidingView, Platform, StatusBar, BackHandler, Alert } from "react-native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import 'react-native-url-polyfill/auto';
 import {supabase} from "../lib/supabase";
@@ -24,6 +25,10 @@ function LoginScreen({navigation}) {
         setMemberPassword(text);
     }
 
+    const checkForAvailable = (data) => {
+        data[0].member_password == memberPassword ? ifLoginSucceededFunction(data[0]) : setErrorModalVisible(true)
+    }
+
     const handleSearch = async () => {
         const { data, error } = await supabase
             .from('shop_owner_table')
@@ -31,10 +36,10 @@ function LoginScreen({navigation}) {
             .eq('member_id',memberId)
 
         if (error || memberId=='') {
+
             setErrorModalVisible(true);
         } else {
-
-            data[0].member_password == memberPassword ?  ifLoginSucceededFunction(data[0]) : setErrorModalVisible(true);
+            data.length == 0 ? setErrorModalVisible(true) : checkForAvailable(data)
         }
     };
 
@@ -44,20 +49,45 @@ function LoginScreen({navigation}) {
         storeData('owner_id', data.member_id)
         storeData('owner_brands', data.member_brands)
 
-
+        setMemberId('')
+        setMemberPassword('')
         navigation.navigate('SideMenu')
     }
 
-
-
     const [errorModalVisible, setErrorModalVisible] = useState(false);
 
+    useEffect(() => {
+        const backAction = () => {
+            Alert.alert(
+                '종료',
+                '앱을 종료하시겠습니까?',
+                [
+                    {
+                        text: '취소',
+                        onPress: () => null,
+                        style: 'cancel',
+                    },
+                    { text: '확인', onPress: () => BackHandler.exitApp() },
+                ],
+                { cancelable: false }
+            );
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction
+        );
+
+        return () => backHandler.remove();
+    },[])
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
             <Modal
                 visible={errorModalVisible}
-                animationType="slide"
+                transparent={true}
+                animationType="fade"
                 onRequestClose={() => setErrorModalVisible(false)}>
                 <View style={styles.errorModalMessageContainer}>
                     <View style={styles.errorModalMessageBox}>
@@ -75,8 +105,12 @@ function LoginScreen({navigation}) {
 
             <View style={styles.loginSectionContainer}>
                 <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
-                <TextInput style={styles.accountInputBox} onChangeText={handleInputChange} placeholder="  아이디" />
-                <TextInput secureTextEntry={true} style={styles.accountInputBox} onChangeText={handleInputPasswordChange} placeholder="  패스워드" />
+                <TextInput style={styles.accountInputBox} onChangeText={handleInputChange} placeholder="  아이디" >
+                    {memberId}
+                </TextInput>
+                <TextInput secureTextEntry={true} style={styles.accountInputBox} onChangeText={handleInputPasswordChange} placeholder="  패스워드" >
+                    {memberPassword}
+                </TextInput>
                 <Pressable onPress={handleSearch} style={styles.loginButtonStyle}>
                     <Text>로그인</Text>
                 </Pressable>
@@ -106,11 +140,12 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems:'center',
         justifyContent:'center',
+        backgroundColor :"rgba(0,0,0,0.5)"
     },
     errorModalMessageBox:{
         width:300,
         height:200,
-        backgroundColor:"#d9d9d9",
+        backgroundColor:"#ffffff",
         borderRadius:10,
         alignItems:'center',
         justifyContent:'center',

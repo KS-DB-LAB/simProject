@@ -8,8 +8,8 @@ import {Pressable, View, Image, Text,StyleSheet} from 'react-native';
 
 import MainScreen from "../screens/MainScreen";
 import SalesAndProfitScreen from "../screens/SalesAndProfitScreen";
-import OrderScreen from "../screens/OrderScreen";
-import PlatformAddScreen from "../screens/PlatformAddScreen";
+import OrderNavigationScreen from "../screens/navigation_screens/OrderNavigationScreen";
+import SettingNavigationScreen from "../screens/navigation_screens/SettingNavigationScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -26,12 +26,11 @@ function CustomDrawerContent({navigation}){
         },
         {
             label: '발주',
-            onPress: () => navigation.navigate('OrderScreen'),
+            onPress: () => navigation.navigate('OrderNavigationScreen'),
         },
         {
-            // Test 용 버튼
-            label: 'PlatformAddScreen',
-            onPress: () => navigation.navigate('PlatformAddScreen'),
+            label: '설정',
+            onPress: () => navigation.navigate('SettingNavigationScreen'),
         },
 
     ]
@@ -39,12 +38,9 @@ function CustomDrawerContent({navigation}){
         <View style={styles.drawerBackgroundStyle}>
             <View style={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>
-
                     <Pressable onPress={() => navigation.closeDrawer()} style={styles.sideBarCloseIconContainerStyle}>
                         <Image source = {require('../images/sideBarCloseIcon.jpg')} style = {styles.logoImage} />
                     </Pressable>
-
-
                 </View>
             </View>
 
@@ -59,7 +55,9 @@ function CustomDrawerContent({navigation}){
     )
 }
 
-function SideMenu(){
+function SideMenu({navigation}){
+
+
     return (
         <NavigationContainer independent={true} >
             <Drawer.Navigator
@@ -68,8 +66,12 @@ function SideMenu(){
                 drawerContent={props => <CustomDrawerContent {...props}/>}>
                 <Drawer.Screen name="MainScreen" component={MainScreen} />
                 <Drawer.Screen name="SalesAndProfitScreen" component={SalesAndProfitScreen} />
-                <Drawer.Screen name="OrderScreen" component={OrderScreen} />
-                <Drawer.Screen name="PlatformAddScreen" component={PlatformAddScreen} />
+                <Drawer.Screen name="OrderNavigationScreen" component={OrderNavigationScreen} />
+
+
+                <Drawer.Screen name="SettingNavigationScreen" component={SettingNavigationScreen}
+                               initialParams = {{navigationScreenNavigator : navigation}}/>
+
             </Drawer.Navigator>
         </NavigationContainer>
     )

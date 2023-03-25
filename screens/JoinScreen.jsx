@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Pressable, SafeAreaView } from "react-native";
+import {
+	View,
+	Text,
+	StyleSheet,
+	Pressable,
+	SafeAreaView,
+	ScrollView,
+} from "react-native";
 import { supabase } from "../lib/supabase";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
@@ -11,87 +18,98 @@ const JoinScreen = ({ navigation }) => {
 			<View style={styles.titleContainerStyle}>
 				<Text style={styles.titleStyle}>회원가입</Text>
 			</View>
-			<Formik
-				validationSchema={signUpValidationSchema}
-				initialValues={{
-					name: "",
-					id: "",
-					password: "",
-					confirmPassword: "",
-					businessRegNumber: "",
-					address: "",
-				}}
-				onSubmit={async (values) => {
-					await supabase
-						.from("shop_owner_table")
-						.insert([
-							{
-								member_name: values.name,
-								member_id: values.id,
-								member_password: values.password,
-								location_address: values.address,
-								business_number: values.businessRegNumber,
-							},
-						])
-						.then((res) => {
-							if (res.error) {
-								// 	insert 에러 처리
-							} else {
-								// 	insert 성공
-							}
-						})
-						.then(() => {
-							navigation.navigate("LoginScreen");
-						});
-				}}
-			>
-				{({ handleSubmit, isValid, values }) => (
-					<>
-						<Field
-							component={CustomInput}
-							name="name"
-							placeholder="이름"
-						/>
-						<Field
-							component={CustomInput}
-							name="id"
-							placeholder="아이디"
-						/>
-						<Field
-							component={CustomInput}
-							name="password"
-							placeholder="비밀번호"
-							secureTextEntry
-						/>
-						<Field
-							component={CustomInput}
-							name="confirmPassword"
-							placeholder="비밀번호 확인"
-							secureTextEntry
-						/>
-						<Field
-							component={CustomInput}
-							name="businessRegNumber"
-							placeholder="사업자등록번호"
-							keyboardType="numeric"
-						/>
-						<Field
-							component={CustomInput}
-							name="address"
-							placeholder="주소"
-						/>
-						<View style={styles.submitContainerStyle}>
-							<Pressable
-								onPress={() => handleSubmit()}
-								disabled={!isValid || values.id === ""}
-								style={styles.joinButtonStyle}
-							>
-								<Text>완료</Text>
-							</Pressable>
-						</View>
-					</>
-				)}
-			</Formik>
+			<View style={styles.container}>
+				<Formik
+					validationSchema={signUpValidationSchema}
+					initialValues={{
+						name: "",
+						id: "",
+						password: "",
+						confirmPassword: "",
+						businessRegNumber: "",
+						address: "",
+						addressDetail: "",
+					}}
+					onSubmit={async (values) => {
+						await supabase
+							.from("shop_owner_table")
+							.insert([
+								{
+									member_name: values.name,
+									member_id: values.id,
+									member_password: values.password,
+									location_address:
+										values.address + " " + values.addressDetail,
+									business_number: values.businessRegNumber,
+								},
+							])
+							.then((res) => {
+								if (res.error) {
+									// 	insert 에러 처리
+								} else {
+									// 	insert 성공
+								}
+							})
+							.then(() => {
+								navigation.navigate("PlatformAddScreen", {member_id: values.id});
+							});
+					}}
+				>
+					{({ handleSubmit, isValid, values }) => (
+						<ScrollView style={styles.scrollStyle}>
+							<View style={styles.container}>
+								<Field
+									component={CustomInput}
+									name="name"
+									placeholder="이름"
+								/>
+								<Field
+									component={CustomInput}
+									name="id"
+									placeholder="아이디"
+								/>
+								<Field
+									component={CustomInput}
+									name="password"
+									placeholder="비밀번호"
+									secureTextEntry
+								/>
+								<Field
+									component={CustomInput}
+									name="confirmPassword"
+									placeholder="비밀번호 확인"
+									secureTextEntry
+								/>
+								<Field
+									component={CustomInput}
+									name="businessRegNumber"
+									placeholder="사업자등록번호"
+									keyboardType="numeric"
+								/>
+								<Field
+									component={CustomInput}
+									name="address"
+									placeholder="주소"
+								/>
+								<Field
+									component={CustomInput}
+									name="addressDetail"
+									placeholder="상세 주소"
+								/>
+								<View style={styles.submitContainerStyle}>
+									<Pressable
+										onPress={() => handleSubmit()}
+										disabled={!isValid || values.id === ""}
+										style={styles.joinButtonStyle}
+									>
+										<Text>다음</Text>
+									</Pressable>
+								</View>
+							</View>
+						</ScrollView>
+					)}
+				</Formik>
+			</View>
 		</SafeAreaView>
 	);
 };
@@ -107,7 +125,7 @@ const signUpValidationSchema = yup.object().shape({
 			if (error) return false;
 			else return data.length <= 0;
 		})
-		.required("아이디는 필수입니다."),
+		.required("아이디를 입력해주세요."),
 	password: yup
 		.string()
 		.matches(/\w*[a-z]\w*/, "비밀번호에는 소문자가 포함되어야 합니다.")
@@ -118,7 +136,7 @@ const signUpValidationSchema = yup.object().shape({
 			"비밀번호에는 특수문자가 포함되어야 합니다."
 		)
 		.min(8, ({ min }) => `비밀번호는 최소 ${min}자 이상이어야 합니다.`)
-		.required("비밀번호는 필수입니다."),
+		.required("비밀번호를 입력해주세요."),
 	confirmPassword: yup
 		.string()
 		.oneOf([yup.ref("password")], "비밀번호가 일치하지 않습니다.")
@@ -141,9 +159,10 @@ const signUpValidationSchema = yup.object().shape({
 				else return data.length <= 0;
 			}
 		)
-		.required("사업자등록번호는 필수입니다."),
-	name: yup.string().required("이름은 필수입니다."),
-	address: yup.string().required("주소는 필수입니다."),
+		.required("사업자등록번호을 입력해주세요."),
+	name: yup.string().required("이름을 입력해주세요."),
+	address: yup.string().required("주소을 입력해주세요."),
+	addressDetail: yup.string().required("상세주소를 입력해주세요."),
 });
 
 const styles = StyleSheet.create({
@@ -152,6 +171,11 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		backgroundColor: "#ffffff",
+		width: "100%",
+	},
+	scrollStyle: {
+		flex: 1,
+		width: "100%",
 	},
 	titleContainerStyle: {
 		flex: 0.2,
@@ -160,7 +184,7 @@ const styles = StyleSheet.create({
 	},
 	submitContainerStyle: {
 		flex: 0.4,
-		width: "40%",
+		width: "100%",
 		alignItems: "center",
 		justifyContent: "center",
 	},
@@ -188,6 +212,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		alignItems: "center",
 		justifyContent: "center",
+		marginTop: 20,
 	},
 });
 

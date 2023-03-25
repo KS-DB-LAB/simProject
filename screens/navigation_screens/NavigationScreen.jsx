@@ -5,16 +5,17 @@ import 'react-native-gesture-handler'
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import LoginScreen from "./LoginScreen";``
-import JoinScreen from "./JoinScreen";
-import SideMenu from "../components/SideMenu"
+import LoadingScreen from "../LoadingScreen";
+import LoginScreen from "../LoginScreen";``
+import JoinScreen from "../JoinScreen";
+import PlatformAddScreen from "../PlatformAddScreen";
+import SideMenu from "../../components/SideMenu"
 
-import {getData} from "../lib/asyncstorage";
+import {getData} from "../../lib/asyncstorage";
 
 const Stack = createStackNavigator();
 function NavigationScreen() {
     const navigationRef = React.useRef(null);
-
     useEffect(() => {
         try{
             getData('loginStatus').then(res => {res == 'true' && navigationRef.current
@@ -28,10 +29,12 @@ function NavigationScreen() {
 
     return (
         <NavigationContainer ref={navigationRef}>
-            <Stack.Navigator initialRouteName="LoginScreen" screenOptions={{headerShown : false}}>
+            <Stack.Navigator initialRouteName="LoadingScreen" screenOptions={{headerShown : false}}>
+                <Stack.Screen name="LoadingScreen" component={LoadingScreen}/>
                 <Stack.Screen name="LoginScreen" component={LoginScreen}/>
                 <Stack.Screen name="JoinScreen" component={JoinScreen}/>
-                <Stack.Screen name="SideMenu" component={SideMenu}/>
+                <Stack.Screen name="PlatformAddScreen" component={PlatformAddScreen}/>
+                <Stack.Screen name="SideMenu" component={SideMenu} initialParams ={{navigationScreenNavigator : this}}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

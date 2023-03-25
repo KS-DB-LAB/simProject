@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, Dimensions, TextInput} from "react-native";
-
-
+import SettingMenuScreen from "./setting_related_screen/SettingMenuScreen"
+import UserPasswordOnChangeScreen from "./UserPasswordOnChangeScreen"
 function PasswordInputScreen({navigation}){
     return(
         <View>
@@ -15,11 +15,11 @@ function PasswordInputScreen({navigation}){
             </View>
 
             <View style = {styles.DialogButtonContainer}>
-                <Pressable  style={styles.DialogButtonsStyle}>
+                <Pressable  style={styles.DialogButtonsStyle} onPress={()=>navigation.navigate('SettingMenuScreen')}>
                     <Text>취소</Text>
                 </Pressable>
                 <View style={{ width: 16 }} />
-                <Pressable onPress={()=>navigation.navigate('JoinScreen')} style={styles.DialogButtonsStyle}>
+                <Pressable onPress={()=>navigation.navigate('UserPasswordOnChangeScreen')} style={styles.DialogButtonsStyle}>
                     <Text>완료</Text>
                 </Pressable>
             </View>
@@ -109,5 +109,5 @@ const styles = StyleSheet.create({
         marginBottom : 20
     },
 })
-
+///
 export default PasswordInputScreen;

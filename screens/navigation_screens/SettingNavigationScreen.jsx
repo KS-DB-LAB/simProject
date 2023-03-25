@@ -36,5 +36,5 @@ function SettingNavigationScreen({route}) {
         </NavigationContainer>
     );
 }
-
+//
 export default SettingNavigationScreen;

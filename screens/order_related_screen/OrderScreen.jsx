@@ -10,6 +10,7 @@ function OrderScreen({navigation, route}){
 
     const [brandList, setBrandList] = useState([]);
     const [itemClassList, setItemClassList] = useState([]);
+    const [chargedMoney, setChargedMoney] = useState(0);
     let tempList = [];
 
     const handleSearchItemClass = async (brandName, brandList) => {
@@ -47,6 +48,19 @@ function OrderScreen({navigation, route}){
         }
     }
 
+    const handleChargedMoney = async (ownerId) => {
+        const { data, error } = await supabase
+            .from('shop_owner_table')
+            .select('charged_money')
+            .eq('member_id',ownerId)
+        if (error) {
+        } else {
+            // console.log(data[0].money_for_supplies)
+            setChargedMoney(data[0].charged_money)
+            // console.log(chargedMoney)
+        }
+    }
+
     const functionForMakingScrollView = () => {
         if (itemClassList.length <= 4){
             return(
@@ -79,6 +93,7 @@ function OrderScreen({navigation, route}){
     useEffect(() => {
             getData('owner_id').then(ownerId => {
                 handleSearch(ownerId)
+                handleChargedMoney(ownerId)
             })
         }
         ,[])
@@ -99,6 +114,9 @@ function OrderScreen({navigation, route}){
 
             {functionForMakingScrollView()}
 
+            <View style ={styles.containerForChargedMoneyStyle}>
+                <Text style={styles.label}>충전 금액 : {chargedMoney}</Text>
+            </View>
 
         </View>
 
@@ -175,6 +193,10 @@ const styles = StyleSheet.create({
     scrollStyle: {
         flex:0.5,
     },
+    containerForChargedMoneyStyle:{
+        top:'76%',
+        position:'absolute'
+    }
 })
 
 export default OrderScreen;

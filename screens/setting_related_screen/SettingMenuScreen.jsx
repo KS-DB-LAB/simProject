@@ -1,7 +1,8 @@
 import React from "react";
 import {View, Text, StyleSheet,Image, Pressable} from "react-native";
 import {getData, storeData} from "../../lib/asyncstorage"
-
+import PasswordInputScreen from "../PasswordInputScreen"
+import UserShopInfoOnChange from "../UserShopInfoOnChangeScreen"
 const SettingMenuScreen = ({navigation, route}) => {
 
     const {navigationScreenNavigator} = route.params
@@ -32,11 +33,11 @@ const SettingMenuScreen = ({navigation, route}) => {
             </View>
 
             <View style ={styles.downerComponentGroupStyle}>
-                <Pressable style = {styles.menuSelectingOptionTitleStyle}>
+                <Pressable style = {styles.menuSelectingOptionTitleStyle} onPress={() => navigation.navigate("PasswordInputScreen")}>
                     <Text style ={styles.titleStyle}>비밀번호 변경</Text>
                 </Pressable>
 
-                <Pressable style = {styles.menuSelectingOptionTitleStyle}>
+                <Pressable style = {styles.menuSelectingOptionTitleStyle} onPress={() => navigation.navigate("UserShopInfoOnChangeScreen")}>
                     <Text style ={styles.titleStyle}>가게 정보 변경</Text>
                 </Pressable>
 

@@ -1,20 +1,11 @@
 // @ts-ignore
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Carousel from "../components/Carousel.jsx";
-import {
-    View,
-    Text,
-    StyleSheet,
-    Image,
-    Button,
-    Pressable,
-    TouchableOpacity,
-    Dimensions,
-    BackHandler, Alert
-} from "react-native";
+import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, Dimensions} from "react-native";
 import 'react-native-gesture-handler'
 import SalesAndProfitScreen from "./SalesAndProfitScreen";
-import {getData} from "../lib/asyncstorage"
+import SideMenu from "../components/SideMenu.jsx";
+import LoginScreen from "./LoginScreen.jsx";
 
 
 const DashboardList =
@@ -34,37 +25,8 @@ const DashboardPages = ({ item }) => {
 };
 
 
-
-
 function MainScreen({navigation}) {
-    useEffect(() => {
-        getData('owner_name').then(getName => setOwnerName(getName))
-        const backAction = () => {
-            Alert.alert(
-                '종료',
-                '앱을 종료하시겠습니까?',
-                [
-                    {
-                        text: '취소',
-                        onPress: () => null,
-                        style: 'cancel',
-                    },
-                    { text: '확인', onPress: () => BackHandler.exitApp() },
-                ],
-                { cancelable: false }
-            );
-            return true;
-        };
 
-        const backHandler = BackHandler.addEventListener(
-            'hardwareBackPress',
-            backAction
-        );
-
-        return () => backHandler.remove();
-    },[])
-
-    const [ownerName, setOwnerName] = useState('');
     const [page, setPage] = useState(0);
 
     {/*TODO : 크롤링으로 가져온 데이터 삽입*/}
@@ -81,7 +43,7 @@ function MainScreen({navigation}) {
                 </View>
 
                 <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>{ownerName} 점장님을 응원합니다!</Text>
+                    <Text style ={styles.titleStyle}>점장님을 응원합니다!</Text>
                 </View>
             </View>
 

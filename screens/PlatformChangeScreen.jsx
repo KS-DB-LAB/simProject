@@ -2,19 +2,19 @@ import { Pressable, StyleSheet, Text, View, TextInput, ScrollView } from "react-
 import React, { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import { getData } from "../lib/asyncstorage";
-
-
-function PlatformAddScreen({ route, navigation }) {
-	const [ownerId, setOwnerId] = useState("");
-	const [baeminId, setBaeminId] = useState("");
-	const [baeminPwd, setBaeminPwd] = useState("");
-	const [coupangEatsId, setCoupangEatsId] = useState("");
-	const [coupangEatsPwd, setCoupangEatsPwd] = useState("");
-	const [ddangeoyoId, setDdangeoyoId] = useState("");
-	const [ddangeoyoPwd, setDdangeoyoPwd] = useState("");
-	const [yogiyoId, setYogiyoId] = useState("");
-	const [yogiyoPwd, setYogiyoPwd] = useState("");
-	const [etc, setEtc] = useState("");
+function PlatformChangeScreen({ route, navigation }) {
+	const [ownerId, setOwnerId] = useState(null);
+	const [account, setAccount] = useState({
+		baemin_id: "",
+		baemin_pw: "",
+		coupangeats_id: "",
+		coupangeats_pw: "",
+		ddangeoyo_id: "",
+		ddangeoyo_pw: "",
+		yogiyo_id: "",
+		yogiyo_pw: "",
+		etc: "",
+	});
 
 	useEffect(() => {
 		if (route.params != null) {
@@ -26,33 +26,31 @@ function PlatformAddScreen({ route, navigation }) {
 			});
 		}
 	}, []);
-	const handleAddPlatformAccount = async () => {
+
+	const extractTargetAcount = (obj) => {
+		let targetAccount = {};
+		for (let key in obj) {
+			if (obj[key] != "" && obj[key] != null) {
+				targetAccount[key] = obj[key];
+			}
+		}
+		return targetAccount;
+	}
+	const handleChangePlatformAccount = async () => {
 		await supabase
 			.from("shop_owner_platform_account")
-			.insert([
-				{
-					member_id: ownerId,
-					baemin_id: baeminId,
-					baemin_pw: baeminPwd,
-					coupangeats_id: coupangEatsId,
-					coupangeats_pw: coupangEatsPwd,
-					ddangeoyo_id: ddangeoyoId,
-					ddangeoyo_pw: ddangeoyoPwd,
-					yogiyo_id: yogiyoId,
-					yogiyo_pw: yogiyoPwd,
-					etc: etc,
-				},
-			])
+			.update(extractTargetAcount(account))
+			.eq("member_id", ownerId)
 			.then((res) => {
 				if (res.error) {
 					// 	insert 에러 처리
+					console.log("오류가 발생하였습니다. 관리자에게 문의해주세요. ERR:"+res.error)
 				} else {
 					// 	insert 성공
-
-				}
-			})
+					console.log("성공적으로 변경되었습니다.")
+			}})
 			.then(() => {
-				navigation.navigate("LoginScreen");
+				navigation.navigate("SettingMenuScreen")
 			});
 
 	};
@@ -60,7 +58,7 @@ function PlatformAddScreen({ route, navigation }) {
 	return (
 		<View style={styles.container}>
 			<View style={styles.titleContainerStyle}>
-				<Text style={styles.titleStyle}>배달 플랫폼 계정 입력</Text>
+				<Text style={styles.titleStyle}>배달 플랫폼 계정 정보 변경[없으면 빈칸]</Text>
 			</View>
 			<ScrollView>
 				<View style={styles.container}>
@@ -76,14 +74,14 @@ function PlatformAddScreen({ route, navigation }) {
 									<TextInput
 										style={styles.platformAccountBox}
 										placeholder="아이디"
-										value={baeminId}
-										onChangeText={(text) => setBaeminId(text)}
+										value={account.baemin_id}
+										onChangeText={(text) => setAccount({...account, baemin_id: text})}
 									/>
 									<TextInput
 										style={styles.platformAccountBox}
 										placeholder="비밀번호"
-										value={baeminPwd}
-										onChangeText={(text) => setBaeminPwd(text)}
+										value={account.baemin_pw}
+										onChangeText={(text) => setAccount({...account, baemin_pw: text})}
 										secureTextEntry={true}
 									/>
 								</View>
@@ -102,14 +100,14 @@ function PlatformAddScreen({ route, navigation }) {
 									<TextInput
 										style={styles.platformAccountBox}
 										placeholder="아이디"
-										value={coupangEatsId}
-										onChangeText={(text) => setCoupangEatsId(text)}
+										value={account.coupangeats_id}
+										onChangeText={(text) => setAccount({...account, coupangeats_id: text})}
 									/>
 									<TextInput
 										style={styles.platformAccountBox}
 										placeholder="비밀번호"
-										value={coupangEatsPwd}
-										onChangeText={(text) => setCoupangEatsPwd(text)}
+										value={account.coupangeats_pw}
+										onChangeText={(text) => setAccount({...account, coupangeats_pw: text})}
 										secureTextEntry={true}
 									/>
 								</View>
@@ -129,14 +127,14 @@ function PlatformAddScreen({ route, navigation }) {
 									<TextInput
 										style={styles.platformAccountBox}
 										placeholder="아이디"
-										value={ddangeoyoId}
-										onChangeText={(text) => setDdangeoyoId(text)}
+										value={account.ddangeoyo_id}
+										onChangeText={(text) => setAccount({...account, ddangeoyo_id: text})}
 									/>
 									<TextInput
 										style={styles.platformAccountBox}
 										placeholder="비밀번호"
-										value={ddangeoyoPwd}
-										onChangeText={(text) => setDdangeoyoPwd(text)}
+										value={account.ddangeoyo_pw}
+										onChangeText={(text) => setAccount({...account, ddangeoyo_pw: text})}
 										secureTextEntry={true}
 									/>
 								</View>
@@ -155,14 +153,14 @@ function PlatformAddScreen({ route, navigation }) {
 									<TextInput
 										style={styles.platformAccountBox}
 										placeholder="아이디"
-										value={yogiyoId}
-										onChangeText={(text) => setYogiyoId(text)}
+										value={account.yogiyo_id}
+										onChangeText={(text) => setAccount({...account, yogiyo_id: text})}
 									/>
 									<TextInput
 										style={styles.platformAccountBox}
 										placeholder="비밀번호"
-										value={yogiyoPwd}
-										onChangeText={(text) => setYogiyoPwd(text)}
+										value={account.yogiyo_pw}
+										onChangeText={(text) => setAccount({...account, yogiyo_pw: text})}
 										secureTextEntry={true}
 									/>
 								</View>
@@ -181,18 +179,24 @@ function PlatformAddScreen({ route, navigation }) {
 									<TextInput
 										style={styles.platformAccountEtcBox}
 										placeholder="ex: 동백통(아이디, 비밀번호)"
-										value={etc}
-										onChangeText={(text) => setEtc(text)}
+										value={account.etc}
+										onChangeText={(text) => setAccount({...account, etc: text})}
 									/>
 								</View>
 							</View>
 						</View>
 					</View>
 
-					<View>
+					<View style={styles.btnContainer}>
 						<Pressable
 							style={styles.buttonStyle}
-							onPress={handleAddPlatformAccount}
+							onPress={() => navigation.navigate("SettingMenuScreen")}
+						>
+							<Text style={styles.buttonText}>취소</Text>
+						</Pressable>
+						<Pressable
+							style={styles.buttonStyle}
+							onPress={handleChangePlatformAccount}
 						>
 							<Text style={styles.buttonText}>완료</Text>
 						</Pressable>
@@ -210,6 +214,11 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		backgroundColor: "#ffffff",
+	},
+	btnContainer: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+		width: 280,
 	},
 	titleContainerStyle: {
 		width: 350,
@@ -301,4 +310,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default PlatformAddScreen;
+export default PlatformChangeScreen;

@@ -1,6 +1,7 @@
 import {Alert, BackHandler, Image, Pressable, StyleSheet, Text, View,ScrollView,SafeAreaView} from "react-native";
 import React, {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
+import {getData} from "../../lib/asyncstorage";
 import {supabase} from "../../lib/supabase";
 
 
@@ -8,6 +9,7 @@ function OrderSpecificScreen({ navigation, route}){
     const { drawer, itemClass, brandList } = route.params;
 
     const [itemSpecificClassList, setItemSpecificClassList] = useState([]);
+    const [chargedMoney, setChargedMoney] = useState('');
     let tempList = [];
 
     const handleSearchItemSpecificClass = async (itemClass, brandName) => {
@@ -34,6 +36,36 @@ function OrderSpecificScreen({ navigation, route}){
         }
     }
 
+    const numberThousandFormat = (chargedMoneyString) => {
+        let tempChargedMoneyString =''
+        var i=0
+        chargedMoneyString.split('').reverse().map(index => {
+            if (i%3==0 && i!=0) {
+                tempChargedMoneyString += ','
+            }
+            tempChargedMoneyString += index
+            i++
+            // console.log(i + ":" + index + " -> " + tempChargedMoneyString)
+        })
+
+        return tempChargedMoneyString.split('').reverse().join("")
+
+    }
+
+    const handleChargedMoney = async (ownerId) => {
+        const { data, error } = await supabase
+            .from('shop_owner_table')
+            .select('charged_money')
+            .eq('member_id',ownerId)
+        if (error) {
+        } else {
+            // console.log(data[0].money_for_supplies)
+            setChargedMoney(data[0].charged_money)
+            const chargedMoneyString = data[0].charged_money.toString()
+            setChargedMoney(numberThousandFormat(chargedMoneyString))
+            // console.log(chargedMoney)
+        }
+    }
 
     const functionForMakingScrollView = () => {
         if (itemSpecificClassList.length <= 4){
@@ -71,6 +103,10 @@ function OrderSpecificScreen({ navigation, route}){
         setItemSpecificClassList([])
         brandList.map(async(brandName) => await handleSearchItemSpecificClass(itemClass, brandName));
         // handleSearchItemSpecificClass(itemClass);
+        getData('owner_id').then(ownerId => {
+            handleChargedMoney(ownerId)
+        })
+
     }, [brandList])
 
 
@@ -90,6 +126,11 @@ function OrderSpecificScreen({ navigation, route}){
 
 
             {functionForMakingScrollView()}
+
+            <View style ={styles.containerForChargedMoneyStyle}>
+                <Text style={styles.label}>충전 금액 : {chargedMoney}</Text>
+            </View>
+
         </View>
 
     )
@@ -158,13 +199,17 @@ const styles = StyleSheet.create({
         textAlign : "center",
     },
     scrollContainerStyle:{
-        flex:0.5,
+        flex:0.4,
         alignItems:'center',
         justifyContent:'center',
     },
     scrollStyle: {
         flex:0.5,
     },
+    containerForChargedMoneyStyle:{
+        top:'76%',
+        position:'absolute'
+    }
 })
 
 export default OrderSpecificScreen;

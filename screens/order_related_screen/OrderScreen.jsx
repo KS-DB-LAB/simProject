@@ -114,7 +114,7 @@ function OrderScreen({navigation, route}){
                 handleChargedMoney(ownerId)
             })
         }
-        ,[])
+        ,[navigation])
 
     return (
         <View style={styles.container}>

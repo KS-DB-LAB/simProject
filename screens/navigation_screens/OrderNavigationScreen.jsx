@@ -8,7 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import OrderScreen from "../order_related_screen/OrderScreen";
 import OrderSpecificScreen from "../order_related_screen/OrderSpecificScreen";
 import OrderSuppliesScreen from "../order_related_screen/OrderSuppliesScreen";
-
+import OrderSubmitScreen from "../order_related_screen/OrderSubmitScreen";
 
 const Stack = createStackNavigator();
 function OrderNavigationScreen({navigation}) {
@@ -19,6 +19,7 @@ function OrderNavigationScreen({navigation}) {
                 <Stack.Screen name="OrderScreen" component={OrderScreen} initialParams={{drawer : navigation}}/>
                 <Stack.Screen name="OrderSpecificScreen" component={OrderSpecificScreen}/>
                 <Stack.Screen name="OrderSuppliesScreen" component={OrderSuppliesScreen}/>
+                <Stack.Screen name="OrderSubmitScreen" component={OrderSubmitScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

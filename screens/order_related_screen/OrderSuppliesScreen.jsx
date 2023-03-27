@@ -187,7 +187,7 @@ function OrderSuppliesScreen({ navigation, route}){
             setStoredItemCountInSupabase(ownerId)
             handleChargedMoney(ownerId)
         })
-    }, [brandList])
+    }, [navigation])
 
 
     return (

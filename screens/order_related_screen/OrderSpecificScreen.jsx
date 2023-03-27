@@ -21,8 +21,6 @@ function OrderSpecificScreen({ navigation, route}){
 
         if (error){
         } else{
-
-
             setItemSpecificClassList([...tempList])
 
             data.map(itemSpecificClass => {
@@ -107,7 +105,7 @@ function OrderSpecificScreen({ navigation, route}){
             handleChargedMoney(ownerId)
         })
 
-    }, [brandList])
+    }, [navigation])
 
 
     return (

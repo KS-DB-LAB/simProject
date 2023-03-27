@@ -12,6 +12,7 @@ const SettingMenuScreen = ({navigation, route}) => {
         storeData('owner_name', '')
         storeData('owner_id', '')
         storeData('owner_brands', '')
+        storeData('owner_location_address','')
 
         navigationScreenNavigator.navigate('LoginScreen')
     }

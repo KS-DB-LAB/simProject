@@ -258,9 +258,10 @@ function OrderSuppliesScreen({ navigation, route}){
             </View>
 
             {hiddenState ? (
-                <View style ={styles.underPopUpBarForNavigatingSubmitScreen}>
+                <Pressable onPress = {() => {
+                    navigation.navigate('OrderSubmitScreen')}} style ={styles.underPopUpBarForNavigatingSubmitScreen}>
                     <Text style ={styles.label}>발주하기({itemCountForBottom})</Text>
-                </View>
+                </Pressable>
             ) : null}
 
         </View>

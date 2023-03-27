@@ -7,8 +7,46 @@ import {useNavigation} from "@react-navigation/native";
 
 function OrderSubmitScreen({navigation}){
 
+
+    const [ownerIdLocal,setOwnerIdLocal] = useState('')
+    const [ownerLocationAddressLocal,setOwnerLocationAddressLocal] = useState('')
+    const [ownerNameLocal, setOwnerNameLocal] = useState('')
+
     const [piledItemInfoJSON, setPiledItemInfoJSON] = useState('')
     const [piledItemList, setPiledItemList] = useState([])
+    const [chargedMoney, setChargedMoney] = useState('');
+
+    const numberThousandFormat = (chargedMoneyString) => {
+        let tempChargedMoneyString =''
+        var i=0
+        chargedMoneyString.split('').reverse().map(index => {
+            if (i%3==0 && i!=0) {
+                tempChargedMoneyString += ','
+            }
+            tempChargedMoneyString += index
+            i++
+            // console.log(i + ":" + index + " -> " + tempChargedMoneyString)
+        })
+
+        return tempChargedMoneyString.split('').reverse().join("")
+
+    }
+
+    const handleChargedMoney = async (ownerId) => {
+        const { data, error } = await supabase
+            .from('shop_owner_table')
+            .select('charged_money')
+            .eq('member_id',ownerId)
+        if (error) {
+        } else {
+            // console.log(data[0].money_for_supplies)
+            setChargedMoney(data[0].charged_money)
+            const chargedMoneyString = data[0].charged_money.toString()
+            setChargedMoney(numberThousandFormat(chargedMoneyString))
+            // console.log(chargedMoney)
+        }
+    }
+
     let tempJSON = {}
     let tempList =[]
 
@@ -32,13 +70,17 @@ function OrderSubmitScreen({navigation}){
                 <>
                     {piledItemList.map((piledItem,index) => (
                         <View key={index} style={styles.seperateDash}>
-                            <Text style={styles.label}>{piledItem.itemName}</Text>
                             <View style ={{flexDirection: 'row'}}>
+                                <Text style={styles.label}>{piledItem.itemName}</Text>
+                                <Pressable style={{position:'absolute', left: 10,alignSelf: 'flex-end'}}><Text>⨉</Text></Pressable>
+                            </View>
+
+                            <View style ={{flexDirection: 'row',marginTop:5}}>
                                 <Pressable><Text>-</Text></Pressable>
                                 <Text style={{marginLeft:13,marginRight:10}}>{piledItem.itemBuyingCount}</Text>
                                 <Pressable><Text>+</Text></Pressable>
                             </View>
-
+                            <Text>{numberThousandFormat(piledItem.itemPrice)}원</Text>
                         </View>
                     ))}
                 </>
@@ -50,19 +92,22 @@ function OrderSubmitScreen({navigation}){
                     <ScrollView style={styles.scrollStyle}>
                         {piledItemList.map((piledItem,index) => (
                             <View key={index} style={styles.seperateDash}>
+                                <Pressable style={{position:'absolute', left: 10,alignSelf: 'flex-end'}}>
+                                    <Text style={{fontWeight:'bold'}}>⨉</Text>
+                                </Pressable>
+
                                 <Text style={styles.label}>{piledItem.itemName}</Text>
-                                <View style ={{flexDirection: 'row'}}>
+
+                                <View style ={{flexDirection: 'row',marginTop:5}}>
                                     <Pressable><Text>-</Text></Pressable>
                                     <Text style={{marginLeft:13,marginRight:10}}>{piledItem.itemBuyingCount}</Text>
                                     <Pressable><Text>+</Text></Pressable>
                                 </View>
-                                <Text>{piledItem.itemPrice}원</Text>
-
+                                <Text>{numberThousandFormat(piledItem.itemPrice)}원</Text>
                             </View>
                         ))}
                     </ScrollView>
                 </View>
-
             )
         }
     }
@@ -82,11 +127,44 @@ function OrderSubmitScreen({navigation}){
         }
     }
 
+
     useEffect( () => {
-        getData('owner_id').then(ownerId => {
+        getData('owner_id')
+            .then(ownerId => {
             getPiledOrderList(ownerId)
+            handleChargedMoney(ownerId)
         })
         },[piledItemInfoJSON])
+
+    const saveToOrderHistory = async () => {
+        await supabase
+            .from('order_history_table')
+            .insert([
+                {
+                    owner_id : ownerIdLocal,
+                    member_name : ownerNameLocal,
+                    member_location_address : ownerLocationAddressLocal,
+                    member_order_list: piledItemList,
+                }
+            ])
+    }
+
+    const submitPiledItemToOrderHistory = () => {
+        console.log('!')
+        getData('owner_id')
+            .then(ownerId => {
+                setOwnerIdLocal(ownerId)
+            })
+        getData('owner_location_address')
+            .then(ownerLocalAddress => {
+                setOwnerLocationAddressLocal(ownerLocalAddress)
+            })
+        getData('owner_name')
+            .then(ownerName => {
+                setOwnerNameLocal(ownerName)
+            })
+        saveToOrderHistory()
+    }
 
 
     return (
@@ -99,13 +177,28 @@ function OrderSubmitScreen({navigation}){
                     </Pressable>
                 </View>
                 <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>발주하기</Text>
+                    <Text style ={styles.titleStyle}>발주 목록 제출</Text>
                 </View>
             </View>
+            <Text style={[{
+                alignSelf:'flex-start',left:40,fontSize:15,fontWeight:'bold',
+                marginBottom:10,
+            }]}>
+                담은 물건
+            </Text>
 
             {functionForMakingScrollView()}
-        </View>
 
+            <View style ={styles.containerForChargedMoneyStyle}>
+                <Text style={styles.label}>충전 금액 : {chargedMoney}원</Text>
+            </View>
+
+            <Pressable style ={styles.underPopUpBarForNavigatingSubmitScreen}
+            onPress = {() => submitPiledItemToOrderHistory()}>
+                <Text style ={styles.label}>발주 목록 제출</Text>
+            </Pressable>
+
+        </View>
     )
 }
 
@@ -161,7 +254,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor : '#D8D8D8',
         width : 350,
-        height : 90,
+        height : 100,
         borderRadius : 7,
         marginBottom : 12,
 
@@ -175,13 +268,26 @@ const styles = StyleSheet.create({
         flex:0.5,
         alignItems:'center',
         justifyContent:'center',
+        borderColor:'black',
     },
     scrollStyle: {
         flex:0.5,
     },
     containerForChargedMoneyStyle:{
         top:'76%',
+        marginTop:20,
         position:'absolute'
+    },
+    underPopUpBarForNavigatingSubmitScreen:{
+        alignItems : 'center',
+        justifyContent : 'center',
+        position : 'absolute',
+        bottom:0,
+        width:'100%',
+        height:70,
+        backgroundColor:'#D8D8D8',
+        borderTopLeftRadius:30,
+        borderTopRightRadius:30,
     }
 })
 

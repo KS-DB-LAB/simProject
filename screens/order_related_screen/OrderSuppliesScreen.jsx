@@ -373,11 +373,12 @@ const styles = StyleSheet.create({
         alignItems : 'center',
         justifyContent : 'center',
         position : 'absolute',
-        bottom : 0,
+        bottom:0,
         width:'100%',
         height:70,
         backgroundColor:'#D8D8D8',
-        borderRadius:10
+        borderTopLeftRadius:30,
+        borderTopRightRadius:30,
     }
 })
 

@@ -96,6 +96,7 @@ function OrderSuppliesScreen({ navigation, route}){
                             item_count : 1
                         }
                     ])
+                setItemCountForBottom(1)
             }
             else {
                 let tempJSON = data[0].item_info_json
@@ -123,6 +124,8 @@ function OrderSuppliesScreen({ navigation, route}){
                         item_count : tempItemCount
                     })
                     .eq('owner_id',ownerIdInLocal)
+
+                setItemCountForBottom(tempItemCount)
             }
         }
     }
@@ -178,6 +181,20 @@ function OrderSuppliesScreen({ navigation, route}){
         }
     }
 
+    const bottomUp = () => {
+        if (hiddenState == true){
+            //test 입니당
+            console.log(itemCountForBottom)
+            return(
+                <>
+                    <Pressable onPress = {() => {
+                        navigation.navigate('OrderSubmitScreen')}} style ={styles.underPopUpBarForNavigatingSubmitScreen}>
+                        <Text style ={styles.label}>발주하기({itemCountForBottom})</Text>
+                    </Pressable>
+                </>
+            )
+        }
+    }
 
     useEffect(() => {
         setItemNameList([])
@@ -224,9 +241,10 @@ function OrderSuppliesScreen({ navigation, route}){
                                 <Text style={{fontSize:15, fontWeight : 'bold'}}>취소</Text>
                             </Pressable>
                             <Pressable onPress={() => {{
-                                setItemBuyingCount(1)
+                                // setItemBuyingCount(1)
                                 storeBuyingItemsAndCounts({
                                     'itemName' : modalItemName, 'itemPrice' : modalItemPriceInteger, 'itemBuyingCount' : itemBuyingCount})
+                                setHiddenState(true)
                                 setErrorModalVisible(false)
                             }
                             }}>
@@ -257,12 +275,7 @@ function OrderSuppliesScreen({ navigation, route}){
                 <Text style={styles.label}>충전 금액 : {chargedMoney}원</Text>
             </View>
 
-            {hiddenState ? (
-                <Pressable onPress = {() => {
-                    navigation.navigate('OrderSubmitScreen')}} style ={styles.underPopUpBarForNavigatingSubmitScreen}>
-                    <Text style ={styles.label}>발주하기({itemCountForBottom})</Text>
-                </Pressable>
-            ) : null}
+            {bottomUp()}
 
         </View>
     )

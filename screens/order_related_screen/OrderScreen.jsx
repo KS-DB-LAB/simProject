@@ -181,7 +181,6 @@ function OrderScreen({navigation, route}){
             {bottomUp()}
 
         </View>
-
     )
 }
 

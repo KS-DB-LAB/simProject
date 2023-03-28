@@ -178,7 +178,6 @@ function OrderSubmitScreen({navigation}){
             .then(ownerName => {
                 setOwnerNameLocal(ownerName)
             })
-        saveToOrderHistory()
     }
 
     useEffect(() => {

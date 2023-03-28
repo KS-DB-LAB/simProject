@@ -13,7 +13,7 @@ function OrderSubmitScreen({navigation}){
     const [ownerIdLocal,setOwnerIdLocal] = useState('')
     const [ownerLocationAddressLocal,setOwnerLocationAddressLocal] = useState('')
     const [ownerNameLocal, setOwnerNameLocal] = useState('')
-
+    const [buyingPriceTotal, setBuyingPriceTotal] = useState(0)
     const [piledItemInfoJSON, setPiledItemInfoJSON] = useState('')
     const [piledItemList, setPiledItemList] = useState([])
     const [chargedMoney, setChargedMoney] = useState('');
@@ -57,11 +57,16 @@ function OrderSubmitScreen({navigation}){
         var endIndex = Number(tempJSON["item_count"])
         console.log(endIndex)
         setPiledItemList([...tempList])
+        let tempPriceTotal = 0;
         for (var i=1; i<=endIndex; i++){
             console.log(tempJSON["item_info_json"][i.toString()])
+            tempPriceTotal += Number(tempJSON["item_info_json"][i.toString()]["itemBuyingCount"])
+                * Number(tempJSON["item_info_json"][i.toString()]["itemPrice"])
             tempList.push(tempJSON["item_info_json"][i.toString()])
         }
+        setBuyingPriceTotal(tempPriceTotal)
         setPiledItemList(tempList)
+        console.log(tempPriceTotal)
 
 
     }
@@ -122,7 +127,7 @@ function OrderSubmitScreen({navigation}){
         if (error){
         }
         else {
-            console.log('-------------------------')
+            // console.log('-------------------------')
             setPiledItemInfoJSON(JSON.stringify(data[0]))
             // console.log(piledItemInfoJSON)
             handleMakingPiledBItemList()
@@ -168,6 +173,16 @@ function OrderSubmitScreen({navigation}){
         saveToOrderHistory()
     }
 
+    useEffect(() => {
+        if (ownerIdLocal !=='' && ownerNameLocal !== '' && ownerLocationAddressLocal!== '') {
+            console.log(ownerIdLocal)
+            console.log(ownerNameLocal)
+            console.log(ownerLocationAddressLocal)
+            saveToOrderHistory()
+            deleteFromShoppingBagTable()
+        }
+
+    }, [ownerIdLocal, ownerNameLocal, ownerLocationAddressLocal])
 
     return (
         <View style={styles.container}>

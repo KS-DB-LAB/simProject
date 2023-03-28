@@ -209,7 +209,6 @@ function OrderSuppliesScreen({ navigation, route}){
 
     return (
         <View style={styles.container}>
-
             <Modal
                 visible={errorModalVisible}
                 transparent={true}

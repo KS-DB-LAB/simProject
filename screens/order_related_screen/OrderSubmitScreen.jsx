@@ -7,6 +7,8 @@ import {useNavigation} from "@react-navigation/native";
 
 function OrderSubmitScreen({navigation}){
 
+    const [errorModalVisible, setErrorModalVisible] = useState(false);
+
 
     const [ownerIdLocal,setOwnerIdLocal] = useState('')
     const [ownerLocationAddressLocal,setOwnerLocationAddressLocal] = useState('')
@@ -169,6 +171,32 @@ function OrderSubmitScreen({navigation}){
 
     return (
         <View style={styles.container}>
+
+            <Modal
+                visible={errorModalVisible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setErrorModalVisible(false)}>
+                <View style={styles.errorModalMessageContainer}>
+                    <View style={styles.errorModalMessageBox}>
+                        <Text style={{marginBottom:30, fontSize:15, textAlign:'center'}}>
+                            발주를 제출하시겠습니까?
+                        </Text>
+                        <Pressable onPress={() => setErrorModalVisible(false)}>
+                            <Text style={{fontSize:15,}}>취소</Text>
+                        </Pressable>
+                        <Pressable onPress={() => {
+                            submitPiledItemToOrderHistory()
+
+                            setErrorModalVisible(false)
+                            navigation.navigate('OrderScreen')}}>
+                            <Text style={{fontSize:15,}}>확인</Text>
+                        </Pressable>
+                    </View>
+                </View>
+
+            </Modal>
+
             <View style ={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>
                     <Image source = {require('../../images/logo.jpg')} style = {styles.logoImage} />
@@ -194,7 +222,7 @@ function OrderSubmitScreen({navigation}){
             </View>
 
             <Pressable style ={styles.underPopUpBarForNavigatingSubmitScreen}
-            onPress = {() => submitPiledItemToOrderHistory()}>
+            onPress = {() => setErrorModalVisible(true)}>
                 <Text style ={styles.label}>발주 목록 제출</Text>
             </Pressable>
 
@@ -203,6 +231,21 @@ function OrderSubmitScreen({navigation}){
 }
 
 const styles = StyleSheet.create({
+    errorModalMessageContainer: {
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center',
+        backgroundColor :"rgba(0,0,0,0.5)"
+    },
+    errorModalMessageBox:{
+        width:350,
+        height:200,
+        backgroundColor:"#ffffff",
+        borderRadius:10,
+        alignItems:'center',
+        justifyContent:'center',
+
+    },
     container :{
         flex:1,
         alignItems : 'center',

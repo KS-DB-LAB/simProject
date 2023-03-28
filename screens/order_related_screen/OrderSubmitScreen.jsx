@@ -55,7 +55,7 @@ function OrderSubmitScreen({navigation}){
     const handleMakingPiledBItemList = () => {
         tempJSON = JSON.parse(piledItemInfoJSON)
         var endIndex = Number(tempJSON["item_count"])
-        console.log(endIndex)
+        // console.log(endIndex)
         setPiledItemList([...tempList])
         let tempPriceTotal = 0;
         for (var i=1; i<=endIndex; i++){
@@ -155,6 +155,13 @@ function OrderSubmitScreen({navigation}){
                     member_order_list: piledItemList,
                 }
             ])
+    }
+
+    const deleteFromShoppingBagTable = async () => {
+        await supabase
+            .from('shop_owner_shopping_bag')
+            .delete()
+            .match({'owner_id':ownerIdLocal})
     }
 
     const submitPiledItemToOrderHistory = () => {

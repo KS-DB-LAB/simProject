@@ -77,10 +77,11 @@ function OrderSubmitScreen({navigation}){
                 <>
                     {piledItemList.map((piledItem,index) => (
                         <View key={index} style={styles.seperateDash}>
-                            <View style ={{flexDirection: 'row'}}>
-                                <Text style={styles.label}>{piledItem.itemName}</Text>
-                                <Pressable style={{position:'absolute', left: 10,alignSelf: 'flex-end'}}><Text>⨉</Text></Pressable>
-                            </View>
+                            <Pressable style={{position:'absolute', left: 10,alignSelf: 'flex-end'}}>
+                                <Text style={{fontWeight:'bold'}}>⨉</Text>
+                            </Pressable>
+
+                            <Text style={styles.label}>{piledItem.itemName}</Text>
 
                             <View style ={{flexDirection: 'row',marginTop:5}}>
                                 <Pressable><Text>-</Text></Pressable>

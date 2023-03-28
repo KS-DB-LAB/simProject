@@ -1,4 +1,4 @@
-import {BackHandler, Image, Pressable, StyleSheet, Text, View, ScrollView,SafeAreaView} from "react-native";
+import {Modal,BackHandler, Image, Pressable, StyleSheet, Text, View, ScrollView,SafeAreaView} from "react-native";
 // @ts-ignore
 import React, {useEffect, useState} from "react";
 import {getData} from "../../lib/asyncstorage";

@@ -8,7 +8,7 @@ import {useNavigation} from "@react-navigation/native";
 function OrderSubmitScreen({navigation}){
 
     const [errorModalVisible, setErrorModalVisible] = useState(false);
-    const [errorModalVisibleForResultShow, setErrorModalVisibleForResultShow] = useState(false);
+
 
     const [ownerIdLocal,setOwnerIdLocal] = useState('')
     const [ownerLocationAddressLocal,setOwnerLocationAddressLocal] = useState('')
@@ -17,7 +17,6 @@ function OrderSubmitScreen({navigation}){
     const [piledItemInfoJSON, setPiledItemInfoJSON] = useState('')
     const [piledItemList, setPiledItemList] = useState([])
     const [chargedMoney, setChargedMoney] = useState('');
-    const [chargedMoneyInt, setChargedMoneyInt] = useState(0);
 
     const numberThousandFormat = (chargedMoneyString) => {
         let tempChargedMoneyString =''
@@ -43,7 +42,6 @@ function OrderSubmitScreen({navigation}){
         if (error) {
         } else {
             // console.log(data[0].money_for_supplies)
-            setChargedMoneyInt(data[0].charged_money)
             setChargedMoney(data[0].charged_money)
             const chargedMoneyString = data[0].charged_money.toString()
             setChargedMoney(numberThousandFormat(chargedMoneyString))
@@ -70,51 +68,6 @@ function OrderSubmitScreen({navigation}){
         setPiledItemList(tempList)
         console.log(tempPriceTotal)
 
-    }
-
-    const updateShoppingBagTable = async (tempJSON, tempItemCount,ownerId) => {
-        console.log('======================')
-        console.log(tempJSON.item_info_json)
-        console.log(tempItemCount)
-        console.log(ownerId)
-        await supabase
-            .from('shop_owner_shopping_bag')
-            .update({
-                item_info_json : tempJSON.item_info_json,
-                item_count : tempItemCount
-            })
-            .eq('owner_id',ownerId)
-        console.log('!')
-    }
-
-    const deleteFromPiledItemList = (index) => {
-        tempJSON = JSON.parse(piledItemInfoJSON)
-        console.log("----------------------")
-        console.log("----------------------")
-        console.log("----------------------")
-        console.log(tempJSON)
-        tempItemInfoJSON = tempJSON.item_info_json
-        delete tempItemInfoJSON[index+1]
-        console.log("----------------------")
-        for (var i=index+2; i<=tempJSON.item_count; i++){
-            console.log(i)
-            console.log(tempItemInfoJSON[i])
-            Object.assign(tempJSON.item_info_json,{ [i-1] : tempItemInfoJSON[i]})
-            delete tempJSON.item_info_json[i]
-            console.log(tempJSON.item_info_json)
-        }
-
-        console.log("----------------------")
-        console.log(tempItemInfoJSON)
-
-        tempJSON.item_info_json = tempItemInfoJSON
-        console.log("----------------------")
-        console.log(tempJSON)
-        getData('owner_id').then(ownerId => {
-            console.log(ownerId)
-            setOwnerIdLocal(ownerId)
-        })
-        updateShoppingBagTable(tempJSON,tempJSON.item_count-1,ownerIdLocal)
 
     }
 
@@ -124,7 +77,7 @@ function OrderSubmitScreen({navigation}){
                 <>
                     {piledItemList.map((piledItem,index) => (
                         <View key={index} style={styles.seperateDash}>
-                            <Pressable onPress = {() => {deleteFromPiledItemList(index)}} style={{position:'absolute', left: 10,alignSelf: 'flex-end'}}>
+                            <Pressable style={{position:'absolute', left: 10,alignSelf: 'flex-end'}}>
                                 <Text style={{fontWeight:'bold'}}>⨉</Text>
                             </Pressable>
 
@@ -147,7 +100,7 @@ function OrderSubmitScreen({navigation}){
                     <ScrollView style={styles.scrollStyle}>
                         {piledItemList.map((piledItem,index) => (
                             <View key={index} style={styles.seperateDash}>
-                                <Pressable onPress = {() => {console.log('!')}} style={{position:'absolute', left: 10,alignSelf: 'flex-end'}}>
+                                <Pressable style={{position:'absolute', left: 10,alignSelf: 'flex-end'}}>
                                     <Text style={{fontWeight:'bold'}}>⨉</Text>
                                 </Pressable>
 
@@ -200,8 +153,6 @@ function OrderSubmitScreen({navigation}){
                     member_name : ownerNameLocal,
                     member_location_address : ownerLocationAddressLocal,
                     member_order_list: piledItemList,
-                    member_order_total_price : buyingPriceTotal,
-                    order_status : '발주 준비 중'
                 }
             ])
     }
@@ -258,28 +209,8 @@ function OrderSubmitScreen({navigation}){
                         </Pressable>
                         <Pressable onPress={() => {
                             submitPiledItemToOrderHistory()
+
                             setErrorModalVisible(false)
-                            setErrorModalVisibleForResultShow(true)
-                        }}>
-                            <Text style={{fontSize:15,}}>확인</Text>
-                        </Pressable>
-                    </View>
-                </View>
-
-            </Modal>
-
-            <Modal
-                visible={errorModalVisibleForResultShow}
-                transparent={true}
-                animationType="fade"
-                onRequestClose={() => setErrorModalVisibleForResultShow(false)}>
-                <View style={styles.errorModalMessageContainer}>
-                    <View style={styles.errorModalMessageBox}>
-                        <Text style={{marginBottom:30, fontSize:15, textAlign:'center'}}>
-                            발주가 완료되었습니다.
-                        </Text>
-                        <Pressable onPress={() => {
-                            setErrorModalVisibleForResultShow(false)
                             navigation.navigate('OrderScreen')}}>
                             <Text style={{fontSize:15,}}>확인</Text>
                         </Pressable>
@@ -310,10 +241,6 @@ function OrderSubmitScreen({navigation}){
 
             <View style ={styles.containerForChargedMoneyStyle}>
                 <Text style={styles.label}>충전 금액 : {chargedMoney}원</Text>
-                <Text style={[styles.label, {marginTop:5,}]}>결제 금액 : {numberThousandFormat(buyingPriceTotal.toString())}원</Text>
-                <Text style={[styles.label, {marginTop:5,}]}>
-                    예상 잔액 : {numberThousandFormat((chargedMoneyInt-buyingPriceTotal).toString())}원
-                </Text>
             </View>
 
             <Pressable style ={styles.underPopUpBarForNavigatingSubmitScreen}
@@ -412,7 +339,7 @@ const styles = StyleSheet.create({
         flex:0.5,
     },
     containerForChargedMoneyStyle:{
-        top:'70%',
+        top:'76%',
         marginTop:20,
         position:'absolute'
     },

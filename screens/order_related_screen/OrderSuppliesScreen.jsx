@@ -56,7 +56,9 @@ function OrderSuppliesScreen({ navigation, route}){
             i++
             // console.log(i + ":" + index + " -> " + tempChargedMoneyString)
         })
+
         return tempChargedMoneyString.split('').reverse().join("")
+
     }
 
     const handleChargedMoney = async (ownerId) => {
@@ -248,8 +250,10 @@ function OrderSuppliesScreen({ navigation, route}){
                                 <Text style={{fontSize:15, fontWeight : 'bold'}}>확인</Text>
                             </Pressable>
                         </View>
+
                     </View>
                 </View>
+
             </Modal>
 
             <View style ={styles.upperComponentGroupStyle}>

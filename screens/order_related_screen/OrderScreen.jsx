@@ -129,7 +129,6 @@ function OrderScreen({navigation, route}){
         }else{
             if (data[0]==undefined){
                 setItemCountForBottom(0)
-                setHiddenState(false)
             }
             else{
                 setItemCountForBottom(data[0].item_count)

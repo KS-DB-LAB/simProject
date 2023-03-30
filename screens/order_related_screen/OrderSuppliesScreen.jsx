@@ -1,6 +1,6 @@
 import {Alert, BackHandler, Image, Pressable, StyleSheet, Text, View, ScrollView, Modal, TextInput} from "react-native";
 import React, {useEffect, useState} from "react";
-import {useNavigation} from "@react-navigation/native";
+import {useNavigation, useIsFocused} from "@react-navigation/native";
 import {storeData, getData, getAllData} from "../../lib/asyncstorage";
 import {supabase} from "../../lib/supabase";
 
@@ -20,6 +20,7 @@ function OrderSuppliesScreen({ navigation, route}){
     const [ownerIdInLocal, setOwnerIdInLocal] = useState('')
     const [itemCountForBottom ,setItemCountForBottom] = useState(0)
 
+    const isFocused = useIsFocused();
     const [hiddenState, setHiddenState] = useState(false)
     let tempList = [];
 
@@ -181,6 +182,24 @@ function OrderSuppliesScreen({ navigation, route}){
         }
     }
 
+    const setValuesForBottomPopUp = async (ownerId) => {
+        const {data,error} = await supabase
+            .from('shop_owner_shopping_bag')
+            .select('*')
+            .eq('owner_id' , ownerId)
+        if(error){
+        }else{
+            if (data[0]==undefined){
+                setItemCountForBottom(0)
+                setHiddenState(false)
+            }
+            else{
+                setItemCountForBottom(data[0].item_count)
+                setHiddenState(true)
+            }
+        }
+    }
+
     const bottomUp = () => {
         if (hiddenState == true){
             //test 입니당
@@ -206,6 +225,13 @@ function OrderSuppliesScreen({ navigation, route}){
         })
     }, [navigation])
 
+
+    useEffect(() => {
+        getData('owner_id').then(ownerId=> {
+            setValuesForBottomPopUp(ownerId)
+            bottomUp()
+        })
+    },[isFocused])
 
     return (
         <View style={styles.container}>

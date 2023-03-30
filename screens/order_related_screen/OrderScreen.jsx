@@ -129,8 +129,10 @@ function OrderScreen({navigation, route}){
         }else{
             if (data[0]==undefined){
                 setItemCountForBottom(0)
+                setHiddenState(false)
             }
             else{
+                console.log('not undefined')
                 setItemCountForBottom(data[0].item_count)
                 setHiddenState(true)
             }
@@ -138,8 +140,10 @@ function OrderScreen({navigation, route}){
     }
 
     useEffect(() => {
+        console.log('openedScreen')
         getData('owner_id').then(ownerId=> {
             setValuesForBottomPopUp(ownerId)
+            bottomUp()
         })
     },[isFocused])
 

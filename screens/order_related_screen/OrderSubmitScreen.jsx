@@ -17,6 +17,7 @@ function OrderSubmitScreen({navigation}){
     const [piledItemInfoJSON, setPiledItemInfoJSON] = useState('')
     const [piledItemList, setPiledItemList] = useState([])
     const [chargedMoney, setChargedMoney] = useState('');
+    const [chargedMoneyInteger, setChargedMoneyInteger] = useState(0)
 
     const numberThousandFormat = (chargedMoneyString) => {
         let tempChargedMoneyString =''
@@ -42,6 +43,7 @@ function OrderSubmitScreen({navigation}){
         if (error) {
         } else {
             // console.log(data[0].money_for_supplies)
+            setChargedMoneyInteger(Number(data[0].charged_money))
             setChargedMoney(data[0].charged_money)
             const chargedMoneyString = data[0].charged_money.toString()
             setChargedMoney(numberThousandFormat(chargedMoneyString))
@@ -54,30 +56,73 @@ function OrderSubmitScreen({navigation}){
 
     const handleMakingPiledBItemList = () => {
         tempJSON = JSON.parse(piledItemInfoJSON)
-        var endIndex = Number(tempJSON["item_count"])
-        // console.log(endIndex)
-        setPiledItemList([...tempList])
-        let tempPriceTotal = 0;
-        for (var i=1; i<=endIndex; i++){
-            console.log(tempJSON["item_info_json"][i.toString()])
-            tempPriceTotal += Number(tempJSON["item_info_json"][i.toString()]["itemBuyingCount"])
-                * Number(tempJSON["item_info_json"][i.toString()]["itemPrice"])
+            var endIndex = Number(tempJSON["item_count"])
+            // console.log(endIndex)
+            setPiledItemList([...tempList])
+            let tempPriceTotal = 0;
+            for (var i=1; i<=endIndex; i++){
+                console.log(tempJSON["item_info_json"][i.toString()])
+                tempPriceTotal += Number(tempJSON["item_info_json"][i.toString()]["itemBuyingCount"])
+                    * Number(tempJSON["item_info_json"][i.toString()]["itemPrice"])
             tempList.push(tempJSON["item_info_json"][i.toString()])
         }
         setBuyingPriceTotal(tempPriceTotal)
         setPiledItemList(tempList)
         console.log(tempPriceTotal)
+    }
 
+    const deletePiledItemToSupabase = async (index,tempOwnerId) => {
+
+        let tempPiledItemInfoJSON = JSON.parse(piledItemInfoJSON).item_info_json
+        delete tempPiledItemInfoJSON[index+1]
+
+        console.log(JSON.parse(piledItemInfoJSON).item_info_json)
+        console.log("->")
+        console.log(index)
+        console.log(tempOwnerId)
+        console.log(tempPiledItemInfoJSON)
+
+        const endIndex = JSON.parse(piledItemInfoJSON).item_count
+        for (var i=index+2; i<=endIndex; i++){
+            Object.assign(tempPiledItemInfoJSON,{[(i-1).toString()]:tempPiledItemInfoJSON[i]})
+            delete tempPiledItemInfoJSON[i]
+        }
+        console.log('changed tempPiledItemInfoJSON')
+        console.log(tempPiledItemInfoJSON)
+
+
+        await supabase
+            .from('shop_owner_shopping_bag')
+            .update({
+                item_info_json : tempPiledItemInfoJSON,
+                item_count : JSON.parse(piledItemInfoJSON).item_count -1
+            })
+            .eq('owner_id',tempOwnerId)
 
     }
 
     const functionForMakingScrollView = () => {
-        if (piledItemList.length <= 4){
+        if (piledItemList.length == 0) {
+            return (
+                <>
+                    <Text>이 없습니다! 뒤로 가셔서 물품을 담아주세요!</Text>
+                </>
+            )
+        }
+        else if (piledItemList.length <= 3){
             return(
                 <>
                     {piledItemList.map((piledItem,index) => (
                         <View key={index} style={styles.seperateDash}>
-                            <Pressable style={{position:'absolute', left: 10,alignSelf: 'flex-end'}}>
+                            <Pressable onPress = {() => {
+                                console.log('pressed delete item')
+                                getData('owner_id').then(ownerId => {
+                                    deletePiledItemToSupabase(index,ownerId)
+                                    getPiledOrderList(ownerId)
+                                })
+                                // deletePiledItemToSupabase(index)
+                            }}
+                                style={{position:'absolute', left: 10,alignSelf: 'flex-end'}}>
                                 <Text style={{fontWeight:'bold'}}>⨉</Text>
                             </Pressable>
 
@@ -121,18 +166,29 @@ function OrderSubmitScreen({navigation}){
     }
 
     const getPiledOrderList = async (ownerId) => {
-        const { data, error } = await supabase
-            .from('shop_owner_shopping_bag')
-            .select('*')
-            .eq('owner_id',ownerId)
-        if (error){
-        }
-        else {
-            // console.log('-------------------------')
-            setPiledItemInfoJSON(JSON.stringify(data[0]))
-            // console.log(piledItemInfoJSON)
-            handleMakingPiledBItemList()
-        }
+        console.log('getPiledOrderList')
+        setTimeout( async () => {
+            const { data, error } = await supabase
+                .from('shop_owner_shopping_bag')
+                .select('*')
+                .eq('owner_id',ownerId)
+            if (error){
+            }
+            else {
+                console.log('getJSON')
+                if (data[0].item_count == 0) {
+                    deleteFromShoppingBagTable()
+                    setBuyingPriceTotal(0)
+                    setPiledItemList([])
+                }
+                else {
+                    setPiledItemInfoJSON(JSON.stringify(data[0]));
+                    console.log(piledItemInfoJSON);
+                    handleMakingPiledBItemList();
+                }
+            }
+        }, 100)
+
     }
 
 
@@ -153,15 +209,21 @@ function OrderSubmitScreen({navigation}){
                     member_name : ownerNameLocal,
                     member_location_address : ownerLocationAddressLocal,
                     member_order_list: piledItemList,
+                    member_order_total_price : buyingPriceTotal,
+                    order_status : '발주 준비 중'
                 }
             ])
     }
 
     const deleteFromShoppingBagTable = async () => {
-        await supabase
-            .from('shop_owner_shopping_bag')
-            .delete()
-            .match({'owner_id':ownerIdLocal})
+        console.log('deleteFromShoppingBagTable')
+        getData('owner_id').then( async (ownerId) => {
+            console.log(ownerId),
+                await supabase
+                    .from('shop_owner_shopping_bag')
+                    .delete()
+                    .eq('owner_id', ownerId)
+        })
     }
 
     const submitPiledItemToOrderHistory = () => {
@@ -240,7 +302,9 @@ function OrderSubmitScreen({navigation}){
             {functionForMakingScrollView()}
 
             <View style ={styles.containerForChargedMoneyStyle}>
-                <Text style={styles.label}>충전 금액 : {chargedMoney}원</Text>
+                <Text>충전 금액 : {chargedMoney}원</Text>
+                <Text>발주 금액 : {numberThousandFormat(buyingPriceTotal.toString())}원</Text>
+                <Text>예상 잔액 : {numberThousandFormat((chargedMoneyInteger-buyingPriceTotal).toString())}원</Text>
             </View>
 
             <Pressable style ={styles.underPopUpBarForNavigatingSubmitScreen}

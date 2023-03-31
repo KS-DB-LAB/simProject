@@ -258,8 +258,9 @@ const styles = StyleSheet.create({
         flex:0.5,
     },
     containerForChargedMoneyStyle:{
-        top:'76%',
-        position:'absolute'
+        top:'78%',
+        position:'absolute',
+        alignItems : 'flex-end'
     },
     itemBuyingCount : {
         flexDirection: 'row',

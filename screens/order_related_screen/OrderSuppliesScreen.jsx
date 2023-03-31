@@ -270,6 +270,7 @@ function OrderSuppliesScreen({ navigation, route}){
                                 storeBuyingItemsAndCounts({
                                     'itemName' : modalItemName, 'itemPrice' : modalItemPriceInteger, 'itemBuyingCount' : itemBuyingCount})
                                 setHiddenState(true)
+                                setItemBuyingCount(1)
                                 setErrorModalVisible(false)
                             }
                             }}>

@@ -284,6 +284,9 @@ function OrderSubmitScreen({navigation}){
                     deleteFromShoppingBagTable()
                     setBuyingPriceTotal(0)
                     setPiledItemList([])
+                    setTimeout( () => {
+                        navigation.navigate('OrderScreen')
+                        },50)
                 }
                 else {
                     setPiledItemInfoJSON(JSON.stringify(data[0]));

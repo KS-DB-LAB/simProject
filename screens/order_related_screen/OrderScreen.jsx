@@ -71,7 +71,7 @@ function OrderScreen({navigation, route}){
             .eq('member_id',ownerId)
         if (error) {
         } else {
-            // console.log(data[0].money_for_supplies)
+            console.log(data[0].charged_money)
             setChargedMoney(data[0].charged_money)
             const chargedMoneyString = data[0].charged_money.toString()
             setChargedMoney(numberThousandFormat(chargedMoneyString))
@@ -108,19 +108,13 @@ function OrderScreen({navigation, route}){
         }
     }
 
-    useEffect(() => {
-            getData('owner_id').then(ownerId => {
-                handleSearch(ownerId)
-                handleChargedMoney(ownerId)
-            })
-        }
-        ,[navigation])
 
     const isFocused = useIsFocused();
     const [hiddenState, setHiddenState] = useState(false)
     const [itemCountForBottom ,setItemCountForBottom] = useState(0)
 
     const setValuesForBottomPopUp = async (ownerId) => {
+        console.log('isFocused')
         const {data,error} = await supabase
             .from('shop_owner_shopping_bag')
             .select('*')
@@ -141,10 +135,15 @@ function OrderScreen({navigation, route}){
 
     useEffect(() => {
         console.log('openedScreen')
-        getData('owner_id').then(ownerId=> {
-            setValuesForBottomPopUp(ownerId)
-            bottomUp()
-        })
+        setTimeout(() => {
+            getData('owner_id').then(ownerId=> {
+                handleSearch(ownerId)
+                handleChargedMoney(ownerId)
+                setValuesForBottomPopUp(ownerId)
+                bottomUp()
+            })
+        },100)
+
     },[isFocused])
 
     const bottomUp = () => {
@@ -179,7 +178,7 @@ function OrderScreen({navigation, route}){
             {functionForMakingScrollView()}
 
             <View style ={styles.containerForChargedMoneyStyle}>
-                <Text style={styles.label}>충전 금액 : {chargedMoney}원</Text>
+                <Text>충전 금액 : {chargedMoney}원</Text>
             </View>
 
             {bottomUp()}

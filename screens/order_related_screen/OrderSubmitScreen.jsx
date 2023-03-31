@@ -8,7 +8,10 @@ import {useNavigation} from "@react-navigation/native";
 function OrderSubmitScreen({navigation}){
 
     const [errorModalVisible, setErrorModalVisible] = useState(false);
+    const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
+    const [modalItemName, setModalItemName] = useState('')
+    const [modalIndex, setModalIndex] = useState(0)
 
     const [ownerIdLocal,setOwnerIdLocal] = useState('')
     const [ownerLocationAddressLocal,setOwnerLocationAddressLocal] = useState('')
@@ -101,6 +104,69 @@ function OrderSubmitScreen({navigation}){
 
     }
 
+    const decreaseOrIncreaseItemCount = async (index,tempOwnerId, sumAnnotaion) => {
+        console.log(piledItemList)
+        console.log(piledItemInfoJSON)
+
+        console.log(index)
+        console.log(piledItemList[index].itemBuyingCount - 1)
+        let tempPiledItemList = [...piledItemList]
+
+        console.log('piledItemList')
+        if (sumAnnotaion == '-'){
+            if (piledItemList[index].itemBuyingCount - 1 != 0){
+                console.log(piledItemList[index])
+                tempPiledItemList[index].itemBuyingCount = piledItemList[index].itemBuyingCount - 1
+            }
+            setPiledItemList(tempPiledItemList)
+            console.log(tempPiledItemList)
+        }
+        else if(sumAnnotaion == '+'){
+            console.log(piledItemList[index])
+            tempPiledItemList[index].itemBuyingCount = piledItemList[index].itemBuyingCount + 1
+            setPiledItemList(tempPiledItemList)
+            console.log(tempPiledItemList)
+        }
+
+
+        let tempPiledItemJSON = piledItemInfoJSON
+        let tempPiledItemInfoJSON = {}
+        var i=1
+        console.log(piledItemInfoJSON)
+        tempPiledItemList.map(itemInfo => {
+            console.log({[i.toString()]:itemInfo})
+            Object.assign(tempPiledItemInfoJSON,{[i.toString()]:itemInfo})
+            i++
+        })
+        console.log('tempPil')
+        console.log(tempPiledItemInfoJSON)
+        // jsonParsedTempPiledItemJSON.item_info_json[(index+1).toString()] = JSON.parse(tempPiledItemInfoJSON)
+        // console.log(piledItemInfoJSON)
+
+
+        await supabase
+            .from('shop_owner_shopping_bag')
+            .update({
+                item_info_json : tempPiledItemInfoJSON,
+            })
+            .eq('owner_id',tempOwnerId)
+
+        let tempTotalPrice =0
+        piledItemList.map(piledItem => {
+            tempTotalPrice += piledItem.itemBuyingCount * Number(piledItem.itemPrice)
+            console.log(piledItem.itemBuyingCount)
+            console.log(piledItem.itemPrice)
+
+            // setPiledItemInfoJSON(tempPiledItemInfoJSON)
+
+        })
+
+        console.log(tempTotalPrice)
+        setBuyingPriceTotal(tempTotalPrice)
+
+
+    }
+
     const functionForMakingScrollView = () => {
         if (piledItemList.length == 0) {
             return (
@@ -116,10 +182,10 @@ function OrderSubmitScreen({navigation}){
                         <View key={index} style={styles.seperateDash}>
                             <Pressable onPress = {() => {
                                 console.log('pressed delete item')
-                                getData('owner_id').then(ownerId => {
-                                    deletePiledItemToSupabase(index,ownerId)
-                                    getPiledOrderList(ownerId)
-                                })
+                                console.log(piledItem)
+                                setModalItemName(piledItem.itemName)
+                                setModalIndex(index)
+                                setConfirmModalVisible(true)
                                 // deletePiledItemToSupabase(index)
                             }}
                                 style={{position:'absolute', left: 10,alignSelf: 'flex-end'}}>
@@ -128,10 +194,25 @@ function OrderSubmitScreen({navigation}){
 
                             <Text style={styles.label}>{piledItem.itemName}</Text>
 
-                            <View style ={{flexDirection: 'row',marginTop:5}}>
-                                <Pressable><Text>-</Text></Pressable>
+                            <View key={index} style ={{flexDirection: 'row',marginTop:5}}>
+                                <Pressable onPress={() => {
+                                    getData('owner_id').then(ownerId => {
+                                        decreaseOrIncreaseItemCount(index,ownerId, '-')
+                                        console.log('decreaseItemCOunt end')
+                                    })
+                                }}>
+                                    <Text>-</Text>
+                                </Pressable>
+
                                 <Text style={{marginLeft:13,marginRight:10}}>{piledItem.itemBuyingCount}</Text>
-                                <Pressable><Text>+</Text></Pressable>
+                                <Pressable onPress={() => {
+                                        getData('owner_id').then(ownerId => {
+                                            decreaseOrIncreaseItemCount(index,ownerId, '+')
+                                            console.log('decreaseItemCOunt end')
+                                        })
+                                    }}>
+                                    <Text>+</Text>
+                                </Pressable>
                             </View>
                             <Text>{numberThousandFormat(piledItem.itemPrice)}원</Text>
                         </View>
@@ -145,16 +226,39 @@ function OrderSubmitScreen({navigation}){
                     <ScrollView style={styles.scrollStyle}>
                         {piledItemList.map((piledItem,index) => (
                             <View key={index} style={styles.seperateDash}>
-                                <Pressable style={{position:'absolute', left: 10,alignSelf: 'flex-end'}}>
+                                <Pressable onPress = {() => {
+                                    console.log('pressed delete item')
+                                    getData('owner_id').then(ownerId => {
+                                        deletePiledItemToSupabase(index,ownerId)
+                                        getPiledOrderList(ownerId)
+                                    })
+                                    // deletePiledItemToSupabase(index)
+                                }}
+                                           style={{position:'absolute', left: 10,alignSelf: 'flex-end'}}>
                                     <Text style={{fontWeight:'bold'}}>⨉</Text>
                                 </Pressable>
 
                                 <Text style={styles.label}>{piledItem.itemName}</Text>
 
-                                <View style ={{flexDirection: 'row',marginTop:5}}>
-                                    <Pressable><Text>-</Text></Pressable>
+                                <View key={index} style ={{flexDirection: 'row',marginTop:5}}>
+                                    <Pressable onPress={() => {
+                                        getData('owner_id').then(ownerId => {
+                                            decreaseOrIncreaseItemCount(index,ownerId, '-')
+                                            console.log('decreaseItemCOunt end')
+                                        })
+                                    }}>
+                                        <Text>-</Text>
+                                    </Pressable>
+
                                     <Text style={{marginLeft:13,marginRight:10}}>{piledItem.itemBuyingCount}</Text>
-                                    <Pressable><Text>+</Text></Pressable>
+                                    <Pressable onPress={() => {
+                                        getData('owner_id').then(ownerId => {
+                                            decreaseOrIncreaseItemCount(index,ownerId, '+')
+                                            console.log('decreaseItemCOunt end')
+                                        })
+                                    }}>
+                                        <Text>+</Text>
+                                    </Pressable>
                                 </View>
                                 <Text>{numberThousandFormat(piledItem.itemPrice)}원</Text>
                             </View>
@@ -187,7 +291,7 @@ function OrderSubmitScreen({navigation}){
                     handleMakingPiledBItemList();
                 }
             }
-        }, 100)
+        }, 10)
 
     }
 
@@ -213,6 +317,14 @@ function OrderSubmitScreen({navigation}){
                     order_status : '발주 준비 중'
                 }
             ])
+
+
+        await supabase
+            .from('shop_owner_table')
+            .update({
+                charged_money : chargedMoneyInteger - buyingPriceTotal
+            })
+            .eq('member_id',ownerIdLocal)
     }
 
     const deleteFromShoppingBagTable = async () => {
@@ -266,16 +378,50 @@ function OrderSubmitScreen({navigation}){
                         <Text style={{marginBottom:30, fontSize:15, textAlign:'center'}}>
                             발주를 제출하시겠습니까?
                         </Text>
-                        <Pressable onPress={() => setErrorModalVisible(false)}>
-                            <Text style={{fontSize:15,}}>취소</Text>
-                        </Pressable>
-                        <Pressable onPress={() => {
-                            submitPiledItemToOrderHistory()
+                        <View style={{flexDirection: 'row'}}>
+                            <Pressable style={{marginRight : 40}}
+                                       onPress={() => setErrorModalVisible(false)}>
+                                <Text style={{fontSize:15,}}>취소</Text>
+                            </Pressable>
+                            <Pressable onPress={() => {
+                                submitPiledItemToOrderHistory()
 
-                            setErrorModalVisible(false)
-                            navigation.navigate('OrderScreen')}}>
-                            <Text style={{fontSize:15,}}>확인</Text>
-                        </Pressable>
+                                setErrorModalVisible(false)
+                                setTimeout(() => {
+                                    navigation.navigate('OrderScreen')
+                                    }, 100)
+                                }}>
+                                <Text style={{fontSize:15,}}>확인</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </View>
+
+            </Modal>
+
+            <Modal
+                visible={confirmModalVisible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setConfirmModalVisible(false)}>
+                <View style={styles.errorModalMessageContainer}>
+                    <View style={styles.errorModalMessageBox}>
+                        <Text style={{marginBottom:10, fontSize:15, fontWeight:'bold', textAlign:'center'}}>{modalItemName}</Text>
+                        <Text style={{marginBottom:30, fontSize:15, textAlign:'center'}}>을 삭제하시겠습니까?</Text>
+                        <View style={{flexDirection: 'row'}}>
+                            <Pressable onPress={() => setConfirmModalVisible(false)}>
+                                <Text style={{fontSize:15,marginRight:40}}>취소</Text>
+                            </Pressable>
+                            <Pressable onPress={() => {
+                                getData('owner_id').then(ownerId => {
+                                    deletePiledItemToSupabase(modalIndex,ownerId)
+                                    getPiledOrderList(ownerId)
+                                })
+                                setConfirmModalVisible(false)
+                            }}>
+                                <Text style={{fontSize:15,}}>확인</Text>
+                            </Pressable>
+                        </View>
                     </View>
                 </View>
 

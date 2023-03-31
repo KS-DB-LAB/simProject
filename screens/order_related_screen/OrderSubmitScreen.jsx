@@ -403,9 +403,9 @@ const styles = StyleSheet.create({
         flex:0.5,
     },
     containerForChargedMoneyStyle:{
-        top:'76%',
-        marginTop:20,
-        position:'absolute'
+        top:'78%',
+        position:'absolute',
+        alignItems : 'flex-end'
     },
     underPopUpBarForNavigatingSubmitScreen:{
         alignItems : 'center',

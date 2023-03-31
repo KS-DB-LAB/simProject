@@ -169,7 +169,7 @@ function OrderSpecificScreen({ navigation, route}){
             {functionForMakingScrollView()}
 
             <View style ={styles.containerForChargedMoneyStyle}>
-                <Text style={styles.label}>충전 금액 : {chargedMoney}원</Text>
+                <Text>충전 금액 : {chargedMoney}원</Text>
             </View>
 
             {bottomUp()}

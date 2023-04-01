@@ -8,7 +8,9 @@ import {useNavigation} from "@react-navigation/native";
 function OrderSubmitScreen({navigation}){
 
     const [errorModalVisible, setErrorModalVisible] = useState(false);
+    const [errorModalForMoneyNotSatisfiedVisible, setErrorModalForMoneyNotSatisfiedVisible] = useState(false)
     const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+    const [navigatingToOrderScreenVisibie, setNavigatingToOrderScreenVisible] = useState(false);
 
     const [modalItemName, setModalItemName] = useState('')
     const [modalIndex, setModalIndex] = useState(0)
@@ -22,7 +24,12 @@ function OrderSubmitScreen({navigation}){
     const [chargedMoney, setChargedMoney] = useState('');
     const [chargedMoneyInteger, setChargedMoneyInteger] = useState(0)
 
+    const [styleOfRemainingMoneyText, setStyleOfRemainingMoneyText] = useState('red')
+
     const numberThousandFormat = (chargedMoneyString) => {
+        if (chargedMoneyString.includes('-')){
+            return "충전 금액이 모자랍니다!"
+        }
         let tempChargedMoneyString =''
         var i=0
         chargedMoneyString.split('').reverse().map(index => {
@@ -34,7 +41,7 @@ function OrderSubmitScreen({navigation}){
             // console.log(i + ":" + index + " -> " + tempChargedMoneyString)
         })
 
-        return tempChargedMoneyString.split('').reverse().join("")
+        return tempChargedMoneyString.split('').reverse().join("") + '원'
 
     }
 
@@ -214,7 +221,7 @@ function OrderSubmitScreen({navigation}){
                                     <Text>+</Text>
                                 </Pressable>
                             </View>
-                            <Text>{numberThousandFormat(piledItem.itemPrice)}원</Text>
+                            <Text>{numberThousandFormat(piledItem.itemPrice)}</Text>
                         </View>
                     ))}
                 </>
@@ -228,10 +235,10 @@ function OrderSubmitScreen({navigation}){
                             <View key={index} style={styles.seperateDash}>
                                 <Pressable onPress = {() => {
                                     console.log('pressed delete item')
-                                    getData('owner_id').then(ownerId => {
-                                        deletePiledItemToSupabase(index,ownerId)
-                                        getPiledOrderList(ownerId)
-                                    })
+                                    console.log(piledItem)
+                                    setModalItemName(piledItem.itemName)
+                                    setModalIndex(index)
+                                    setConfirmModalVisible(true)
                                     // deletePiledItemToSupabase(index)
                                 }}
                                            style={{position:'absolute', left: 10,alignSelf: 'flex-end'}}>
@@ -260,7 +267,7 @@ function OrderSubmitScreen({navigation}){
                                         <Text>+</Text>
                                     </Pressable>
                                 </View>
-                                <Text>{numberThousandFormat(piledItem.itemPrice)}원</Text>
+                                <Text>{numberThousandFormat(piledItem.itemPrice)}</Text>
                             </View>
                         ))}
                     </ScrollView>
@@ -305,6 +312,9 @@ function OrderSubmitScreen({navigation}){
             getPiledOrderList(ownerId)
             handleChargedMoney(ownerId)
         })
+        setTimeout(() => {
+            setHiddenState(true)
+        },1000)
         },[piledItemInfoJSON])
 
     const saveToOrderHistory = async () => {
@@ -368,8 +378,58 @@ function OrderSubmitScreen({navigation}){
 
     }, [ownerIdLocal, ownerNameLocal, ownerLocationAddressLocal])
 
+
+    const checkIfMoneyIsSatisfied = () => {
+        if (numberThousandFormat((chargedMoneyInteger-buyingPriceTotal).toString()) == "충전 금액이 모자랍니다!") {
+            setErrorModalForMoneyNotSatisfiedVisible(true)
+        }
+        else {
+            setErrorModalVisible(true)
+        }
+    }
+
+    const [hiddenState, setHiddenState] = useState(false)
+    const bottomUp = () => {
+        if (hiddenState == true){
+            //test 입니당
+            return(
+                <>
+                    <Pressable style ={styles.underPopUpBarForNavigatingSubmitScreen}
+                               onPress = {() => {
+                                   checkIfMoneyIsSatisfied()
+                               }}>
+                        <Text style ={styles.label}>발주 목록 제출</Text>
+                    </Pressable>
+                </>
+            )
+        }
+    }
+
+
     return (
         <View style={styles.container}>
+
+            <Modal
+                visible={errorModalForMoneyNotSatisfiedVisible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setErrorModalForMoneyNotSatisfiedVisible(false)}>
+                <View style={styles.errorModalMessageContainer}>
+                    <View style={styles.errorModalMessageBox}>
+                        <Text style={{marginBottom:30, fontSize:15, textAlign:'center'}}>
+                            충전 금액이 모자랍니다.
+                        </Text>
+                        <View style={{flexDirection: 'row'}}>
+                            <Pressable onPress={() => {
+                                setErrorModalForMoneyNotSatisfiedVisible(false)
+                            }}>
+                                <Text style={{fontSize:15,}}>확인</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </View>
+
+            </Modal>
 
             <Modal
                 visible={errorModalVisible}
@@ -388,12 +448,35 @@ function OrderSubmitScreen({navigation}){
                             </Pressable>
                             <Pressable onPress={() => {
                                 submitPiledItemToOrderHistory()
-
                                 setErrorModalVisible(false)
-                                setTimeout(() => {
-                                    navigation.navigate('OrderScreen')
-                                    }, 100)
+                                setNavigatingToOrderScreenVisible(true)
                                 }}>
+                                <Text style={{fontSize:15,}}>확인</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </View>
+
+            </Modal>
+
+
+            <Modal
+                visible={navigatingToOrderScreenVisibie}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setNavigatingToOrderScreenVisible(false)}>
+                <View style={styles.errorModalMessageContainer}>
+                    <View style={styles.errorModalMessageBox}>
+                        <Text style={{marginBottom:30, fontSize:15, textAlign:'center'}}>
+                            발주가 제출되었습니다.
+                        </Text>
+                        <View style={{flexDirection: 'row'}}>
+                            <Pressable onPress={() => {
+                                navigation.navigate('OrderScreen')
+                                // setTimeout(() => {
+                                //
+                                // }, 100)
+                                setNavigatingToOrderScreenVisible(false)}}>
                                 <Text style={{fontSize:15,}}>확인</Text>
                             </Pressable>
                         </View>
@@ -451,16 +534,21 @@ function OrderSubmitScreen({navigation}){
             {functionForMakingScrollView()}
 
             <View style ={styles.containerForChargedMoneyStyle}>
-                <Text>충전 금액 : {chargedMoney}원</Text>
-                <Text>발주 금액 : {numberThousandFormat(buyingPriceTotal.toString())}원</Text>
-                <Text>예상 잔액 : {numberThousandFormat((chargedMoneyInteger-buyingPriceTotal).toString())}원</Text>
+                <View style={{flexDirection: 'row', alignItems:'space-around'}}>
+                    <Text>충전 금액 : </Text>
+                    <Text style={{alignItems:'flex-end'}}>{chargedMoney}</Text>
+                </View>
+
+                <View style={{flexDirection: 'row', alignItems:'space-around'}}>
+                    <Text>발주 금액 : </Text>
+                    <Text style={{alignItems:'flex-end'}}>{numberThousandFormat(buyingPriceTotal.toString())}</Text>
+                </View>
+
+                <Text style={{color: styleOfRemainingMoneyText}}>예상 잔액 : {numberThousandFormat((chargedMoneyInteger-buyingPriceTotal).toString())}</Text>
             </View>
 
-            <Pressable style ={styles.underPopUpBarForNavigatingSubmitScreen}
-            onPress = {() => setErrorModalVisible(true)}>
-                <Text style ={styles.label}>발주 목록 제출</Text>
-            </Pressable>
 
+            {bottomUp()}
         </View>
     )
 }
@@ -554,7 +642,8 @@ const styles = StyleSheet.create({
     containerForChargedMoneyStyle:{
         top:'78%',
         position:'absolute',
-        alignItems : 'flex-end'
+        alignItems : 'center',
+        width : 400
     },
     underPopUpBarForNavigatingSubmitScreen:{
         alignItems : 'center',

@@ -10,16 +10,18 @@ import SettingMenuScreen from "../setting_related_screen/SettingMenuScreen"
 import PlatformChangeScreen from "../PlatformChangeScreen";
 import UserPasswordOnChangeScreen from "../UserPasswordOnChangeScreen"
 const Stack = createStackNavigator();
-function SettingNavigationScreen({route}) {
+function SettingNavigationScreen({navigation, route}) {
 
-    const {navigationScreenNavigator} = route.params
+    const {navigationScreenNavigator, navigatorForInitialScreen} = route.params
 
     return (
         <NavigationContainer independent={true}>
             <Stack.Navigator initialRouteName="SettingMenuScreen" screenOptions={{headerShown : false}}>
 
                 <Stack.Screen name="SettingMenuScreen" component={SettingMenuScreen}
-                              initialParams ={{navigationScreenNavigator : navigationScreenNavigator}}/>
+                              initialParams ={{
+                                  navigationScreenNavigator : navigationScreenNavigator,
+                                  navigatorForInitialScreen : navigatorForInitialScreen}}/>
 
                 <Stack.Screen name="PasswordInputScreen" component={PasswordInputScreen}
                               initialParams ={{navigationScreenNavigator : navigationScreenNavigator}}/>

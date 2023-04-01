@@ -1,4 +1,5 @@
-import {BackHandler, Image, Pressable, StyleSheet, Text, View, ScrollView,SafeAreaView} from "react-native";
+import {BackHandler, Image, Pressable, StyleSheet, Text, View, ScrollView,SafeAreaView, TextInput
+,KeyboardAvoidingView, Platform, Modal} from "react-native";
 // @ts-ignore
 import React, {useEffect, useState} from "react";
 import {getData} from "../../lib/asyncstorage";
@@ -7,15 +8,49 @@ import {useIsFocused} from "@react-navigation/native";
 
 function ChargingMoneyScreen({navigation}){
     isFocused = useIsFocused();
-    const [chargedMoney, setChargedMoney] = useState(0)
+    const [chargingMoneyInteger, setChargingMoneyInteger] = useState(0)
 
     useEffect( () => {
         console.log('ChargingMoneySCreen')
 
     },[isFocused])
 
+    const [chargingMoney, setChargingMoney] = useState('')
+    const numberThousandFormat = (chargedMoneyString) => {
+        chargedMoneyString = chargedMoneyString.replaceAll(',','')
+        if (chargedMoneyString.includes('-')){
+            return "마이너스 입력 금지!"
+        }
+        let tempChargedMoneyString =''
+        var i=0
+        chargedMoneyString.split('').reverse().map(index => {
+            if (i%3==0 && i!=0) {
+                tempChargedMoneyString += ','
+            }
+            tempChargedMoneyString += index
+            i++
+            // console.log(i + ":" + index + " -> " + tempChargedMoneyString)
+        })
+
+        return tempChargedMoneyString.split('').reverse().join("")
+    }
+
+    const setChargingMoneyToSupabase = async (ownerId) => {
+        await supabase
+        .from('order_charging_table')
+        .insert([
+            {
+                owner_id : ownerId,
+                requested_charging_money : chargingMoneyInteger,
+            }
+        ])
+    }
+
+    const [errorModalVisible, setErrorModalVisible] = useState(false);
+    const [errorMessageModalVisible, setErrorMessageModalVisible] = useState(false)
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+
             <View style ={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>
                     <Image source = {require('../../images/logo.jpg')} style = {styles.logoImage} />
@@ -24,12 +59,12 @@ function ChargingMoneyScreen({navigation}){
                     </Pressable>
                 </View>
                 <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>발주 금액 충전하기</Text>
+                    <Text style ={styles.titleStyle}>발주 금액 기록</Text>
                 </View>
             </View>
 
 
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -80,57 +115,40 @@ const styles = StyleSheet.create({
         fontWeight : 'bold',
         textAlign:'left',
     },
-    seperateDash : {
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor : '#D8D8D8',
-        width : 350,
-        height : 60,
-        borderRadius : 7,
-        marginBottom : 12,
-
-    },
-    label: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        textAlign : "center",
-    },
-    scrollContainerStyle:{
-        flex:0.5,
-        alignItems:'center',
-        justifyContent:'center',
-    },
-    scrollStyle: {
-        flex:0.5,
-    },
-    containerForChargedMoneyStyle:{
-        top:'78%',
-        position:'absolute',
-        alignItems : 'flex-end'
-    },
-    itemBuyingCount : {
-        flexDirection: 'row',
-        alignItems:'center',
-        justifyContent:'space-evenly',
-        height:30,
-        width:'50%',
-        marginBottom:10,
-        borderWidth:1,
-        borderColor:'black',
+    inputText : {
+        borderWidth : 1,
+        borderColor : 'black',
+        width:200,
         borderRadius : 10,
-
+        marginBottom : 10,
+        marginRight : 5,
+        textAlign: 'center',
     },
-    underPopUpBarForNavigatingSubmitScreen:{
+    submitButton : {
+        backgroundColor : '#D8D8D8',
+        width:110,
+        height:50,
+        borderRadius : 10,
         alignItems : 'center',
         justifyContent : 'center',
-        position : 'absolute',
-        bottom:0,
-        width:'100%',
-        height:70,
-        backgroundColor:'#D8D8D8',
-        borderTopLeftRadius:30,
-        borderTopRightRadius:30,
-    }
+    },
+    errorModalMessageContainer: {
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center',
+        backgroundColor :"rgba(0,0,0,0.5)"
+    },
+    errorModalMessageBox:{
+        width:350,
+        height:200,
+        backgroundColor:"#ffffff",
+        borderRadius:10,
+        alignItems:'center',
+        justifyContent:'center',
+
+    },
+
+
 })
 
 export default ChargingMoneyScreen;

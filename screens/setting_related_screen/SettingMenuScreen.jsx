@@ -1,20 +1,26 @@
 import React from "react";
 import {View, Text, StyleSheet,Image, Pressable} from "react-native";
-import {getData, storeData} from "../../lib/asyncstorage"
-import PasswordInputScreen from "../PasswordInputScreen"
-import UserShopInfoOnChange from "../UserShopInfoOnChangeScreen"
+import {storeData} from "../../lib/asyncstorage"
+import {CommonActions} from "@react-navigation/native"
+
 const SettingMenuScreen = ({navigation, route}) => {
 
-    const {navigationScreenNavigator} = route.params
+    const {navigationScreenNavigator, navigatorForInitialScreen} = route.params
+
+
+
 
     const handleLogout = () => {
+        // console.log(navigationScreenNavigator)
         storeData('loginStatus', 'false')
         storeData('owner_name', '')
         storeData('owner_id', '')
         storeData('owner_brands', '')
         storeData('owner_location_address','')
 
-        navigationScreenNavigator.navigate('LoginScreen')
+        navigatorForInitialScreen.navigate('LoginScreen')
+        navigationScreenNavigator.navigate('MainScreen')
+
     }
 
     return (

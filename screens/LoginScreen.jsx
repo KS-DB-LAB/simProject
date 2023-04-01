@@ -52,7 +52,7 @@ function LoginScreen({navigation}) {
 
         setMemberId('')
         setMemberPassword('')
-        navigation.navigate('SideMenu')
+        navigation.navigate('SideMenu',{navigatorForInitialScreen : navigation})
     }
 
     const [errorModalVisible, setErrorModalVisible] = useState(false);

@@ -560,15 +560,15 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         backgroundColor :"rgba(0,0,0,0.5)"
     },
-    errorModalMessageBox:{
-        width:350,
-        height:200,
-        backgroundColor:"#ffffff",
-        borderRadius:10,
-        alignItems:'center',
-        justifyContent:'center',
+        errorModalMessageBox:{
+            width:350,
+            height:200,
+            backgroundColor:"#ffffff",
+            borderRadius:10,
+            alignItems:'center',
+            justifyContent:'center',
 
-    },
+        },
     container :{
         flex:1,
         alignItems : 'center',

@@ -159,7 +159,7 @@ function OrderSuppliesScreen({ navigation, route}){
                                 setModalItemPrice(numberThousandFormat(itemName.supply_item_price))
                                 setErrorModalVisible(true)}
                             }>
-                                <Text style={styles.label}>{itemName.supply_item_name}</Text>
+                                <Text style={styles.label}>{itemName.supply_item_name} - {itemName.supply_item_price}원</Text>
                             </Pressable>
                         ))}
                     </ScrollView>

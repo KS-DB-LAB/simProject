@@ -30,7 +30,7 @@ function CustomDrawerContent({navigation}){
         },
         {
             label: '설정',
-            onPress: () => navigation.navigate('SettingNavigationScreen' ,{navigationScreenNavigator : navigation}),
+            onPress: () => navigation.navigate('SettingNavigationScreen'),
         },
 
     ]

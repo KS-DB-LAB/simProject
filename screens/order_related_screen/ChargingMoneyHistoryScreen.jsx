@@ -58,7 +58,7 @@ function ChargingMoneyHistoryScreen ({navigation}){
 
     const getHistoryOfChargingMoney = async (ownerId) => {
         const {data, error} = await supabase
-            .from('order_charging_table')
+            .from('charging_history_table')
             .select('*')
             .eq('owner_id',ownerId)
         if (error){

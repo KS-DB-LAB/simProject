@@ -29,7 +29,7 @@ function OrderHistoryScreen ({navigation}){
 
 
     const makeScrollViewForChargingHistoryList = () => {
-        console.log(supabaseDataLocal)
+        //console.log(supabaseDataLocal)
         return(
             <>
                 <View style ={styles.scrollContainerStyle}>
@@ -69,7 +69,7 @@ function OrderHistoryScreen ({navigation}){
     }
 
     useEffect( () => {
-        console.log('ChargingMoneySCreen - History')
+        //console.log('ChargingMoneySCreen - History')
         getData('owner_id').then(ownerId => {
             getHistoryOfChargingMoney(ownerId);
         })

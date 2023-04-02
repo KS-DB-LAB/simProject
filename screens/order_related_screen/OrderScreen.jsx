@@ -71,7 +71,7 @@ function OrderScreen({navigation, route}){
             .eq('member_id',ownerId)
         if (error) {
         } else {
-            console.log(data[0].charged_money)
+            //console.log(data[0].charged_money)
             setChargedMoney(data[0].charged_money)
             const chargedMoneyString = data[0].charged_money.toString()
             setChargedMoney(numberThousandFormat(chargedMoneyString))
@@ -114,7 +114,7 @@ function OrderScreen({navigation, route}){
     const [itemCountForBottom ,setItemCountForBottom] = useState(0)
 
     const setValuesForBottomPopUp = async (ownerId) => {
-        console.log('isFocused')
+        //console.log('isFocused')
         const {data,error} = await supabase
             .from('shop_owner_shopping_bag')
             .select('*')
@@ -126,7 +126,7 @@ function OrderScreen({navigation, route}){
                 setHiddenState(false)
             }
             else{
-                console.log('not undefined')
+                //console.log('not undefined')
                 setItemCountForBottom(data[0].item_count)
                 setHiddenState(true)
             }
@@ -134,7 +134,7 @@ function OrderScreen({navigation, route}){
     }
 
     useEffect(() => {
-        console.log('openedScreen')
+        //console.log('openedScreen')
         setTimeout(() => {
             getData('owner_id').then(ownerId=> {
                 handleSearch(ownerId)
@@ -149,7 +149,7 @@ function OrderScreen({navigation, route}){
     const bottomUp = () => {
         if (hiddenState == true){
             //test 입니당
-            console.log(itemCountForBottom)
+            //console.log(itemCountForBottom)
             return(
                 <>
                     <Pressable onPress = {() => {
@@ -178,7 +178,7 @@ function OrderScreen({navigation, route}){
             {functionForMakingScrollView()}
 
             <Pressable onPress = {() => {
-                console.log('pressed charge money')
+                //console.log('pressed charge money')
                 navigation.navigate("ChargingMoneyScreen")
             }}
                  style ={styles.containerForChargedMoneyStyle}>

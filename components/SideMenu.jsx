@@ -10,6 +10,7 @@ import MainScreen from "../screens/MainScreen";
 import SalesAndProfitScreen from "../screens/SalesAndProfitScreen";
 import OrderNavigationScreen from "../screens/navigation_screens/OrderNavigationScreen";
 import SettingNavigationScreen from "../screens/navigation_screens/SettingNavigationScreen";
+import OrderHistoryScreen from "../screens/order_related_screen/OrderHistoryScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -29,9 +30,14 @@ function CustomDrawerContent({navigation}){
             onPress: () => navigation.navigate('OrderNavigationScreen'),
         },
         {
+            label:'발주 기록',
+            onPress : () => navigation.navigate('OrderHistoryScreen'),
+        },
+        {
             label: '설정',
             onPress: () => navigation.navigate('SettingNavigationScreen'),
         },
+
 
     ]
     return (
@@ -55,8 +61,9 @@ function CustomDrawerContent({navigation}){
     )
 }
 
-function SideMenu({navigation}){
+function SideMenu({navigation,route}){
 
+    const {navigatorForInitialScreen} = route.params
 
     return (
         <NavigationContainer independent={true} >
@@ -67,11 +74,9 @@ function SideMenu({navigation}){
                 <Drawer.Screen name="MainScreen" component={MainScreen} />
                 <Drawer.Screen name="SalesAndProfitScreen" component={SalesAndProfitScreen} />
                 <Drawer.Screen name="OrderNavigationScreen" component={OrderNavigationScreen} />
-
-
+                <Drawer.Screen name="OrderHistoryScreen" component={OrderHistoryScreen} />
                 <Drawer.Screen name="SettingNavigationScreen" component={SettingNavigationScreen}
-                               initialParams = {{navigationScreenNavigator : navigation}}/>
-
+                               initialParams = {{navigationScreenNavigator : navigation, navigatorForInitialScreen : navigatorForInitialScreen}}/>
             </Drawer.Navigator>
         </NavigationContainer>
     )

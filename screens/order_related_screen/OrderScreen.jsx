@@ -177,9 +177,13 @@ function OrderScreen({navigation, route}){
 
             {functionForMakingScrollView()}
 
-            <View style ={styles.containerForChargedMoneyStyle}>
+            <Pressable onPress = {() => {
+                console.log('pressed charge money')
+                navigation.navigate("ChargingMoneyScreen")
+            }}
+                 style ={styles.containerForChargedMoneyStyle}>
                 <Text>충전 금액 : {chargedMoney}원</Text>
-            </View>
+            </Pressable>
 
             {bottomUp()}
 

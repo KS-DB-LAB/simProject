@@ -159,7 +159,7 @@ function OrderSuppliesScreen({ navigation, route}){
                                 setModalItemPrice(numberThousandFormat(itemName.supply_item_price))
                                 setErrorModalVisible(true)}
                             }>
-                                <Text style={styles.label}>{itemName.supply_item_name}</Text>
+                                <Text style={styles.label}>{itemName.supply_item_name} - {itemName.supply_item_price}원</Text>
                             </Pressable>
                         ))}
                     </ScrollView>
@@ -297,9 +297,12 @@ function OrderSuppliesScreen({ navigation, route}){
 
             {functionForMakingScrollView()}
 
-            <View style ={styles.containerForChargedMoneyStyle}>
+            <Pressable onPress = {() => {
+                navigation.navigate("ChargingMoneyScreen")
+            }}
+                style ={styles.containerForChargedMoneyStyle}>
                 <Text>충전 금액 : {chargedMoney}원</Text>
-            </View>
+            </Pressable>
 
             {bottomUp()}
 

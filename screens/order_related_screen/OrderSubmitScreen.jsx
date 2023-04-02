@@ -71,14 +71,14 @@ function OrderSubmitScreen({navigation}){
             setPiledItemList([...tempList])
             let tempPriceTotal = 0;
             for (var i=1; i<=endIndex; i++){
-                console.log(tempJSON["item_info_json"][i.toString()])
+                //console.log(tempJSON["item_info_json"][i.toString()])
                 tempPriceTotal += Number(tempJSON["item_info_json"][i.toString()]["itemBuyingCount"])
                     * Number(tempJSON["item_info_json"][i.toString()]["itemPrice"])
             tempList.push(tempJSON["item_info_json"][i.toString()])
         }
         setBuyingPriceTotal(tempPriceTotal)
         setPiledItemList(tempList)
-        console.log(tempPriceTotal)
+        //console.log(tempPriceTotal)
     }
 
     const deletePiledItemToSupabase = async (index,tempOwnerId) => {
@@ -86,19 +86,19 @@ function OrderSubmitScreen({navigation}){
         let tempPiledItemInfoJSON = JSON.parse(piledItemInfoJSON).item_info_json
         delete tempPiledItemInfoJSON[index+1]
 
-        console.log(JSON.parse(piledItemInfoJSON).item_info_json)
-        console.log("->")
-        console.log(index)
-        console.log(tempOwnerId)
-        console.log(tempPiledItemInfoJSON)
+        //console.log(JSON.parse(piledItemInfoJSON).item_info_json)
+        //console.log("->")
+        //console.log(index)
+        //console.log(tempOwnerId)
+        //console.log(tempPiledItemInfoJSON)
 
         const endIndex = JSON.parse(piledItemInfoJSON).item_count
         for (var i=index+2; i<=endIndex; i++){
             Object.assign(tempPiledItemInfoJSON,{[(i-1).toString()]:tempPiledItemInfoJSON[i]})
             delete tempPiledItemInfoJSON[i]
         }
-        console.log('changed tempPiledItemInfoJSON')
-        console.log(tempPiledItemInfoJSON)
+        //console.log('changed tempPiledItemInfoJSON')
+        //console.log(tempPiledItemInfoJSON)
 
 
         await supabase
@@ -112,41 +112,41 @@ function OrderSubmitScreen({navigation}){
     }
 
     const decreaseOrIncreaseItemCount = async (index,tempOwnerId, sumAnnotaion) => {
-        console.log(piledItemList)
-        console.log(piledItemInfoJSON)
+        //console.log(piledItemList)
+        //console.log(piledItemInfoJSON)
 
-        console.log(index)
-        console.log(piledItemList[index].itemBuyingCount - 1)
+        //console.log(index)
+        //console.log(piledItemList[index].itemBuyingCount - 1)
         let tempPiledItemList = [...piledItemList]
 
-        console.log('piledItemList')
+        //console.log('piledItemList')
         if (sumAnnotaion == '-'){
             if (piledItemList[index].itemBuyingCount - 1 != 0){
-                console.log(piledItemList[index])
+                //console.log(piledItemList[index])
                 tempPiledItemList[index].itemBuyingCount = piledItemList[index].itemBuyingCount - 1
             }
             setPiledItemList(tempPiledItemList)
-            console.log(tempPiledItemList)
+            //console.log(tempPiledItemList)
         }
         else if(sumAnnotaion == '+'){
-            console.log(piledItemList[index])
+            //console.log(piledItemList[index])
             tempPiledItemList[index].itemBuyingCount = piledItemList[index].itemBuyingCount + 1
             setPiledItemList(tempPiledItemList)
-            console.log(tempPiledItemList)
+            //console.log(tempPiledItemList)
         }
 
 
         let tempPiledItemJSON = piledItemInfoJSON
         let tempPiledItemInfoJSON = {}
         var i=1
-        console.log(piledItemInfoJSON)
+        //console.log(piledItemInfoJSON)
         tempPiledItemList.map(itemInfo => {
-            console.log({[i.toString()]:itemInfo})
+            //console.log({[i.toString()]:itemInfo})
             Object.assign(tempPiledItemInfoJSON,{[i.toString()]:itemInfo})
             i++
         })
-        console.log('tempPil')
-        console.log(tempPiledItemInfoJSON)
+        //console.log('tempPil')
+        //console.log(tempPiledItemInfoJSON)
         // jsonParsedTempPiledItemJSON.item_info_json[(index+1).toString()] = JSON.parse(tempPiledItemInfoJSON)
         // console.log(piledItemInfoJSON)
 
@@ -161,14 +161,14 @@ function OrderSubmitScreen({navigation}){
         let tempTotalPrice =0
         piledItemList.map(piledItem => {
             tempTotalPrice += piledItem.itemBuyingCount * Number(piledItem.itemPrice)
-            console.log(piledItem.itemBuyingCount)
-            console.log(piledItem.itemPrice)
+            //console.log(piledItem.itemBuyingCount)
+            //console.log(piledItem.itemPrice)
 
             // setPiledItemInfoJSON(tempPiledItemInfoJSON)
 
         })
 
-        console.log(tempTotalPrice)
+        //console.log(tempTotalPrice)
         setBuyingPriceTotal(tempTotalPrice)
 
 
@@ -188,8 +188,8 @@ function OrderSubmitScreen({navigation}){
                     {piledItemList.map((piledItem,index) => (
                         <View key={index} style={styles.seperateDash}>
                             <Pressable onPress = {() => {
-                                console.log('pressed delete item')
-                                console.log(piledItem)
+                                //console.log('pressed delete item')
+                                //console.log(piledItem)
                                 setModalItemName(piledItem.itemName)
                                 setModalIndex(index)
                                 setConfirmModalVisible(true)
@@ -205,7 +205,7 @@ function OrderSubmitScreen({navigation}){
                                 <Pressable onPress={() => {
                                     getData('owner_id').then(ownerId => {
                                         decreaseOrIncreaseItemCount(index,ownerId, '-')
-                                        console.log('decreaseItemCOunt end')
+                                        //console.log('decreaseItemCOunt end')
                                     })
                                 }}>
                                     <Text>-</Text>
@@ -215,7 +215,7 @@ function OrderSubmitScreen({navigation}){
                                 <Pressable onPress={() => {
                                         getData('owner_id').then(ownerId => {
                                             decreaseOrIncreaseItemCount(index,ownerId, '+')
-                                            console.log('decreaseItemCOunt end')
+                                            //console.log('decreaseItemCOunt end')
                                         })
                                     }}>
                                     <Text>+</Text>
@@ -234,8 +234,8 @@ function OrderSubmitScreen({navigation}){
                         {piledItemList.map((piledItem,index) => (
                             <View key={index} style={styles.seperateDash}>
                                 <Pressable onPress = {() => {
-                                    console.log('pressed delete item')
-                                    console.log(piledItem)
+                                    //console.log('pressed delete item')
+                                    //console.log(piledItem)
                                     setModalItemName(piledItem.itemName)
                                     setModalIndex(index)
                                     setConfirmModalVisible(true)
@@ -251,7 +251,7 @@ function OrderSubmitScreen({navigation}){
                                     <Pressable onPress={() => {
                                         getData('owner_id').then(ownerId => {
                                             decreaseOrIncreaseItemCount(index,ownerId, '-')
-                                            console.log('decreaseItemCOunt end')
+                                            //console.log('decreaseItemCOunt end')
                                         })
                                     }}>
                                         <Text>-</Text>
@@ -261,7 +261,7 @@ function OrderSubmitScreen({navigation}){
                                     <Pressable onPress={() => {
                                         getData('owner_id').then(ownerId => {
                                             decreaseOrIncreaseItemCount(index,ownerId, '+')
-                                            console.log('decreaseItemCOunt end')
+                                            //console.log('decreaseItemCOunt end')
                                         })
                                     }}>
                                         <Text>+</Text>
@@ -277,7 +277,7 @@ function OrderSubmitScreen({navigation}){
     }
 
     const getPiledOrderList = async (ownerId) => {
-        console.log('getPiledOrderList')
+        //console.log('getPiledOrderList')
         setTimeout( async () => {
             const { data, error } = await supabase
                 .from('shop_owner_shopping_bag')
@@ -286,7 +286,7 @@ function OrderSubmitScreen({navigation}){
             if (error){
             }
             else {
-                console.log('getJSON')
+                //console.log('getJSON')
                 if (data[0].item_count == 0) {
                     deleteFromShoppingBagTable()
                     setBuyingPriceTotal(0)
@@ -297,7 +297,7 @@ function OrderSubmitScreen({navigation}){
                 }
                 else {
                     setPiledItemInfoJSON(JSON.stringify(data[0]));
-                    console.log(piledItemInfoJSON);
+                    //console.log(piledItemInfoJSON);
                     handleMakingPiledBItemList();
                 }
             }
@@ -341,9 +341,9 @@ function OrderSubmitScreen({navigation}){
     }
 
     const deleteFromShoppingBagTable = async () => {
-        console.log('deleteFromShoppingBagTable')
+        //console.log('deleteFromShoppingBagTable')
         getData('owner_id').then( async (ownerId) => {
-            console.log(ownerId),
+            //console.log(ownerId),
                 await supabase
                     .from('shop_owner_shopping_bag')
                     .delete()
@@ -352,7 +352,7 @@ function OrderSubmitScreen({navigation}){
     }
 
     const submitPiledItemToOrderHistory = () => {
-        console.log('!')
+        //console.log('!')
         getData('owner_id')
             .then(ownerId => {
                 setOwnerIdLocal(ownerId)
@@ -369,9 +369,9 @@ function OrderSubmitScreen({navigation}){
 
     useEffect(() => {
         if (ownerIdLocal !=='' && ownerNameLocal !== '' && ownerLocationAddressLocal!== '') {
-            console.log(ownerIdLocal)
-            console.log(ownerNameLocal)
-            console.log(ownerLocationAddressLocal)
+            //console.log(ownerIdLocal)
+            //console.log(ownerNameLocal)
+            //console.log(ownerLocationAddressLocal)
             saveToOrderHistory()
             deleteFromShoppingBagTable()
         }

@@ -139,7 +139,7 @@ function OrderSpecificScreen({ navigation, route}){
     const bottomUp = () => {
         if (hiddenState == true){
             //test 입니당
-            console.log(itemCountForBottom)
+            //console.log(itemCountForBottom)
             return(
                 <>
                     <Pressable onPress = {() => {

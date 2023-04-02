@@ -149,7 +149,7 @@ function ChargingMoneyScreen ({navigation}){
 
             <View style={{flexDirection: 'row',marginTop : 20,}}>
                 <Pressable onPress={() => {
-                    console.log('Pressed History')
+                    //console.log('Pressed History')
                     navigation.navigate('ChargingMoneyHistoryScreen')
                 }}
                            style={[styles.submitButton, {marginRight:5,}]}>
@@ -157,9 +157,9 @@ function ChargingMoneyScreen ({navigation}){
                 </Pressable>
 
                 <Pressable onPress={() => {
-                    console.log('Pressed')
-                    console.log(chargingMoney=='')
-                    console.log(chargingMoneyInteger == 0)
+                    //console.log('Pressed')
+                    //console.log(chargingMoney=='')
+                    //console.log(chargingMoneyInteger == 0)
                     if (chargingMoney=='' || chargingMoneyInteger == 0){
                         setErrorMessageModalVisible(true)
                     }

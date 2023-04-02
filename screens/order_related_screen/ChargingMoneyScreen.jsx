@@ -33,7 +33,7 @@ function ChargingMoneyScreen ({navigation}){
 
     const setChargingMoneyToSupabase = async (ownerId) => {
         await supabase
-            .from('order_charging_table')
+            .from('charging_history_table')
             .insert([
                 {
                     owner_id : ownerId,

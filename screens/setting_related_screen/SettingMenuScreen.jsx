@@ -8,8 +8,6 @@ const SettingMenuScreen = ({navigation, route}) => {
     const {navigationScreenNavigator, navigatorForInitialScreen} = route.params
 
 
-
-
     const handleLogout = () => {
         // console.log(navigationScreenNavigator)
         storeData('loginStatus', 'false')
@@ -18,8 +16,9 @@ const SettingMenuScreen = ({navigation, route}) => {
         storeData('owner_brands', '')
         storeData('owner_location_address','')
 
-        navigatorForInitialScreen.navigate('LoginScreen')
         navigationScreenNavigator.navigate('MainScreen')
+        navigatorForInitialScreen.navigate('LoginScreen')
+
 
     }
 

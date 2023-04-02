@@ -6,21 +6,12 @@ import {getData} from "../../lib/asyncstorage";
 import {supabase} from "../../lib/supabase";
 import {useIsFocused} from "@react-navigation/native";
 
-function ChargingMoneyHistoryScreen({navigation}){
+function ChargingMoneyHistoryScreen ({navigation}){
     isFocused = useIsFocused();
     const [chargingMoneyInteger, setChargingMoneyInteger] = useState(0)
+    const [supabaseDataLocal, setSupabaseDataLocal]= useState([])
 
-    useEffect( () => {
-        console.log('ChargingMoneySCreen')
-
-    },[isFocused])
-
-    const [chargingMoney, setChargingMoney] = useState('')
     const numberThousandFormat = (chargedMoneyString) => {
-        chargedMoneyString = chargedMoneyString.replaceAll(',','')
-        if (chargedMoneyString.includes('-')){
-            return "마이너스 입력 금지!"
-        }
         let tempChargedMoneyString =''
         var i=0
         chargedMoneyString.split('').reverse().map(index => {
@@ -33,75 +24,64 @@ function ChargingMoneyHistoryScreen({navigation}){
         })
 
         return tempChargedMoneyString.split('').reverse().join("")
+
     }
 
-    const setChargingMoneyToSupabase = async (ownerId) => {
-        await supabase
-            .from('order_charging_table')
-            .insert([
-                {
-                    owner_id : ownerId,
-                    requested_charging_money : chargingMoneyInteger,
-                }
-            ])
+
+    const makeScrollViewForChargingHistoryList = () => {
+        console.log(supabaseDataLocal)
+        return(
+            <>
+                <View style ={styles.scrollContainerStyle}>
+                <ScrollView style={styles.scrollStyle}>
+                {supabaseDataLocal.map( chargingHistory => (
+                    <View style={{flexDirection: 'row'}}>
+                        <View style={[styles.seperateDash,{marginRight:20, width : 100,}]}>
+                            <Text>{new Date(chargingHistory.created_at).toLocaleString()}</Text>
+                        </View>
+
+                        <View style={[styles.seperateDash,{marginRight:20, width : 150,}]}>
+                            <Text>{numberThousandFormat(chargingHistory.requested_charging_money.toString())}원</Text>
+                        </View>
+
+                        <View style={[styles.seperateDash, {width : 100,}]}>
+                            <Text>{chargingHistory.charged_status}</Text>
+                        </View>
+                    </View>
+                ))}
+                </ScrollView>
+                </View>
+            </>
+        )
     }
+
+
+    const getHistoryOfChargingMoney = async (ownerId) => {
+        const {data, error} = await supabase
+            .from('order_charging_table')
+            .select('*')
+            .eq('owner_id',ownerId)
+        if (error){
+        }
+        else {
+            setSupabaseDataLocal(data.sort((prev, next) => prev.created_at > next.created_at ? -1 : 1))
+        }
+    }
+
+    useEffect( () => {
+        console.log('ChargingMoneySCreen - History')
+        getData('owner_id').then(ownerId => {
+            getHistoryOfChargingMoney(ownerId);
+        })
+
+    },[isFocused])
+
 
     const [errorModalVisible, setErrorModalVisible] = useState(false);
     const [errorMessageModalVisible, setErrorMessageModalVisible] = useState(false)
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 
-            <Modal
-                visible={errorMessageModalVisible}
-                transparent={true}
-                animationType="fade"
-                onRequestClose={() => setErrorMessageModalVisible(false)}>
-                <View style={styles.errorModalMessageContainer}>
-                    <View style={styles.errorModalMessageBox}>
-                        <Text style={{marginBottom:30, fontSize:15, textAlign:'center'}}>
-                            충전 금액을 입력해주세요!
-                        </Text>
-                        <View style={{flexDirection: 'row'}}>
-                            <Pressable onPress={() => {
-                                setErrorMessageModalVisible(false)
-                            }}>
-                                <Text style={{fontSize:15,}}>확인</Text>
-                            </Pressable>
-                        </View>
-                    </View>
-                </View>
-
-            </Modal>
-
-            <Modal
-                visible={errorModalVisible}
-                transparent={true}
-                animationType="fade"
-                onRequestClose={() => setErrorModalVisible(false)}>
-                <View style={styles.errorModalMessageContainer}>
-                    <View style={styles.errorModalMessageBox}>
-                        <Text style={{marginBottom:30, fontSize:15, textAlign:'center'}}>
-                            충전을 요청하시겠습니까?
-                        </Text>
-                        <View style={{flexDirection: 'row'}}>
-                            <Pressable style={{marginRight : 40}}
-                                       onPress={() => setErrorModalVisible(false)}>
-                                <Text style={{fontSize:15,}}>취소</Text>
-                            </Pressable>
-                            <Pressable onPress={() => {
-                                getData('owner_id').then(ownerId => {
-                                    setChargingMoneyToSupabase(ownerId)
-                                })
-                                setErrorModalVisible(false)
-                                navigation.navigate('OrderScreen')
-                            }}>
-                                <Text style={{fontSize:15,}}>확인</Text>
-                            </Pressable>
-                        </View>
-                    </View>
-                </View>
-
-            </Modal>
 
             <View style ={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>
@@ -111,46 +91,11 @@ function ChargingMoneyHistoryScreen({navigation}){
                     </Pressable>
                 </View>
                 <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>발주 금액 충전하기</Text>
+                    <Text style ={styles.titleStyle}>금액 충전 기록</Text>
                 </View>
             </View>
 
-            <View style={{flexDirection: 'row', alignItems:'center', }}>
-                <TextInput onChangeText={(text) => {
-                    setChargingMoneyInteger(Number(text.replaceAll(',','')))
-                    setChargingMoney(numberThousandFormat(text))
-                }} style={styles.inputText} keyboardType = "number-pad">
-                    {chargingMoney}
-                </TextInput>
-                <Text>원</Text>
-            </View>
-
-
-            <View style={{flexDirection: 'row',marginTop : 20,}}>
-                <Pressable onPress={() => {
-                    console.log('Pressed History')
-                }}
-                           style={[styles.submitButton, {marginRight:5,}]}>
-                    <Text>충전 요청기록</Text>
-                </Pressable>
-
-                <Pressable onPress={() => {
-                    console.log('Pressed')
-                    console.log(chargingMoney=='')
-                    console.log(chargingMoneyInteger == 0)
-                    if (chargingMoney=='' || chargingMoneyInteger == 0){
-                        setErrorMessageModalVisible(true)
-                    }
-                    else {
-                        setErrorModalVisible(true)
-                    }
-
-                }}
-                           style={styles.submitButton}>
-                    <Text>충전 요청하기</Text>
-                </Pressable>
-            </View>
-
+            {makeScrollViewForChargingHistoryList()}
         </KeyboardAvoidingView>
     )
 }
@@ -196,7 +141,15 @@ const styles = StyleSheet.create({
         paddingBottom : 20,
         alignSelf:'flex-start',
     },
+    seperateDash : {
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor : '#D8D8D8',
+        height : 50,
+        borderRadius : 7,
+        marginBottom : 12,
 
+    },
     titleStyle : {
         fontSize : 18,
         fontWeight : 'bold',
@@ -233,6 +186,16 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
 
+    },
+    scrollContainerStyle:{
+        flex:0.9,
+        alignItems:'center',
+        justifyContent:'center',
+        borderColor:'black',
+        marginTop:120,
+    },
+    scrollStyle: {
+        flex:1,
     },
 
 

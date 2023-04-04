@@ -12,7 +12,7 @@ import UserPasswordOnChangeScreen from "../UserPasswordOnChangeScreen"
 const Stack = createStackNavigator();
 function SettingNavigationScreen({navigation, route}) {
 
-    const {navigationScreenNavigator, navigatorForInitialScreen} = route.params
+    const {navigatorForInitialScreen} = route.params
 
     return (
         <NavigationContainer independent={true}>
@@ -20,17 +20,14 @@ function SettingNavigationScreen({navigation, route}) {
 
                 <Stack.Screen name="SettingMenuScreen" component={SettingMenuScreen}
                               initialParams ={{
-                                  navigationScreenNavigator : navigationScreenNavigator,
+                                  navigationScreenNavigator : navigation,
                                   navigatorForInitialScreen : navigatorForInitialScreen}}/>
 
-                <Stack.Screen name="PasswordInputScreen" component={PasswordInputScreen}
-                              initialParams ={{navigationScreenNavigator : navigationScreenNavigator}}/>
+                <Stack.Screen name="PasswordInputScreen" component={PasswordInputScreen}/>
 
-                <Stack.Screen name="UserPasswordOnChangeScreen" component={UserPasswordOnChangeScreen}
-                              initialParams ={{navigationScreenNavigator : navigationScreenNavigator}}/>
+                <Stack.Screen name="UserPasswordOnChangeScreen" component={UserPasswordOnChangeScreen}/>
 
-                <Stack.Screen name="UserShopInfoOnChangeScreen" component={UserShopInfoOnChangeScreen}
-                              initialParams ={{navigationScreenNavigator : navigationScreenNavigator}}/>
+                <Stack.Screen name="UserShopInfoOnChangeScreen" component={UserShopInfoOnChangeScreen}/>
 
                 <Stack.Screen name="PlatformChangeScreen" component={PlatformChangeScreen}/>
 

@@ -36,16 +36,16 @@ function ChargingMoneyHistoryScreen ({navigation}){
                 <ScrollView style={styles.scrollStyle}>
                 {supabaseDataLocal.map( chargingHistory => (
                     <View style={{flexDirection: 'row'}}>
-                        <View style={[styles.seperateDash,{marginRight:20, width : 100,}]}>
-                            <Text>{new Date(chargingHistory.created_at).toLocaleString()}</Text>
+                        <View style={[styles.seperateDash,{marginRight:10, width : '20%',}]}>
+                            <Text style={{fontSize: 10}}>{new Date(chargingHistory.created_at).toLocaleString()}</Text>
                         </View>
 
-                        <View style={[styles.seperateDash,{marginRight:20, width : 150,}]}>
-                            <Text>{numberThousandFormat(chargingHistory.requested_charging_money.toString())}원</Text>
+                        <View style={[styles.seperateDash,{marginRight:10, width : '50%',}]}>
+                            <Text style={{fontSize: 10}}>{numberThousandFormat(chargingHistory.requested_charging_money.toString())}원</Text>
                         </View>
 
-                        <View style={[styles.seperateDash, {width : 100,}]}>
-                            <Text>{chargingHistory.charged_status}</Text>
+                        <View style={[styles.seperateDash, {width : '20%',}]}>
+                            <Text style={{fontSize: 10}}>{chargingHistory.charged_status}</Text>
                         </View>
                     </View>
                 ))}
@@ -84,7 +84,12 @@ function ChargingMoneyHistoryScreen ({navigation}){
 
 
             <View style ={styles.upperComponentGroupStyle}>
-
+                <View style={styles.upperComponentsContainerStyle}>
+                    <View style = {styles.logoImage} />
+                    <View style={styles.sideBarIconContainerStyle}>
+                        <View style = {styles.sideBarIconStyle} />
+                    </View>
+                </View>
                 <View style = {styles.titleContainerStyle}>
                     <Text style ={styles.titleStyle}>금액 충전 기록</Text>
                 </View>

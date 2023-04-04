@@ -129,6 +129,12 @@ function ChargingMoneyScreen ({navigation}){
 
 
             <View style ={styles.upperComponentGroupStyle}>
+                <View style={styles.upperComponentsContainerStyle}>
+                    <View style = {styles.logoImage} />
+                    <View style={styles.sideBarIconContainerStyle}>
+                        <View style = {styles.sideBarIconStyle} />
+                    </View>
+                </View>
                 <View style = {styles.titleContainerStyle}>
                     <Text style ={styles.titleStyle}>발주 금액 충전하기</Text>
                 </View>

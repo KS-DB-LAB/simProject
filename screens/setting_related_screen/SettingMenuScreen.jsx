@@ -1,5 +1,5 @@
-import React from "react";
-import {View, Text, StyleSheet,Image, Pressable} from "react-native";
+import React, {useState} from "react";
+import {View, Text, StyleSheet, Pressable, Modal} from "react-native";
 import {storeData} from "../../lib/asyncstorage"
 import {CommonActions} from "@react-navigation/native"
 
@@ -7,23 +7,55 @@ const SettingMenuScreen = ({navigation, route}) => {
 
     const {navigationScreenNavigator, navigatorForInitialScreen} = route.params
 
+    const [errorModalVisible, setErrorModalVisible] = useState(false);
 
     const handleLogout = () => {
         // console.log(navigationScreenNavigator)
+        // console.log(navigatorForInitialScreen)
+
         storeData('loginStatus', 'false')
         storeData('owner_name', '')
         storeData('owner_id', '')
         storeData('owner_brands', '')
         storeData('owner_location_address','')
 
-        navigationScreenNavigator.navigate('MainScreen')
+        navigationScreenNavigator.navigate('LoadingForLoginToMainScreen')
         navigatorForInitialScreen.navigate('LoginScreen')
 
 
     }
 
     return (
+
+
         <View style={styles.container}>
+
+            <Modal
+                visible={errorModalVisible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setErrorModalVisible(false)}>
+                <View style={styles.errorModalMessageContainer}>
+                    <View style={styles.errorModalMessageBox}>
+                        <Text style={{marginBottom:30, fontSize:15, textAlign:'center'}}>
+                            로그아웃 하시겠습니까?
+                        </Text>
+                        <View style={{flexDirection: 'row'}}>
+                            <Pressable style={{marginRight : 40}}
+                                       onPress={() => setErrorModalVisible(false)}>
+                                <Text style={{fontSize:15,}}>취소</Text>
+                            </Pressable>
+                            <Pressable onPress={() => {
+                                handleLogout()
+                                setErrorModalVisible(false)
+                            }}>
+                                <Text style={{fontSize:15,}}>확인</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </View>
+
+            </Modal>
 
             <View style ={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>
@@ -133,7 +165,22 @@ const styles = StyleSheet.create({
     menuSelectingOptionTitleStyle : {
         paddingLeft : 38,
         paddingBottom : 25
-    }
+    },
+    errorModalMessageContainer: {
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center',
+        backgroundColor :"rgba(0,0,0,0.5)"
+    },
+    errorModalMessageBox:{
+        width:350,
+        height:200,
+        backgroundColor:"#ffffff",
+        borderRadius:10,
+        alignItems:'center',
+        justifyContent:'center',
+
+    },
 })
 ///
 export default SettingMenuScreen;

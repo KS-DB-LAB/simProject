@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {View, Text, StyleSheet, Pressable, Modal} from "react-native";
 import {storeData} from "../../lib/asyncstorage"
-import {CommonActions} from "@react-navigation/native"
 
 const SettingMenuScreen = ({navigation, route}) => {
 
@@ -91,7 +90,7 @@ const SettingMenuScreen = ({navigation, route}) => {
                     <Text style ={styles.titleStyle}>고객센터</Text>
                 </Pressable>
 
-                <Pressable onPress = {() => handleLogout()} style = {styles.menuSelectingOptionTitleStyle}>
+                <Pressable onPress = {() => setErrorModalVisible(true)} style = {styles.menuSelectingOptionTitleStyle}>
                     <Text style ={styles.titleStyle}>로그아웃</Text>
                 </Pressable>
 

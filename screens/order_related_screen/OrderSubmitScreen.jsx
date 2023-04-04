@@ -515,15 +515,17 @@ function OrderSubmitScreen({navigation}){
 
             <View style ={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>
-                    <Image source = {require('../../images/logo.jpg')} style = {styles.logoImage} />
-                    <Pressable onPress={() => drawer.openDrawer()} style={styles.sideBarIconContainerStyle}>
-                        <Image source = {require('../../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
-                    </Pressable>
+                    <View style = {styles.logoImage} />
+                    <View style={styles.sideBarIconContainerStyle}>
+                        <View style = {styles.sideBarIconStyle} />
+                    </View>
                 </View>
+
                 <View style = {styles.titleContainerStyle}>
-                    <Text style ={styles.titleStyle}>발주 목록 제출</Text>
+                    <Text style ={styles.titleStyle}>발주 요청</Text>
                 </View>
             </View>
+
             <Text style={[{
                 alignSelf:'flex-start',left:40,fontSize:15,fontWeight:'bold',
                 marginBottom:10,

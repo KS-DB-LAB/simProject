@@ -125,12 +125,6 @@ function ChargingMoneyScreen ({navigation}){
             </Modal>
 
             <View style ={styles.upperComponentGroupStyle}>
-                <View style={styles.upperComponentsContainerStyle}>
-                    <Image source = {require('../../images/logo.jpg')} style = {styles.logoImage} />
-                    <Pressable onPress={() => drawer.openDrawer()} style={styles.sideBarIconContainerStyle}>
-                        <Image source = {require('../../images/sideBarIcon.jpg')} style = {styles.sideBarIconStyle} />
-                    </Pressable>
-                </View>
                 <View style = {styles.titleContainerStyle}>
                     <Text style ={styles.titleStyle}>발주 금액 충전하기</Text>
                 </View>

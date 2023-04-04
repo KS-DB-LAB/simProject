@@ -193,6 +193,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         borderColor:'black',
         marginTop:120,
+        width:'95%'
     },
     scrollStyle: {
         flex:1,

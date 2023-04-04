@@ -1,7 +1,7 @@
 import {NavigationContainer} from "@react-navigation/native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 // @ts-ignore
-import React from 'react';
+import React, {useEffect} from 'react';
 
 
 import {Pressable, View, Image, Text,StyleSheet} from 'react-native';
@@ -11,6 +11,8 @@ import SalesAndProfitScreen from "../screens/SalesAndProfitScreen";
 import OrderNavigationScreen from "../screens/navigation_screens/OrderNavigationScreen";
 import SettingNavigationScreen from "../screens/navigation_screens/SettingNavigationScreen";
 import OrderHistoryScreen from "../screens/order_related_screen/OrderHistoryScreen";
+
+import LoadingForLoginToMainScreen from "../screens/LoadingForLoginToMainScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -61,12 +63,14 @@ function CustomDrawerContent({navigation}){
     )
 }
 
-function SideMenu({navigation,route}){
+function SideMenu({route}){
 
     const {navigatorForInitialScreen} = route.params
+    const navigationRef = React.useRef(null);
+
 
     return (
-        <NavigationContainer independent={true} >
+        <NavigationContainer ref={navigationRef} independent={true} >
             <Drawer.Navigator
                 initialRouteName="MainScreen"
                 screenOptions={{drawerPosition: 'right', headerShown : false}}
@@ -76,7 +80,8 @@ function SideMenu({navigation,route}){
                 <Drawer.Screen name="OrderNavigationScreen" component={OrderNavigationScreen} />
                 <Drawer.Screen name="OrderHistoryScreen" component={OrderHistoryScreen} />
                 <Drawer.Screen name="SettingNavigationScreen" component={SettingNavigationScreen}
-                               initialParams = {{navigationScreenNavigator : navigation, navigatorForInitialScreen : navigatorForInitialScreen}}/>
+                               initialParams = {{navigatorForInitialScreen : navigatorForInitialScreen}}/>
+                <Drawer.Screen name="LoadingForLoginToMainScreen" component={LoadingForLoginToMainScreen}/>
             </Drawer.Navigator>
         </NavigationContainer>
     )

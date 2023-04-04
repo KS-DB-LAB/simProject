@@ -55,8 +55,11 @@ function ChargingMoneyScreen ({navigation}){
                 onRequestClose={() => setErrorMessageModalVisible(false)}>
                 <View style={styles.errorModalMessageContainer}>
                     <View style={styles.errorModalMessageBox}>
-                        <Text style={{marginBottom:30, fontSize:15, textAlign:'center'}}>
+                        <Text style={{marginBottom:30, fontSize:15, marginBottom:10, textAlign:'center'}}>
                             충전 금액을 입력해주세요!
+                        </Text>
+                        <Text style={{marginBottom:30, fontSize:15, textAlign:'center'}}>
+                            (숫자 외에 다른 문자가 들어가면 안됩니다!)
                         </Text>
                         <View style={{flexDirection: 'row'}}>
                             <Pressable onPress={() => {
@@ -124,6 +127,7 @@ function ChargingMoneyScreen ({navigation}){
 
             </Modal>
 
+
             <View style ={styles.upperComponentGroupStyle}>
                 <View style = {styles.titleContainerStyle}>
                     <Text style ={styles.titleStyle}>발주 금액 충전하기</Text>
@@ -154,7 +158,7 @@ function ChargingMoneyScreen ({navigation}){
                     //console.log('Pressed')
                     //console.log(chargingMoney=='')
                     //console.log(chargingMoneyInteger == 0)
-                    if (chargingMoney=='' || chargingMoneyInteger == 0){
+                    if (chargingMoney=='' || chargingMoneyInteger == 0 || isNaN(chargingMoneyInteger)){
                         setErrorMessageModalVisible(true)
                     }
                     else {

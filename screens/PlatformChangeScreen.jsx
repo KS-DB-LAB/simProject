@@ -1,8 +1,9 @@
-import { Pressable, StyleSheet, Text, View, TextInput, ScrollView } from "react-native";
+import { Pressable, StyleSheet, Text, View, TextInput, ScrollView, Modal } from "react-native";
 import React, { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import { getData } from "../lib/asyncstorage";
 function PlatformChangeScreen({ route, navigation }) {
+	const [modalVisible, setModalVisible] = useState(false)
 	const [ownerId, setOwnerId] = useState(null);
 	const [account, setAccount] = useState({
 		baemin_id: "",
@@ -15,6 +16,7 @@ function PlatformChangeScreen({ route, navigation }) {
 		yogiyo_pw: "",
 		etc: "",
 	});
+
 
 	useEffect(() => {
 		if (route.params != null) {
@@ -36,7 +38,11 @@ function PlatformChangeScreen({ route, navigation }) {
 		}
 		return targetAccount;
 	}
+
 	const handleChangePlatformAccount = async () => {
+		setModalVisible(false)
+		navigation.navigate('SettingMenuScreen')
+
 		await supabase
 			.from("shop_owner_platform_account")
 			.update(extractTargetAcount(account))
@@ -57,6 +63,22 @@ function PlatformChangeScreen({ route, navigation }) {
 
 	return (
 		<View style={styles.container}>
+			<Modal
+				visible={modalVisible}
+				transparent={true}
+				animationType="fade"
+				onRequestClose={() => setModalVisible(false)}>
+				<View style={styles.errorModalMessageContainer}>
+					<View style={styles.errorModalMessageBox}>
+						<Text style={{marginBottom:30, fontSize:15,}}>배달 플랫폼 정보를 변경하시겠습니까?</Text>
+						<Pressable onPress={() => handleChangePlatformAccount()}>
+							<Text style={{fontSize:15,}}>확인</Text>
+						</Pressable>
+					</View>
+				</View>
+
+			</Modal>
+
 			<View style={styles.titleContainerStyle}>
 				<Text style={styles.titleStyle}>배달 플랫폼 계정 정보 변경[없으면 빈칸]</Text>
 			</View>
@@ -196,7 +218,7 @@ function PlatformChangeScreen({ route, navigation }) {
 						</Pressable>
 						<Pressable
 							style={styles.buttonStyle}
-							onPress={handleChangePlatformAccount}
+							onPress={() => setModalVisible(true)}
 						>
 							<Text style={styles.buttonText}>완료</Text>
 						</Pressable>
@@ -307,6 +329,21 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		marginTop: 30,
+	},
+	errorModalMessageContainer: {
+		flex:1,
+		alignItems:'center',
+		justifyContent:'center',
+		backgroundColor :"rgba(0,0,0,0.5)"
+	},
+	errorModalMessageBox:{
+		width:300,
+		height:200,
+		backgroundColor:"#ffffff",
+		borderRadius:10,
+		alignItems:'center',
+		justifyContent:'center',
+
 	},
 });
 

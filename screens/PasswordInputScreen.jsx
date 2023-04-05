@@ -1,8 +1,44 @@
-import React, {useState} from "react";
+import React, {useState, useEffect, createContext} from "react";
 import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, Dimensions, TextInput} from "react-native";
 import SettingMenuScreen from "./setting_related_screen/SettingMenuScreen"
 import UserPasswordOnChangeScreen from "./UserPasswordOnChangeScreen"
-function PasswordInputScreen({navigation}){
+import UserShopInfoOnChangeScreen from "./UserShopInfoOnChangeScreen"
+import {supabase} from "../lib/supabase"
+import {getData} from "../lib/asyncstorage"
+
+export const idContext = createContext();
+
+function PasswordInputScreen({navigation, route}){
+
+    const [inputPassword, setInputPassword] = useState('')
+    const [ownerId, setOwnerId] = useState('')
+
+
+    const handleTextInput = (text) => {
+        setInputPassword(text)
+    }
+
+    useEffect(() => {
+        getData('owner_id')
+            .then(owner_id => setOwnerId(owner_id))
+    }, []);
+
+    const {redirectScreen} = route.params
+    //console.log(route.params)
+
+    async function getPassword(owner_id) {
+
+        const {data, error} =
+            await supabase
+            .from('shop_owner_table')
+            .select('*')
+            .eq('member_id', owner_id)
+
+        data[0].member_password == inputPassword ?
+            navigation.navigate(redirectScreen) : console.log(false)
+    }
+
+
     return(
         <View>
             <View style = {styles.titleContainerStyle}>
@@ -11,7 +47,7 @@ function PasswordInputScreen({navigation}){
 
             <View style={styles.PasswordInputContainer}>
                 <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
-                <TextInput secureTextEntry={true} style={styles.accountInputBox} placeholder="  비밀번호" />
+                <TextInput secureTextEntry={true} style={styles.accountInputBox} placeholder="  비밀번호" onChangeText={handleTextInput}/>
             </View>
 
             <View style = {styles.DialogButtonContainer}>
@@ -19,7 +55,7 @@ function PasswordInputScreen({navigation}){
                     <Text>취소</Text>
                 </Pressable>
                 <View style={{ width: 16 }} />
-                <Pressable onPress={()=>navigation.navigate('UserPasswordOnChangeScreen')} style={styles.DialogButtonsStyle}>
+                <Pressable onPress={() => getPassword(ownerId)} style={styles.DialogButtonsStyle}>
                     <Text>완료</Text>
                 </Pressable>
             </View>

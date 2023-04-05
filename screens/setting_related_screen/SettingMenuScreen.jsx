@@ -33,15 +33,15 @@ const SettingMenuScreen = ({navigation, route}) => {
             </View>
 
             <View style ={styles.downerComponentGroupStyle}>
-                <Pressable style = {styles.menuSelectingOptionTitleStyle} onPress={() => navigation.navigate("PasswordInputScreen")}>
+                <Pressable style = {styles.menuSelectingOptionTitleStyle} onPress={() => navigation.navigate("PasswordInputScreen", {redirectScreen:"UserPasswordOnChangeScreen"}) }>
                     <Text style ={styles.titleStyle}>비밀번호 변경</Text>
                 </Pressable>
 
-                <Pressable style = {styles.menuSelectingOptionTitleStyle} onPress={() => navigation.navigate("UserShopInfoOnChangeScreen")}>
+                <Pressable style = {styles.menuSelectingOptionTitleStyle} onPress={() => navigation.navigate("PasswordInputScreen", {redirectScreen:"UserShopInfoOnChangeScreen"})}>
                     <Text style ={styles.titleStyle}>가게 정보 변경</Text>
                 </Pressable>
 
-                <Pressable style = {styles.menuSelectingOptionTitleStyle} onPress={()=>navigation.navigate("PlatformChangeScreen")}>
+                <Pressable style = {styles.menuSelectingOptionTitleStyle} onPress={() => navigation.navigate("PasswordInputScreen", {redirectScreen:"PlatformChangeScreen"})}>
                     <Text style ={styles.titleStyle}>배달 플랫폼 계정 정보 변경</Text>
                 </Pressable>
 

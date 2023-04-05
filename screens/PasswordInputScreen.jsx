@@ -35,7 +35,7 @@ function PasswordInputScreen({navigation, route}){
             .eq('member_id', owner_id)
 
         data[0].member_password == inputPassword ?
-            navigation.navigate(redirectScreen) : console.log(false)
+            navigation.navigate(redirectScreen) : ''
     }
 
 

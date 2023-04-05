@@ -9,6 +9,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import SettingMenuScreen from "../setting_related_screen/SettingMenuScreen"
 import PlatformChangeScreen from "../PlatformChangeScreen";
 import UserPasswordOnChangeScreen from "../UserPasswordOnChangeScreen"
+import SettingForAllocatedAdminScreen from "../setting_related_screen/SettingForAllocatedAdminScreen"
+
 const Stack = createStackNavigator();
 function SettingNavigationScreen({navigation, route}) {
 
@@ -29,6 +31,8 @@ function SettingNavigationScreen({navigation, route}) {
                 <Stack.Screen name="UserShopInfoOnChangeScreen" component={UserShopInfoOnChangeScreen}/>
 
                 <Stack.Screen name="PlatformChangeScreen" component={PlatformChangeScreen}/>
+
+                <Stack.Screen name="SettingForAllocatedAdminScreen" component={SettingForAllocatedAdminScreen}/>
 
             </Stack.Navigator>
         </NavigationContainer>

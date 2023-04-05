@@ -19,8 +19,7 @@ function SettingNavigationScreen({navigation, route}) {
             <Stack.Navigator initialRouteName="SettingMenuScreen" screenOptions={{headerShown : false}}>
 
                 <Stack.Screen name="SettingMenuScreen" component={SettingMenuScreen}
-                              initialParams ={{
-                                  navigationScreenNavigator : navigation,
+                              initialParams ={{navigationScreenNavigator : navigation,
                                   navigatorForInitialScreen : navigatorForInitialScreen}}/>
 
                 <Stack.Screen name="PasswordInputScreen" component={PasswordInputScreen}/>

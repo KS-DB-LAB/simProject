@@ -1,6 +1,7 @@
 // @ts-ignore
 import React, {useEffect} from "react";
 import 'react-native-gesture-handler'
+import {useIsFocused} from "@react-navigation/native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -15,8 +16,16 @@ import ChargingMoneyHistoryScreen from "../order_related_screen/ChargingMoneyHis
 const Stack = createStackNavigator();
 function OrderNavigationScreen({navigation}) {
 
+    const isFocused = useIsFocused()
+    const navigationRef = React.useRef(null);
+
+    useEffect(() => {
+        //console.log('open')
+        navigationRef.current.navigate('OrderScreen')
+    },[isFocused])
+
     return (
-        <NavigationContainer independent={true}>
+        <NavigationContainer ref={navigationRef} independent={true}>
             <Stack.Navigator initialRouteName="OrderScreen" screenOptions={{headerShown : false}}>
                 <Stack.Screen name="OrderScreen" component={OrderScreen} initialParams={{drawer : navigation}}/>
                 <Stack.Screen name="OrderSpecificScreen" component={OrderSpecificScreen}/>

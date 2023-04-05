@@ -11,7 +11,7 @@ function ChargingMoneyScreen ({navigation}){
     const [chargingMoneyInteger, setChargingMoneyInteger] = useState(0)
 
 
-    const [chargingMoney, setChargingMoney] = useState('')
+    const [chargingMoney, setChargingMoney] = useState('100,000')
     const numberThousandFormat = (chargedMoneyString) => {
         chargedMoneyString = chargedMoneyString.replaceAll(',','')
         if (chargedMoneyString.includes('-')){
@@ -141,6 +141,7 @@ function ChargingMoneyScreen ({navigation}){
                         </Text>
                         <View style={{flexDirection: 'row'}}>
                             <Pressable onPress={() => {
+                                setChargingMoney('100,000')
                                 setConfirmMessageModalVisible(false)
                                 navigation.navigate('OrderScreen')
                             }}>

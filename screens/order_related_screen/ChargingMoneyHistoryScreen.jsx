@@ -7,6 +7,8 @@ import {supabase} from "../../lib/supabase";
 import {useIsFocused} from "@react-navigation/native";
 
 function ChargingMoneyHistoryScreen ({navigation}){
+
+
     isFocused = useIsFocused();
     const [chargingMoneyInteger, setChargingMoneyInteger] = useState(0)
     const [supabaseDataLocal, setSupabaseDataLocal]= useState([])

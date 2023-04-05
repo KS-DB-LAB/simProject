@@ -12,6 +12,7 @@ import OrderSuppliesScreen from "../order_related_screen/OrderSuppliesScreen";
 import OrderSubmitScreen from "../order_related_screen/OrderSubmitScreen";
 import ChargingMoneyScreen from "../order_related_screen/ChargingMoneyScreen";
 import ChargingMoneyHistoryScreen from "../order_related_screen/ChargingMoneyHistoryScreen";
+import LoadingForReRenderScreen from "../order_related_screen/LoadingForReRenderScreen";
 
 const Stack = createStackNavigator();
 function OrderNavigationScreen({navigation}) {
@@ -21,7 +22,7 @@ function OrderNavigationScreen({navigation}) {
 
     useEffect(() => {
         //console.log('open')
-        navigationRef.current.navigate('OrderScreen')
+        navigationRef.current.navigate('LoadingForReRenderScreen')
     },[isFocused])
 
     return (
@@ -33,6 +34,7 @@ function OrderNavigationScreen({navigation}) {
                 <Stack.Screen name="OrderSubmitScreen" component={OrderSubmitScreen}/>
                 <Stack.Screen name="ChargingMoneyScreen" component={ChargingMoneyScreen}/>
                 <Stack.Screen name="ChargingMoneyHistoryScreen" component={ChargingMoneyHistoryScreen}/>
+                <Stack.Screen name="LoadingForReRenderScreen" component={LoadingForReRenderScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

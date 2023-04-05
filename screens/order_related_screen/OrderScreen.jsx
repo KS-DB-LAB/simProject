@@ -21,7 +21,7 @@ function OrderScreen({navigation, route}){
 
         if (error){
         } else{
-            //console.log(brandName)
+            // console.log(brandName)
             // console.log(data.length)
             setItemClassList([...tempList])
 
@@ -88,7 +88,7 @@ function OrderScreen({navigation, route}){
                 <>
                     <Text style={{marginBottom : 5, fontWeight:'bold'}}>아직 브랜드가 승인되지 않았습니다!</Text>
                     <Text style={{marginBottom : 20, fontWeight:'bold'}}>브랜드 관리자에게 문의하시기 바랍니다.</Text>
-                    <Pressable onPress={() => drawer.navigate('SettingNavigationScreen')}><Text>관리자 ID 입력받고 승인받으시려면 터치해주세요</Text></Pressable>
+                    <Pressable onPress={() => {navigation.navigate('LoadingForReRenderScreen')}}><Text>요청 후 새로고침으로 확인해보세요! (터치)</Text></Pressable>
                 </>
             )
         }
@@ -154,7 +154,7 @@ function OrderScreen({navigation, route}){
                 setValuesForBottomPopUp(ownerId)
                 bottomUp()
             })
-        },100)
+        },500)
 
     },[isFocused])
 

@@ -1,7 +1,26 @@
 import React, {useState} from "react";
 import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, Dimensions, TextInput} from "react-native";
-
+import {getData} from "../../lib/asyncstorage"
+import {supabase} from"../../lib/supabase"
 function SettingAllocatedAdmin({navigation}){
+
+    const [updatingAllocatedAdmin, setUpdatingAllocateAdmin] = useState('')
+
+    const updateToSupabase = async (ownerId) => {
+        console.log(ownerId)
+        await supabase
+            .from('shop_owner_table')
+            .update({
+                member_brands : '',
+                allocated_bank_account: {},
+                allocated_admin : updatingAllocatedAdmin,
+                allocated_status :0,
+            })
+            .eq('member_id',ownerId)
+
+        navigation.navigate('SettingMenuScreen')
+    }
+
     return(
         <View>
             <View style = {styles.titleContainerStyle}>
@@ -10,7 +29,7 @@ function SettingAllocatedAdmin({navigation}){
 
             <View style={styles.PasswordInputContainer}>
                 <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
-                <TextInput secureTextEntry={true} style={styles.accountInputBox} placeholder="  관리자 ID (이메일)" />
+                <TextInput style={styles.accountInputBox} onChangeText = {text => setUpdatingAllocateAdmin(text)} placeholder="  관리자 ID (이메일)" />
             </View>
 
             <View style = {styles.DialogButtonContainer}>
@@ -18,7 +37,11 @@ function SettingAllocatedAdmin({navigation}){
                     <Text>취소</Text>
                 </Pressable>
                 <View style={{ width: 16 }} />
-                <Pressable onPress={() => console.log('여기서 db에 업데이트')} style={styles.DialogButtonsStyle}>
+                <Pressable onPress={() => {
+                    getData('owner_id').then(ownerId => {
+                        updateToSupabase(ownerId)
+                    })
+                }} style={styles.DialogButtonsStyle}>
                     <Text>완료</Text>
                 </Pressable>
             </View>

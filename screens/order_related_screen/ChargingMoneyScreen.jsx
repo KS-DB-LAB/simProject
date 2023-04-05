@@ -51,7 +51,13 @@ function ChargingMoneyScreen ({navigation}){
         if(error){
         }
         else{
-            setChargingBankAccout(data[0].allocated_bank_account["account_number"] + " " + data[0].allocated_bank_account["bank"])
+            if (data[0].allocated_bank_account["account_number"] == undefined) {
+                setChargingBankAccout('발주 권한이 없습니다!')
+            }
+            else {
+                setChargingBankAccout(data[0].allocated_bank_account["account_number"] + " " + data[0].allocated_bank_account["bank"])
+            }
+
         }
     }
 
@@ -203,7 +209,7 @@ function ChargingMoneyScreen ({navigation}){
 
             </View>
 
-            <Text style={{fontSize:15, marginTop:20, }}>입금 계좌 : {chargingBankAccount}</Text>
+            <Text style={{fontSize:15, marginTop:20, }} editable={false} multiline={true}>입금 계좌 : {chargingBankAccount}</Text>
         </KeyboardAvoidingView>
     )
 }

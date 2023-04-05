@@ -71,6 +71,11 @@ const SettingMenuScreen = ({navigation, route}) => {
 
             <View style ={styles.downerComponentGroupStyle}>
                 <Pressable style = {styles.menuSelectingOptionTitleStyle} onPress={() =>
+                    navigation.navigate("PasswordInputScreen",{redirectScreen:'SettingForAllocatedAdminScreen'})}>
+                    <Text style ={styles.titleStyle}>발주 권한 요청</Text>
+                </Pressable>
+
+                <Pressable style = {styles.menuSelectingOptionTitleStyle} onPress={() =>
                     navigation.navigate("PasswordInputScreen",{redirectScreen:'UserPasswordOnChangeScreen'})}>
                     <Text style ={styles.titleStyle}>비밀번호 변경</Text>
                 </Pressable>

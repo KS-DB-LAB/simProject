@@ -7,7 +7,7 @@ function SettingAllocatedAdmin({navigation}){
     const [updatingAllocatedAdmin, setUpdatingAllocateAdmin] = useState('')
 
     const updateToSupabase = async (ownerId) => {
-        console.log(ownerId)
+        //console.log(ownerId)
         await supabase
             .from('shop_owner_table')
             .update({

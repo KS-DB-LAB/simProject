@@ -19,6 +19,7 @@
     "@supabase/supabase-js": "^2.8.0",
     "@types/react": "~18.0.27",
     "@types/react-native": "~0.70.6",
+    "deprecated-react-native-prop-types": "^4.0.0",
     "dotenv": "^16.0.3",
     "expo": "~48.0.4",
     "expo-status-bar": "~1.4.4",
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@expo/config-plugins": "^6.0.1",
     "babel-preset-react-native": "^4.0.1",
     "metro-react-native-babel-preset": "^0.75.1",
     "react-native-dotenv": "^3.4.8"

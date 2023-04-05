@@ -28,6 +28,7 @@
       "developmentClient": true
     },
     "production": {
+      "channel": "production",
       "ios": {
         "resourceClass": "m1-medium"
       }

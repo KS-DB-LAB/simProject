@@ -10,24 +10,25 @@ import SettingMenuScreen from "../setting_related_screen/SettingMenuScreen"
 import PlatformChangeScreen from "../PlatformChangeScreen";
 import UserPasswordOnChangeScreen from "../UserPasswordOnChangeScreen"
 const Stack = createStackNavigator();
-function SettingNavigationScreen({navigation, route}) {
+function SettingNavigationScreen({route}) {
 
-    const {navigatorForInitialScreen} = route.params
+    const {navigationScreenNavigator} = route.params
 
     return (
         <NavigationContainer independent={true}>
             <Stack.Navigator initialRouteName="SettingMenuScreen" screenOptions={{headerShown : false}}>
 
                 <Stack.Screen name="SettingMenuScreen" component={SettingMenuScreen}
-                              initialParams ={{
-                                  navigationScreenNavigator : navigation,
-                                  navigatorForInitialScreen : navigatorForInitialScreen}}/>
+                              initialParams ={{navigationScreenNavigator : navigationScreenNavigator}}/>
 
-                <Stack.Screen name="PasswordInputScreen" component={PasswordInputScreen}/>
+                <Stack.Screen name="PasswordInputScreen" component={PasswordInputScreen}
+                              initialParams ={{navigationScreenNavigator : navigationScreenNavigator}}/>
 
-                <Stack.Screen name="UserPasswordOnChangeScreen" component={UserPasswordOnChangeScreen}/>
+                <Stack.Screen name="UserPasswordOnChangeScreen" component={UserPasswordOnChangeScreen}
+                              initialParams ={{navigationScreenNavigator : navigationScreenNavigator}}/>
 
-                <Stack.Screen name="UserShopInfoOnChangeScreen" component={UserShopInfoOnChangeScreen}/>
+                <Stack.Screen name="UserShopInfoOnChangeScreen" component={UserShopInfoOnChangeScreen}
+                              initialParams ={{navigationScreenNavigator : navigationScreenNavigator}}/>
 
                 <Stack.Screen name="PlatformChangeScreen" component={PlatformChangeScreen}/>
 

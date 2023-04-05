@@ -49,6 +49,7 @@ function LoginScreen({navigation}) {
         storeData('owner_id', data.member_id)
         storeData('owner_brands', data.member_brands)
         storeData('owner_location_address',data.location_address)
+        storeData('allocated_admin',data.allocated_admin)
 
         setMemberId('')
         setMemberPassword('')

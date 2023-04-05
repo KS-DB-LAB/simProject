@@ -34,13 +34,14 @@ function ChargingMoneyHistoryScreen ({navigation}){
             <>
                 <View style ={styles.scrollContainerStyle}>
                 <ScrollView style={styles.scrollStyle}>
+                    <View style={{alignItems:'center'}}>
                 {supabaseDataLocal.map( chargingHistory => (
                     <View style={{flexDirection: 'row'}}>
-                        <View style={[styles.seperateDash,{marginRight:10, width : '20%',}]}>
+                        <View style={[styles.seperateDash,{marginRight:10, width : '25%',}]}>
                             <Text style={{fontSize: 10}}>{new Date(chargingHistory.created_at).toLocaleString()}</Text>
                         </View>
 
-                        <View style={[styles.seperateDash,{marginRight:10, width : '55%',}]}>
+                        <View style={[styles.seperateDash,{marginRight:10, width : '49%',}]}>
                             <Text style={{fontSize: 10}}>{numberThousandFormat(chargingHistory.requested_charging_money.toString())}원</Text>
                         </View>
 
@@ -49,6 +50,7 @@ function ChargingMoneyHistoryScreen ({navigation}){
                         </View>
                     </View>
                 ))}
+                    </View>
                 </ScrollView>
                 </View>
             </>

@@ -41,12 +41,13 @@ function OrderHistoryScreen ({navigation}){
             <>
                 <View style ={styles.scrollContainerStyle}>
                     <ScrollView style={styles.scrollStyle}>
+                        <View style={{alignItems:'center',}}>
                         {supabaseDataLocal.map( orderHistory => (
                             //console.log(orderHistory.member_order_list[0]),
 
                             <View style={{flexDirection: 'row'}}>
-                                <View style={[styles.seperateDash,{marginRight:10, width : '20%',}]}>
-                                    <Text style={{fontSize: 10}}>{new Date(orderHistory.created_at).toLocaleString()}</Text>
+                                <View style={[styles.seperateDash,{marginRight:10, width:'25%'}]}>
+                                    <Text style={{fontSize: 10, padding:10}}>{new Date(orderHistory.created_at).toLocaleString()}</Text>
                                 </View>
 
 
@@ -54,16 +55,17 @@ function OrderHistoryScreen ({navigation}){
                                     setModalInnerComponents(orderHistory)
                                     setErrorModalVisible(true)
                                 }}
-                                   style={[styles.seperateDash,{flexDirection:'row', marginRight:10, width : '55%',}]}>
+                                   style={[styles.seperateDash,{flexDirection:'row', marginRight:10,width:'49%',}]}>
                                     <Text style={{fontSize: 10}}>{orderHistory.member_order_list[0].itemName}</Text>
                                     <Text style={{fontSize : 10}}>{setForItemCountExtra((orderHistory.member_order_list.length)-1)}</Text>
                                 </Pressable>
 
-                                <View style={[styles.seperateDash, {width : '20%',}]}>
+                                <View style={[styles.seperateDash,{width:'20%',}]}>
                                     <Text style={{fontSize: 10}}>{orderHistory.order_status}</Text>
                                 </View>
                             </View>
                         ))}
+                        </View>
                     </ScrollView>
                 </View>
             </>
@@ -246,7 +248,6 @@ const styles = StyleSheet.create({
         height : 50,
         borderRadius : 7,
         marginBottom : 12,
-
     },
     titleStyle : {
         fontSize : 18,

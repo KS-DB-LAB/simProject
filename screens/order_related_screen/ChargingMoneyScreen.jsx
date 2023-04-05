@@ -143,7 +143,6 @@ function ChargingMoneyScreen ({navigation}){
                             <Pressable onPress={() => {
                                 setChargingMoney('100,000')
                                 setConfirmMessageModalVisible(false)
-                                navigation.navigate('OrderScreen')
                             }}>
                                 <Text style={{fontSize:15,}}>확인</Text>
                             </Pressable>

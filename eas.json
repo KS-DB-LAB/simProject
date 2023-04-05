@@ -9,7 +9,7 @@
       "ios": {
         "resourceClass": "m1-medium"
       },
-      "releaseChannel": "your-channel-name"
+      "releaseChannel": "main"
     },
     "preview": {
       "distribution": "internal",

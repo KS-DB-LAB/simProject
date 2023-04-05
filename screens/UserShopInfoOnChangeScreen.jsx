@@ -56,7 +56,7 @@ function UserShopInfoOnChangeScreen({navigation}){
                 .eq('member_id', ownerId)
 
         } catch (error) {
-            console.log(error)
+            //console.log(error)
         }
     }
 

@@ -48,10 +48,11 @@ function LoginScreen({navigation}) {
         storeData('owner_name', data.member_name)
         storeData('owner_id', data.member_id)
         storeData('owner_brands', data.member_brands)
+        storeData('owner_location_address',data.location_address)
 
         setMemberId('')
         setMemberPassword('')
-        navigation.navigate('SideMenu')
+        navigation.navigate('SideMenu',{navigatorForInitialScreen : navigation})
     }
 
     const [errorModalVisible, setErrorModalVisible] = useState(false);

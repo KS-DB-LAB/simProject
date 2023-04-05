@@ -50,10 +50,10 @@ function PlatformChangeScreen({ route, navigation }) {
 			.then((res) => {
 				if (res.error) {
 					// 	insert 에러 처리
-					console.log("오류가 발생하였습니다. 관리자에게 문의해주세요. ERR:"+res.error)
+					//console.log("오류가 발생하였습니다. 관리자에게 문의해주세요. ERR:"+res.error)
 				} else {
 					// 	insert 성공
-					console.log("성공적으로 변경되었습니다.")
+					//console.log("성공적으로 변경되었습니다.")
 			}})
 			.then(() => {
 				navigation.navigate("SettingMenuScreen")

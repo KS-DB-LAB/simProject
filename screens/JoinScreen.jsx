@@ -29,6 +29,7 @@ const JoinScreen = ({ navigation }) => {
 						businessRegNumber: "",
 						address: "",
 						addressDetail: "",
+						adminId:"",
 					}}
 					onSubmit={async (values) => {
 						await supabase
@@ -41,6 +42,7 @@ const JoinScreen = ({ navigation }) => {
 									location_address:
 										values.address + " " + values.addressDetail,
 									business_number: values.businessRegNumber,
+									allocated_admin : values.adminId,
 								},
 							])
 							.then((res) => {
@@ -95,6 +97,11 @@ const JoinScreen = ({ navigation }) => {
 									component={CustomInput}
 									name="addressDetail"
 									placeholder="상세 주소"
+								/>
+								<Field
+									component={CustomInput}
+									name="adminId"
+									placeholder="관리자 아이디"
 								/>
 								<View style={styles.submitContainerStyle}>
 									<Pressable
@@ -163,6 +170,11 @@ const signUpValidationSchema = yup.object().shape({
 	name: yup.string().required("이름을 입력해주세요."),
 	address: yup.string().required("주소을 입력해주세요."),
 	addressDetail: yup.string().required("상세주소를 입력해주세요."),
+
+	adminId : yup
+		.string()
+		.matches(/^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/,
+			"관리자 ID를 이메일 형식으로 입력해주세요")
 });
 
 const styles = StyleSheet.create({

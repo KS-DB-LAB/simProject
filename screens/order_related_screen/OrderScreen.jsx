@@ -3,7 +3,7 @@ import {BackHandler, Image, Pressable, StyleSheet, Text, View, ScrollView,SafeAr
 import React, {useEffect, useState} from "react";
 import {getData} from "../../lib/asyncstorage";
 import {supabase} from "../../lib/supabase";
-import {useNavigation} from "@react-navigation/native";
+import {useIsFocused} from "@react-navigation/native";
 
 function OrderScreen({navigation, route}){
     const {drawer} =  route.params;
@@ -71,7 +71,7 @@ function OrderScreen({navigation, route}){
             .eq('member_id',ownerId)
         if (error) {
         } else {
-            // console.log(data[0].money_for_supplies)
+            //console.log(data[0].charged_money)
             setChargedMoney(data[0].charged_money)
             const chargedMoneyString = data[0].charged_money.toString()
             setChargedMoney(numberThousandFormat(chargedMoneyString))
@@ -108,13 +108,58 @@ function OrderScreen({navigation, route}){
         }
     }
 
+
+    const isFocused = useIsFocused();
+    const [hiddenState, setHiddenState] = useState(false)
+    const [itemCountForBottom ,setItemCountForBottom] = useState(0)
+
+    const setValuesForBottomPopUp = async (ownerId) => {
+        //console.log('isFocused')
+        const {data,error} = await supabase
+            .from('shop_owner_shopping_bag')
+            .select('*')
+            .eq('owner_id' , ownerId)
+        if(error){
+        }else{
+            if (data[0]==undefined){
+                setItemCountForBottom(0)
+                setHiddenState(false)
+            }
+            else{
+                //console.log('not undefined')
+                setItemCountForBottom(data[0].item_count)
+                setHiddenState(true)
+            }
+        }
+    }
+
     useEffect(() => {
-            getData('owner_id').then(ownerId => {
+        //console.log('openedScreen')
+        setTimeout(() => {
+            getData('owner_id').then(ownerId=> {
                 handleSearch(ownerId)
                 handleChargedMoney(ownerId)
+                setValuesForBottomPopUp(ownerId)
+                bottomUp()
             })
+        },100)
+
+    },[isFocused])
+
+    const bottomUp = () => {
+        if (hiddenState == true){
+            //test 입니당
+            //console.log(itemCountForBottom)
+            return(
+                <>
+                    <Pressable onPress = {() => {
+                        navigation.navigate('OrderSubmitScreen')}} style ={styles.underPopUpBarForNavigatingSubmitScreen}>
+                        <Text style ={styles.label}>발주하기({itemCountForBottom})</Text>
+                    </Pressable>
+                </>
+            )
         }
-        ,[])
+    }
 
     return (
         <View style={styles.container}>
@@ -132,12 +177,17 @@ function OrderScreen({navigation, route}){
 
             {functionForMakingScrollView()}
 
-            <View style ={styles.containerForChargedMoneyStyle}>
-                <Text style={styles.label}>충전 금액 : {chargedMoney}</Text>
-            </View>
+            <Pressable onPress = {() => {
+                //console.log('pressed charge money')
+                navigation.navigate("ChargingMoneyScreen")
+            }}
+                 style ={styles.containerForChargedMoneyStyle}>
+                <Text>충전 금액 : {chargedMoney}원</Text>
+            </Pressable>
+
+            {bottomUp()}
 
         </View>
-
     )
 }
 
@@ -212,8 +262,32 @@ const styles = StyleSheet.create({
         flex:0.5,
     },
     containerForChargedMoneyStyle:{
-        top:'76%',
-        position:'absolute'
+        top:'78%',
+        position:'absolute',
+        alignItems : 'flex-end'
+    },
+    itemBuyingCount : {
+        flexDirection: 'row',
+        alignItems:'center',
+        justifyContent:'space-evenly',
+        height:30,
+        width:'50%',
+        marginBottom:10,
+        borderWidth:1,
+        borderColor:'black',
+        borderRadius : 10,
+
+    },
+    underPopUpBarForNavigatingSubmitScreen:{
+        alignItems : 'center',
+        justifyContent : 'center',
+        position : 'absolute',
+        bottom:0,
+        width:'100%',
+        height:70,
+        backgroundColor:'#D8D8D8',
+        borderTopLeftRadius:30,
+        borderTopRightRadius:30,
     }
 })
 

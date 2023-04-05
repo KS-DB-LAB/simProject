@@ -1,7 +1,7 @@
 import {NavigationContainer} from "@react-navigation/native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 // @ts-ignore
-import React from 'react';
+import React, {useEffect} from 'react';
 
 
 import {Pressable, View, Image, Text,StyleSheet} from 'react-native';
@@ -10,6 +10,9 @@ import MainScreen from "../screens/MainScreen";
 import SalesAndProfitScreen from "../screens/SalesAndProfitScreen";
 import OrderNavigationScreen from "../screens/navigation_screens/OrderNavigationScreen";
 import SettingNavigationScreen from "../screens/navigation_screens/SettingNavigationScreen";
+import OrderHistoryScreen from "../screens/order_related_screen/OrderHistoryScreen";
+
+import LoadingForLoginToMainScreen from "../screens/LoadingForLoginToMainScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -29,9 +32,14 @@ function CustomDrawerContent({navigation}){
             onPress: () => navigation.navigate('OrderNavigationScreen'),
         },
         {
+            label:'발주 기록',
+            onPress : () => navigation.navigate('OrderHistoryScreen'),
+        },
+        {
             label: '설정',
             onPress: () => navigation.navigate('SettingNavigationScreen'),
         },
+
 
     ]
     return (
@@ -55,11 +63,14 @@ function CustomDrawerContent({navigation}){
     )
 }
 
-function SideMenu({navigation}){
+function SideMenu({route}){
+
+    const {navigatorForInitialScreen} = route.params
+    const navigationRef = React.useRef(null);
 
 
     return (
-        <NavigationContainer independent={true} >
+        <NavigationContainer ref={navigationRef} independent={true} >
             <Drawer.Navigator
                 initialRouteName="MainScreen"
                 screenOptions={{drawerPosition: 'right', headerShown : false}}
@@ -67,11 +78,10 @@ function SideMenu({navigation}){
                 <Drawer.Screen name="MainScreen" component={MainScreen} />
                 <Drawer.Screen name="SalesAndProfitScreen" component={SalesAndProfitScreen} />
                 <Drawer.Screen name="OrderNavigationScreen" component={OrderNavigationScreen} />
-
-
+                <Drawer.Screen name="OrderHistoryScreen" component={OrderHistoryScreen} />
                 <Drawer.Screen name="SettingNavigationScreen" component={SettingNavigationScreen}
-                               initialParams = {{navigationScreenNavigator : navigation}}/>
-
+                               initialParams = {{navigatorForInitialScreen : navigatorForInitialScreen}}/>
+                <Drawer.Screen name="LoadingForLoginToMainScreen" component={LoadingForLoginToMainScreen}/>
             </Drawer.Navigator>
         </NavigationContainer>
     )

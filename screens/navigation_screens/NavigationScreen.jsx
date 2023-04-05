@@ -19,7 +19,7 @@ function NavigationScreen() {
     useEffect(() => {
         try{
             getData('loginStatus').then(res => {res == 'true' && navigationRef.current
-                ? navigationRef.current.navigate('SideMenu') : navigationRef.current.navigate('LoginScreen')})
+                ? navigationRef.current.navigate('SideMenu', {navigatorForInitialScreen : navigationRef.current}) : navigationRef.current.navigate('LoginScreen')})
         }
         catch{
         }
@@ -34,7 +34,7 @@ function NavigationScreen() {
                 <Stack.Screen name="LoginScreen" component={LoginScreen}/>
                 <Stack.Screen name="JoinScreen" component={JoinScreen}/>
                 <Stack.Screen name="PlatformAddScreen" component={PlatformAddScreen}/>
-                <Stack.Screen name="SideMenu" component={SideMenu} initialParams ={{navigationScreenNavigator : this}}/>
+                <Stack.Screen name="SideMenu" component={SideMenu} initialParams ={{navigatorForInitialScreen : navigationRef.current}}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

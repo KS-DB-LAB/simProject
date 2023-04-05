@@ -21,6 +21,7 @@ function OrderScreen({navigation, route}){
 
         if (error){
         } else{
+            //console.log(brandName)
             // console.log(data.length)
             setItemClassList([...tempList])
 
@@ -31,6 +32,7 @@ function OrderScreen({navigation, route}){
                 }
             });
             setItemClassList(tempList);
+            //console.log(tempList)
         }
     }
 
@@ -44,6 +46,7 @@ function OrderScreen({navigation, route}){
             const brandListTemp = data[0].member_brands.split(', ')
             // console.log(brandListTemp)
             setBrandList(brandListTemp)
+            //console.log(brandList)
             brandListTemp.map(async(brandName) => await handleSearchItemClass(brandName, brandListTemp));
         }
     }

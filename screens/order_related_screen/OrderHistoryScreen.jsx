@@ -54,7 +54,7 @@ function OrderHistoryScreen ({navigation}){
                                     setModalInnerComponents(orderHistory)
                                     setErrorModalVisible(true)
                                 }}
-                                   style={[styles.seperateDash,{flexDirection:'row', marginRight:10, width : '50%',}]}>
+                                   style={[styles.seperateDash,{flexDirection:'row', marginRight:10, width : '55%',}]}>
                                     <Text style={{fontSize: 10}}>{orderHistory.member_order_list[0].itemName}</Text>
                                     <Text style={{fontSize : 10}}>{setForItemCountExtra((orderHistory.member_order_list.length)-1)}</Text>
                                 </Pressable>
@@ -84,7 +84,7 @@ function OrderHistoryScreen ({navigation}){
     }
 
     useEffect( () => {
-        console.log('ChargingMoneySCreen - History')
+        // console.log('ChargingMoneySCreen - History')
         getData('owner_id').then(ownerId => {
             getHistoryOfChargingMoney(ownerId);
         })

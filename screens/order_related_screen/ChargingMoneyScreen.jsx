@@ -1,7 +1,7 @@
 import {BackHandler, Image, Pressable, StyleSheet, Text, View, ScrollView,SafeAreaView, TextInput
     ,KeyboardAvoidingView, Platform, Modal} from "react-native";
 // @ts-ignore
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {getData} from "../../lib/asyncstorage";
 import {supabase} from "../../lib/supabase";
 import {useIsFocused} from "@react-navigation/native";
@@ -41,6 +41,31 @@ function ChargingMoneyScreen ({navigation}){
                 }
             ])
     }
+
+    const [chargingBankAccount, setChargingBankAccout] = useState('')
+    const getBankAccountFromSupabase = async (ownerId) => {
+        const {data, error} = await supabase
+            .from('shop_owner_table')
+            .select('allocated_bank_account')
+            .eq('member_id',ownerId)
+        if(error){
+        }
+        else{
+            setChargingBankAccout(data[0].allocated_bank_account["account_number"] + " " + data[0].allocated_bank_account["bank"])
+        }
+    }
+
+
+    const getBankAccountComponent = () => {
+        getData('owner_id').then(ownerId => {
+            //console.log(ownerId)
+            getBankAccountFromSupabase(ownerId)
+        })
+    }
+
+    useEffect(() => {
+        getBankAccountComponent()
+    },[isFocused])
 
     const [errorModalVisible, setErrorModalVisible] = useState(false);
     const [errorMessageModalVisible, setErrorMessageModalVisible] = useState(false)
@@ -175,8 +200,10 @@ function ChargingMoneyScreen ({navigation}){
                            style={styles.submitButton}>
                     <Text>충전 요청하기</Text>
                 </Pressable>
+
             </View>
 
+            <Text style={{fontSize:15, marginTop:20, }}>입금 계좌 : {chargingBankAccount}</Text>
         </KeyboardAvoidingView>
     )
 }

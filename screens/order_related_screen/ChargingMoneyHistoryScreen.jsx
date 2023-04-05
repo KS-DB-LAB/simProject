@@ -38,7 +38,7 @@ function ChargingMoneyHistoryScreen ({navigation}){
                 {supabaseDataLocal.map( chargingHistory => (
                     <View style={{flexDirection: 'row'}}>
                         <View style={[styles.seperateDash,{marginRight:10, width : '25%',}]}>
-                            <Text style={{fontSize: 10}}>{new Date(chargingHistory.created_at).toLocaleString()}</Text>
+                            <Text style={{fontSize: 10, padding:10}}>{new Date(chargingHistory.created_at).toLocaleString()}</Text>
                         </View>
 
                         <View style={[styles.seperateDash,{marginRight:10, width : '49%',}]}>

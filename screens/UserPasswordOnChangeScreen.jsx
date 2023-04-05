@@ -53,8 +53,8 @@ function UserPasswordOnChangeScreen({navigation}){
                 </View>
 
                 <View style={styles.PasswordInputContainer}>
-                    <TextInput style={styles.accountInputBox} onChangeText={handleTextInput} placeholder="  새 비밀번호" />
-                    <TextInput secureTextEntry={true} style={styles.accountInputBox} onChangeText={handleTextReInput} placeholder="  새 비밀번호 확인" />
+                    <TextInput secureTextEntry={true} style={styles.accountInputBox} onChangeText={text => setNewPassword(text)} placeholder="  새 비밀번호" />
+                    <TextInput secureTextEntry={true} style={styles.accountInputBox} onChangeText={text => setReInputPassword(text)} placeholder="  새 비밀번호 확인" />
                 </View>
 
                 <View style = {styles.DialogButtonContainer}>

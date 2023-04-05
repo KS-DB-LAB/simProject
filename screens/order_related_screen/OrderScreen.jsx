@@ -80,7 +80,16 @@ function OrderScreen({navigation, route}){
     }
 
     const functionForMakingScrollView = () => {
-        if (itemClassList.length <= 4){
+        if (itemClassList.length == 0){
+            return(
+                <>
+                    <Text style={{marginBottom : 5, fontWeight:'bold'}}>아직 브랜드가 승인되지 않았습니다!</Text>
+                    <Text style={{marginBottom : 20, fontWeight:'bold'}}>브랜드 관리자에게 문의하시기 바랍니다.</Text>
+                    <Pressable onPress={() => drawer.navigate('SettingNavigationScreen')}><Text>관리자 ID 입력받고 승인받으시려면 터치해주세요</Text></Pressable>
+                </>
+            )
+        }
+        else if (itemClassList.length <= 4){
             return(
                 <>
                 {itemClassList.map((itemClass,index) => (

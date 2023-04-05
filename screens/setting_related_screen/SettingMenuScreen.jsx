@@ -5,7 +5,7 @@ import PasswordInputScreen from "../PasswordInputScreen"
 import UserShopInfoOnChange from "../UserShopInfoOnChangeScreen"
 const SettingMenuScreen = ({navigation, route}) => {
 
-    const {navigationScreenNavigator} = route.params
+    const {navigatorForInitialScreen} = route.params
 
     const handleLogout = () => {
         storeData('loginStatus', 'false')

@@ -32,7 +32,7 @@ function UserPasswordOnChangeScreen({navigation}){
     }
 
     return(
-            <View>
+            <View style = {styles.container}>
                 <Modal
                     visible={modalVisible}
                     transparent={true}

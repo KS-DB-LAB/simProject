@@ -124,7 +124,7 @@ const JoinScreen = ({ navigation }) => {
 										disabled={!isValid || values.id === ""}
 										style={styles.joinButtonStyle}
 									>
-										<Text>다음</Text>
+										<Text>계정 생성</Text>
 									</Pressable>
 								</View>
 							</View>

@@ -91,13 +91,6 @@ const SettingMenuScreen = ({navigation, route}) => {
                     <Text style ={styles.titleStyle}>배달 플랫폼 계정 정보 변경</Text>
                 </Pressable>
 
-                <Pressable style = {styles.menuSelectingOptionTitleStyle}>
-                    <Text style ={styles.titleStyle}>게시판</Text>
-                </Pressable>
-
-                <Pressable style = {styles.menuSelectingOptionTitleStyle}>
-                    <Text style ={styles.titleStyle}>고객센터</Text>
-                </Pressable>
 
                 <Pressable onPress = {() => setErrorModalVisible(true)} style = {styles.menuSelectingOptionTitleStyle}>
                     <Text style ={styles.titleStyle}>로그아웃</Text>

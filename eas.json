@@ -8,8 +8,7 @@
       "distribution": "internal",
       "ios": {
         "resourceClass": "m1-medium"
-      },
-      "releaseChannel": "main"
+      }
     },
     "preview": {
       "distribution": "internal",

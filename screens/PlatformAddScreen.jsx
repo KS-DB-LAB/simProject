@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View, TextInput, ScrollView } from "react-native";
+import { Pressable, StyleSheet, Text, View, TextInput, ScrollView, BackHandler } from "react-native";
 import React, { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import { getData } from "../lib/asyncstorage";
@@ -17,6 +17,7 @@ function PlatformAddScreen({ route, navigation }) {
 	const [etc, setEtc] = useState("");
 
 	useEffect(() => {
+
 		if (route.params != null) {
 			setOwnerId(route.params.member_id);
 		}

@@ -7,7 +7,7 @@ function LoadingForLoginToMainScreen({navigation}) {
     const isFocused = useIsFocused()
     useEffect(() => {
         setTimeout(() => {
-            navigation.navigate('MainScreen')
+            navigation.navigate('OrderNavigationScreen')
         },500)
     },[isFocused])
 

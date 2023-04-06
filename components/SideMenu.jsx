@@ -19,14 +19,14 @@ const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent({navigation}){
     const drawerItems =[
-        {
-            label  : '메인 홈',
-            onPress: () => navigation.navigate('MainScreen'),
-        },
-        {
-            label: '매출/수익',
-            onPress: () => navigation.navigate('SalesAndProfitScreen'),
-        },
+        // {
+        //     label  : '메인 홈',
+        //     onPress: () => navigation.navigate('MainScreen'),
+        // },
+        // {
+        //     label: '매출/수익',
+        //     onPress: () => navigation.navigate('SalesAndProfitScreen'),
+        // },
         {
             label: '발주',
             onPress: () => navigation.navigate('OrderNavigationScreen'),
@@ -72,11 +72,9 @@ function SideMenu({route}){
     return (
         <NavigationContainer ref={navigationRef} independent={true} >
             <Drawer.Navigator
-                initialRouteName="MainScreen"
+                initialRouteName="OrderNavigationScreen"
                 screenOptions={{drawerPosition: 'right', headerShown : false}}
                 drawerContent={props => <CustomDrawerContent {...props}/>}>
-                <Drawer.Screen name="MainScreen" component={MainScreen} />
-                <Drawer.Screen name="SalesAndProfitScreen" component={SalesAndProfitScreen} />
                 <Drawer.Screen name="OrderNavigationScreen" component={OrderNavigationScreen} />
                 <Drawer.Screen name="OrderHistoryScreen" component={OrderHistoryScreen} />
                 <Drawer.Screen name="SettingNavigationScreen" component={SettingNavigationScreen}

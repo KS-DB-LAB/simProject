@@ -1,5 +1,5 @@
 import React, {useState, useEffect, createContext} from "react";
-import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, Dimensions, TextInput} from "react-native";
+import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, Dimensions, TextInput, Modal} from "react-native";
 import SettingMenuScreen from "./setting_related_screen/SettingMenuScreen"
 import UserPasswordOnChangeScreen from "./UserPasswordOnChangeScreen"
 import {supabase} from "../lib/supabase"
@@ -23,7 +23,7 @@ function PasswordInputScreen({navigation, route}){
     }, []);
 
     const {redirectScreen} = route.params
-    //console.log(route.params)
+    // console.log(redirectScreen)
 
     async function getPassword(owner_id) {
 
@@ -32,21 +32,45 @@ function PasswordInputScreen({navigation, route}){
                 .from('shop_owner_table')
                 .select('*')
                 .eq('member_id', owner_id)
-
+        // console.log(data[0].member_password)
         data[0].member_password == inputPassword ?
-            navigation.navigate(redirectScreen) : ''
+            navigation.navigate(redirectScreen) : setErrorModalVisible(true)
     }
 
-
+    const [errorModalVisible, setErrorModalVisible] = useState(false)
     return(
+
         <View style = {styles.container}>
+
+            <Modal
+                visible={errorModalVisible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setErrorModalVisible(false)}>
+                <View style={styles.errorModalContainer}>
+                    <View style={styles.errorModalMessageBox}>
+                        <Text style={{marginBottom:30, fontSize:15, textAlign:'center'}}>
+                            비밀번호가 틀립니다.
+                        </Text>
+                        <View style={{flexDirection: 'row'}}>
+                            <Pressable onPress={() => {
+                                setErrorModalVisible(false)
+                            }}>
+                                <Text style={{fontSize:15,}}>확인</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </View>
+
+            </Modal>
+
             <View style = {styles.titleContainerStyle}>
                 <Text style ={styles.titleStyle}>비밀번호 입력</Text>
             </View>
 
             <View style={styles.PasswordInputContainer}>
                 <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
-                <TextInput secureTextEntry={true} style={styles.accountInputBox} placeholder="  비밀번호" onChangeText={() => handleTextInput()}/>
+                <TextInput secureTextEntry={true} style={styles.accountInputBox} placeholder="  비밀번호" onChangeText={(text) => handleTextInput(text)}/>
             </View>
 
             <View style = {styles.DialogButtonContainer}>
@@ -63,6 +87,21 @@ function PasswordInputScreen({navigation, route}){
 }
 
 const styles = StyleSheet.create({
+    errorModalContainer: {
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center',
+        backgroundColor :"rgba(0,0,0,0.5)"
+    },
+    errorModalMessageBox:{
+        width:350,
+        height:200,
+        backgroundColor:"#ffffff",
+        borderRadius:10,
+        alignItems:'center',
+        justifyContent:'center',
+
+    },
     container :{
         flex:1,
         alignItems : 'center',
@@ -73,25 +112,25 @@ const styles = StyleSheet.create({
     titleContainerStyle : {
         paddingTop : 40,
         paddingBottom : 20,
-        alignSelf:'flex-start',
+
     },
 
     titleStyle : {
         fontSize : 18,
         fontWeight : 'bold',
 
-        left : 150,
-        top : 200
+
     },
 
     DialogButtonContainer : {
+        marginTop:20,
         flexDirection: 'row',
     },
 
     DialogButtonsStyle : {
-        top : 450,
+
         justifyContent:'center',
-        left : 95,
+
         alignItems : 'center',
         //flex : 1,
         borderRadius : 10,
@@ -105,12 +144,9 @@ const styles = StyleSheet.create({
     },
 
     PasswordInputContainer : {
-        flex:1,
         alignItems: 'center',
-        top : 200
-
-
     },
+
     errorModalMessageContainer: {
         flex:1,
         alignItems:'center',

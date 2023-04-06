@@ -14,7 +14,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./images/logo-icon",
+        "foregroundImage": "./images/logo-icon.jpg",
         "backgroundColor": "#ffffff"
       },
       "package": "com.qnoze.sim"

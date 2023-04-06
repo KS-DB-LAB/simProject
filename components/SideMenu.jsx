@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
         marginRight: 35,
     },
     label: {
-        fontSize: 14,
+        fontSize: 13,
         fontWeight: 'bold',
         textAlign : "center",
     },

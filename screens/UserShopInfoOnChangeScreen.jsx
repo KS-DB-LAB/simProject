@@ -113,25 +113,22 @@ const styles = StyleSheet.create({
     titleContainerStyle : {
         paddingTop : 40,
         paddingBottom : 20,
-        alignSelf:'flex-start',
+
     },
 
     titleStyle : {
         fontSize : 18,
         fontWeight : 'bold',
-        textAlign:'left',
-        left : 50,
-        top : 100
+
     },
 
     DialogButtonContainer : {
+        marginTop:20,
         flexDirection: 'row',
     },
 
     DialogButtonsStyle : {
-        top : 450,
         justifyContent:'center',
-        left : 95,
         alignItems : 'center',
         //flex : 1,
         borderRadius : 10,
@@ -140,16 +137,10 @@ const styles = StyleSheet.create({
         position : 'relative',
         width:100,
         height:36,
-
-
     },
 
     PasswordInputContainer : {
-        flex:1,
         alignItems: 'center',
-        top : 200
-
-
     },
     errorModalMessageContainer: {
         flex:1,

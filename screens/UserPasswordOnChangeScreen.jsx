@@ -81,15 +81,13 @@ const styles = StyleSheet.create({
     titleContainerStyle : {
         paddingTop : 40,
         paddingBottom : 20,
-        alignSelf:'flex-start',
+
     },
 
     titleStyle : {
         fontSize : 18,
         fontWeight : 'bold',
-        textAlign:'left',
-        left : 50,
-        top : 100
+
     },
 
     DialogButtonContainer : {
@@ -97,9 +95,8 @@ const styles = StyleSheet.create({
     },
 
     DialogButtonsStyle : {
-        top : 450,
+        marginTop:20,
         justifyContent:'center',
-        left : 95,
         alignItems : 'center',
         //flex : 1,
         borderRadius : 10,
@@ -113,10 +110,8 @@ const styles = StyleSheet.create({
     },
 
     PasswordInputContainer : {
-        flex:1,
-        alignItems: 'center',
-        top : 200
 
+        alignItems: 'center',
 
     },
     errorModalMessageContainer: {

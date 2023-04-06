@@ -22,7 +22,7 @@ function SettingAllocatedAdmin({navigation}){
     }
 
     return(
-        <View>
+        <View style ={styles.container}>
             <View style = {styles.titleContainerStyle}>
                 <Text style ={styles.titleStyle}>관리자 ID(이메일) 입력</Text>
             </View>
@@ -60,25 +60,21 @@ const styles = StyleSheet.create({
     titleContainerStyle : {
         paddingTop : 40,
         paddingBottom : 20,
-        alignSelf:'flex-start',
     },
 
     titleStyle : {
         fontSize : 18,
         fontWeight : 'bold',
-
-        left : 150,
-        top : 200
     },
 
     DialogButtonContainer : {
+        marginTop:20,
         flexDirection: 'row',
     },
 
     DialogButtonsStyle : {
-        top : 450,
         justifyContent:'center',
-        left : 95,
+
         alignItems : 'center',
         //flex : 1,
         borderRadius : 10,
@@ -92,11 +88,7 @@ const styles = StyleSheet.create({
     },
 
     PasswordInputContainer : {
-        flex:1,
         alignItems: 'center',
-        top : 200
-
-
     },
     errorModalMessageContainer: {
         flex:1,

@@ -1,5 +1,5 @@
 import {BackHandler, Image, Pressable, StyleSheet, Text, View, ScrollView,SafeAreaView, TextInput
-    ,KeyboardAvoidingView, Platform, Modal} from "react-native";
+    ,KeyboardAvoidingView, Platform, Modal, Clipboard} from "react-native";
 // @ts-ignore
 import {useEffect, useState} from "react";
 import {getData} from "../../lib/asyncstorage";
@@ -76,6 +76,17 @@ function ChargingMoneyScreen ({navigation}){
     const [errorModalVisible, setErrorModalVisible] = useState(false);
     const [errorMessageModalVisible, setErrorMessageModalVisible] = useState(false)
     const [confirmMessageModalVisible, setConfirmMessageModalVisible] = useState(false)
+
+    const [messageForClipboard, setMessageForClipboard] = useState('')
+    const copyToClipBoard = () => {
+        Clipboard.setString(chargingBankAccount)
+        setMessageForClipboard('계좌번호가 복사되었습니다.')
+        setTimeout(() => {
+            setMessageForClipboard('')
+        },2000)
+
+    }
+
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 
@@ -208,8 +219,10 @@ function ChargingMoneyScreen ({navigation}){
                 </Pressable>
 
             </View>
-
-            <Text style={{fontSize:15, marginTop:20, }} editable={false} multiline={true}>입금 계좌 : {chargingBankAccount}</Text>
+            <Pressable onPress={() => copyToClipBoard()}>
+            <Text style={{fontSize:15, marginTop:20, }}>입금 계좌 : {chargingBankAccount}</Text>
+            </Pressable>
+            <Text style={{color:'red', marginTop:10,}}>{messageForClipboard}</Text>
         </KeyboardAvoidingView>
     )
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import {
 	View,
 	Text,
@@ -6,6 +6,7 @@ import {
 	Pressable,
 	SafeAreaView,
 	ScrollView,
+	BackHandler,
 } from "react-native";
 import { supabase } from "../lib/supabase";
 import { Formik, Field } from "formik";
@@ -13,6 +14,20 @@ import * as yup from "yup";
 import CustomInput from "../components/CustomInput";
 
 const JoinScreen = ({ navigation }) => {
+
+	useEffect(() => {
+		const handleBackButton = () => {
+			navigation.navigate('LoginScreen')
+			return true; // Return true to prevent default behavior (exit app)
+		};
+
+		BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+
+		return () => {
+			BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+		};
+	}, []);
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.titleContainerStyle}>

@@ -2,7 +2,6 @@ import React, {useState, useEffect, createContext} from "react";
 import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, Dimensions, TextInput} from "react-native";
 import SettingMenuScreen from "./setting_related_screen/SettingMenuScreen"
 import UserPasswordOnChangeScreen from "./UserPasswordOnChangeScreen"
-import UserShopInfoOnChangeScreen from "./UserShopInfoOnChangeScreen"
 import {supabase} from "../lib/supabase"
 import {getData} from "../lib/asyncstorage"
 
@@ -30,9 +29,9 @@ function PasswordInputScreen({navigation, route}){
 
         const {data, error} =
             await supabase
-            .from('shop_owner_table')
-            .select('*')
-            .eq('member_id', owner_id)
+                .from('shop_owner_table')
+                .select('*')
+                .eq('member_id', owner_id)
 
         data[0].member_password == inputPassword ?
             navigation.navigate(redirectScreen) : ''
@@ -40,14 +39,14 @@ function PasswordInputScreen({navigation, route}){
 
 
     return(
-        <View>
+        <View style = {styles.container}>
             <View style = {styles.titleContainerStyle}>
                 <Text style ={styles.titleStyle}>비밀번호 입력</Text>
             </View>
 
             <View style={styles.PasswordInputContainer}>
                 <Text style ={styles.commentForLogin}>서비스를 사용하려면 로그인하세요.</Text>
-                <TextInput secureTextEntry={true} style={styles.accountInputBox} placeholder="  비밀번호" onChangeText={handleTextInput}/>
+                <TextInput secureTextEntry={true} style={styles.accountInputBox} placeholder="  비밀번호" onChangeText={() => handleTextInput()}/>
             </View>
 
             <View style = {styles.DialogButtonContainer}>

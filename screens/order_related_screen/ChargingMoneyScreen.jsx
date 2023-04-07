@@ -8,7 +8,7 @@ import {useIsFocused} from "@react-navigation/native";
 
 function ChargingMoneyScreen ({navigation}){
     const isFocused = useIsFocused();
-    const [chargingMoneyInteger, setChargingMoneyInteger] = useState(0)
+    const [chargingMoneyInteger, setChargingMoneyInteger] = useState(100000)
 
 
     const [chargingMoney, setChargingMoney] = useState('100,000')

@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     errorModalMessageBox:{
         width:350,
         height:200,
-        backgroundColor:"#ffffff",
+        backgroundColor:"white",
         borderRadius:10,
         alignItems:'center',
         justifyContent:'center',
@@ -151,15 +151,6 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems:'center',
         justifyContent:'center',
-    },
-    errorModalMessageBox:{
-        width:300,
-        height:200,
-        backgroundColor:"#d9d9d9",
-        borderRadius:10,
-        alignItems:'center',
-        justifyContent:'center',
-
     },
     logoImage : {
         resizeMode : 'stretch',

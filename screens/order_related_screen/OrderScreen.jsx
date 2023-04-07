@@ -84,6 +84,7 @@ function OrderScreen({navigation, route}){
     }
 
     const functionForMakingScrollView = () => {
+        // console.log('getScrollView')
         if (itemClassList.length == 0){
             return(
                 <>
@@ -149,6 +150,7 @@ function OrderScreen({navigation, route}){
     useEffect(() => {
         //console.log('openedScreen')
         setTimeout(() => {
+            // console.log('getList')
             getData('owner_id').then(ownerId=> {
                 handleSearch(ownerId)
                 handleChargedMoney(ownerId)
@@ -204,6 +206,7 @@ function OrderScreen({navigation, route}){
 
     return (
         <View style={styles.container}>
+
             <View style ={styles.upperComponentGroupStyle}>
                 <View style={styles.upperComponentsContainerStyle}>
                     <Image source = {require('../../images/logo.jpg')} style = {styles.logoImage} />

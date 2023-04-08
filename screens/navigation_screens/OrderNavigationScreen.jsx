@@ -6,6 +6,8 @@ import {useIsFocused} from "@react-navigation/native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
+
+import BrandListScreen from "../order_related_screen/BrandListScreen";
 import OrderScreen from "../order_related_screen/OrderScreen";
 import OrderSpecificScreen from "../order_related_screen/OrderSpecificScreen";
 import OrderSuppliesScreen from "../order_related_screen/OrderSuppliesScreen";
@@ -27,8 +29,9 @@ function OrderNavigationScreen({navigation}) {
 
     return (
         <NavigationContainer ref={navigationRef} independent={true}>
-            <Stack.Navigator initialRouteName="OrderScreen" screenOptions={{headerShown : false}}>
-                <Stack.Screen name="OrderScreen" component={OrderScreen} initialParams={{drawer : navigation}}/>
+            <Stack.Navigator initialRouteName="BrandListScreen" screenOptions={{headerShown : false}}>
+                <Stack.Screen name="BrandListScreen" component={BrandListScreen} initialParams={{drawer:navigation}}/>
+                <Stack.Screen name="OrderScreen" component={OrderScreen}/>
                 <Stack.Screen name="OrderSpecificScreen" component={OrderSpecificScreen}/>
                 <Stack.Screen name="OrderSuppliesScreen" component={OrderSuppliesScreen}/>
                 <Stack.Screen name="OrderSubmitScreen" component={OrderSubmitScreen}/>

@@ -6,7 +6,7 @@ import {supabase} from "../../lib/supabase";
 
 
 function OrderSuppliesScreen({ navigation, route}){
-    const { drawer, itemClass, itemSpecificClass, brandList } = route.params;
+    const { drawer, itemClass, itemSpecificClass, brandName } = route.params;
 
     const [errorModalVisible, setErrorModalVisible] = useState(false);
 
@@ -24,7 +24,7 @@ function OrderSuppliesScreen({ navigation, route}){
     const [hiddenState, setHiddenState] = useState(false)
     let tempList = [];
 
-    const handleSearchItemName = async (itemClass, itemSpecificClass,brandName) => {
+    const handleSearchItemName = async (itemClass, itemSpecificClass) => {
         const { data, error } = await supabase
             .from('supply_item_table')
             .select('*')
@@ -217,7 +217,7 @@ function OrderSuppliesScreen({ navigation, route}){
 
     useEffect(() => {
         setItemNameList([])
-        brandList.map(async(brandName) => await handleSearchItemName(itemClass, itemSpecificClass, brandName));
+        handleSearchItemName(itemClass, itemSpecificClass);
         getData('owner_id').then(ownerId => {
             setOwnerIdInLocal(ownerId)
             setStoredItemCountInSupabase(ownerId)

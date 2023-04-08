@@ -71,21 +71,12 @@ function OrderScreen({navigation, route}){
 
     const functionForMakingScrollView = () => {
         // console.log('getScrollView')
-        if (itemClassList.length == 0){
-            return(
-                <>
-                    <Text style={{marginBottom : 5, fontWeight:'bold'}}>아직 브랜드가 승인되지 않았습니다!</Text>
-                    <Text style={{marginBottom : 20, fontWeight:'bold'}}>브랜드 관리자에게 문의하시기 바랍니다.</Text>
-                    <Pressable onPress={() => {navigation.navigate('LoadingForReRenderScreen')}}><Text>요청 후 새로고침으로 확인해보세요! (터치)</Text></Pressable>
-                </>
-            )
-        }
-        else if (itemClassList.length <= 4){
+        if (itemClassList.length <= 4){
             return(
                 <>
                 {itemClassList.map((itemClass,index) => (
                         <Pressable key={index} style={styles.seperateDash}
-                                   onPress={() => navigation.navigate('OrderSpecificScreen', {drawer: drawer, itemClass : itemClass, brandList : brandList})}>
+                                   onPress={() => navigation.navigate('OrderSpecificScreen', {drawer: drawer, itemClass : itemClass, brandName : brandName})}>
                             <Text style={styles.label}>{itemClass}</Text>
                         </Pressable>
                     ))}

@@ -19,7 +19,7 @@ import LoadingForReRenderScreen from "../order_related_screen/LoadingForReRender
 const Stack = createStackNavigator();
 function OrderNavigationScreen({navigation}) {
 
-    const isFocused = useIsFocused()
+
     const navigationRef = React.useRef(null);
 
     useEffect(() => {

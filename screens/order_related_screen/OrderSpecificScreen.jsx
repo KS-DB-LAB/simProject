@@ -6,13 +6,13 @@ import {supabase} from "../../lib/supabase";
 
 
 function OrderSpecificScreen({ navigation, route}){
-    const { drawer, itemClass, brandList } = route.params;
+    const { drawer, itemClass, brandName } = route.params;
 
     const [itemSpecificClassList, setItemSpecificClassList] = useState([]);
     const [chargedMoney, setChargedMoney] = useState('');
     let tempList = [];
 
-    const handleSearchItemSpecificClass = async (itemClass, brandName) => {
+    const handleSearchItemSpecificClass = async (itemClass) => {
         const { data, error } = await supabase
             .from('supply_item_table')
             .select('supply_item_specify_class')
@@ -71,7 +71,7 @@ function OrderSpecificScreen({ navigation, route}){
                 <>
                     {itemSpecificClassList.map((itemSpecificClass,index) => (
                         <Pressable key={index} style={styles.seperateDash}
-                                   onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass, brandList : brandList})}>
+                                   onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass, brandName : brandName})}>
                             <Text style={styles.label}>{itemSpecificClass}</Text>
                         </Pressable>
                     ))}
@@ -84,7 +84,7 @@ function OrderSpecificScreen({ navigation, route}){
                     <ScrollView style={styles.scrollStyle}>
                         {itemSpecificClassList.map((itemSpecificClass,index) => (
                             <Pressable key={index} style={styles.seperateDash}
-                                       onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass, brandList : brandList})}>
+                                       onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass, brandName : brandName})}>
                                 <Text style={styles.label}>{itemSpecificClass}</Text>
                             </Pressable>
                         ))}
@@ -99,7 +99,7 @@ function OrderSpecificScreen({ navigation, route}){
 
     useEffect(() => {
         setItemSpecificClassList([])
-        brandList.map(async(brandName) => await handleSearchItemSpecificClass(itemClass, brandName));
+        handleSearchItemSpecificClass(itemClass);
         // handleSearchItemSpecificClass(itemClass);
         getData('owner_id').then(ownerId => {
             handleChargedMoney(ownerId)

@@ -7,14 +7,14 @@ import {supabase} from "../../lib/supabase";
 import {useIsFocused} from "@react-navigation/native";
 
 function OrderScreen({navigation, route}){
-    const {drawer} =  route.params;
+    const {drawer, brandName} =  route.params;
 
     const [brandList, setBrandList] = useState([]);
     const [itemClassList, setItemClassList] = useState([]);
     const [chargedMoney, setChargedMoney] = useState('');
     let tempList = [];
 
-    const handleSearchItemClass = async (brandName, brandList) => {
+    const handleSearchItemClass = async () => {
         const { data, error } = await supabase
             .from('supply_item_table')
             .select('supply_item_class')
@@ -37,20 +37,6 @@ function OrderScreen({navigation, route}){
         }
     }
 
-    const handleSearch = async (ownerId) => {
-        const { data, error } = await supabase
-            .from('shop_owner_table')
-            .select('*')
-            .eq('member_id',ownerId)
-        if (error) {
-        } else {
-            const brandListTemp = data[0].member_brands.split(', ')
-            // console.log(brandListTemp)
-            setBrandList(brandListTemp)
-            //console.log(brandList)
-            brandListTemp.map(async(brandName) => await handleSearchItemClass(brandName, brandListTemp));
-        }
-    }
 
     const numberThousandFormat = (chargedMoneyString) => {
         let tempChargedMoneyString =''

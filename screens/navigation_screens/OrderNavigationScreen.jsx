@@ -21,12 +21,6 @@ function OrderNavigationScreen({navigation}) {
 
 
     const navigationRef = React.useRef(null);
-
-    useEffect(() => {
-        //console.log('open')
-        navigationRef.current.navigate('LoadingForReRenderScreen')
-    },[isFocused])
-
     return (
         <NavigationContainer ref={navigationRef} independent={true}>
             <Stack.Navigator initialRouteName="BrandListScreen" screenOptions={{headerShown : false}}>

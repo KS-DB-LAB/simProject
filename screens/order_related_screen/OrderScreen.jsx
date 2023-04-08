@@ -126,15 +126,12 @@ function OrderScreen({navigation, route}){
 
     useEffect(() => {
         //console.log('openedScreen')
-        setTimeout(() => {
-            // console.log('getList')
-            getData('owner_id').then(ownerId=> {
-                handleSearch(ownerId)
-                handleChargedMoney(ownerId)
-                setValuesForBottomPopUp(ownerId)
-                bottomUp()
-            })
-        },500)
+        getData('owner_id').then(ownerId=> {
+            handleSearchItemClass()
+            handleChargedMoney(ownerId)
+            setValuesForBottomPopUp(ownerId)
+            bottomUp()
+        })
 
     },[isFocused])
 

@@ -26,7 +26,7 @@ function LoginScreen({navigation}) {
     }
 
     const checkForAvailable = (data) => {
-        data[0].member_password == memberPassword ? ifLoginSucceededFunction(data[0]) : setErrorModalVisible(true)
+        data[0].member_password == memberPassword ? ifLoginSucceededFunction(data) : setErrorModalVisible(true)
     }
 
     const handleSearch = async () => {

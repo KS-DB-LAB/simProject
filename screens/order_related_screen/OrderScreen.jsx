@@ -150,33 +150,7 @@ function OrderScreen({navigation, route}){
         }
     }
 
-
-    useEffect(() => {
-        const backAction = () => {
-            Alert.alert(
-                '종료',
-                '앱을 종료하시겠습니까?',
-                [
-                    {
-                        text: '취소',
-                        onPress: () => null,
-                        style: 'cancel',
-                    },
-                    { text: '확인', onPress: () => BackHandler.exitApp() },
-                ],
-                { cancelable: false }
-            );
-            return true;
-        };
-
-        const backHandler = BackHandler.addEventListener(
-            'hardwareBackPress',
-            backAction
-        );
-
-        return () => backHandler.remove();
-    },[])
-
+    
 
     return (
         <View style={styles.container}>

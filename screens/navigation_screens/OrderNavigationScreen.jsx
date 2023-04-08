@@ -19,6 +19,11 @@ import LoadingForReRenderScreen from "../order_related_screen/LoadingForReRender
 const Stack = createStackNavigator();
 function OrderNavigationScreen({navigation}) {
 
+    const isFocused = useIsFocused()
+    useEffect(() => {
+        //console.log('open')
+        navigationRef.current.navigate('LoadingForReRenderScreen')
+    },[isFocused])
 
     const navigationRef = React.useRef(null);
     return (

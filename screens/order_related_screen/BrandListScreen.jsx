@@ -12,6 +12,7 @@ function BrandListScreen({navigation,route}){
     const [chargedMoney, setChargedMoney] = useState('')
     const [hiddenState, setHiddenState] = useState(false)
     const [itemCountForBottom ,setItemCountForBottom] = useState(0)
+    const [reRender, setReRender] = useState(true)
 
     const handleSearch = async (ownerId) => {
         const { data, error } = await supabase
@@ -79,8 +80,12 @@ function BrandListScreen({navigation,route}){
 
     const isFocused = useIsFocused()
 
+
+
     useEffect(() => {
+
         setTimeout(() => {
+            console.log(reRender)
             getData('owner_id').then(ownerId => {
                 handleSearch(ownerId)
                 handleChargedMoney(ownerId)

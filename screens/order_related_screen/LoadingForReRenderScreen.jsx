@@ -7,7 +7,7 @@ function LoadingForReRenderScreen({navigation}) {
     const isFocused = useIsFocused()
     useEffect(() => {
         setTimeout(() => {
-            navigation.navigate('OrderScreen')
+            navigation.navigate('BrandListScreen')
         },500)
     },[isFocused])
 

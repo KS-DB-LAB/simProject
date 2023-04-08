@@ -36,7 +36,6 @@ function LoginScreen({navigation}) {
             .eq('member_id',memberId)
 
         if (error || memberId=='') {
-
             setErrorModalVisible(true);
         } else {
             data.length == 0 ? setErrorModalVisible(true) : checkForAvailable(data)
@@ -44,15 +43,17 @@ function LoginScreen({navigation}) {
     };
 
     const ifLoginSucceededFunction = (data) => {
-        storeData('loginStatus', 'true')
-        storeData('owner_name', data.member_name)
-        storeData('owner_id', data.member_id)
-        storeData('owner_brands', data.member_brands)
-        storeData('owner_location_address',data.location_address)
-        storeData('allocated_admin',data.allocated_admin)
 
+        storeData('loginStatus', 'true')
+        storeData('owner_name', data[0]["member_name"])
+        storeData('owner_id', data[0]["member_id"])
+        storeData('owner_brands', data[0]["member_brands"])
+        storeData('owner_location_address',data[0]["location_address"])
+        storeData('allocated_admin',data[0]["allocated_admin"])
+        
         setMemberId('')
         setMemberPassword('')
+
         navigation.navigate('SideMenu',{navigatorForInitialScreen : navigation})
     }
 

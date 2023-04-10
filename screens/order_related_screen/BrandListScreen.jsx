@@ -15,6 +15,7 @@ function BrandListScreen({navigation,route}){
     const [reRender, setReRender] = useState(true)
 
     const handleSearch = async (ownerId) => {
+
         const { data, error } = await supabase
             .from('shop_owner_table')
             .select('*')
@@ -85,14 +86,13 @@ function BrandListScreen({navigation,route}){
     useEffect(() => {
 
         setTimeout(() => {
-            console.log(reRender)
             getData('owner_id').then(ownerId => {
                 handleSearch(ownerId)
                 handleChargedMoney(ownerId)
                 setValuesForBottomPopUp(ownerId)
                 bottomUp()
             })
-        }, 1000)
+        }, 500)
 
         },[isFocused])
 
@@ -176,6 +176,7 @@ function BrandListScreen({navigation,route}){
         );
 
         return () => backHandler.remove();
+        navigation.navigate("LoadingForReRenderScreen")
     },[])
 
 

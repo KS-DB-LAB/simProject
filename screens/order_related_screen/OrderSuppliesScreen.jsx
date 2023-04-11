@@ -142,7 +142,8 @@ function OrderSuppliesScreen({ navigation, route}){
                             setModalItemPrice(numberThousandFormat(itemName.supply_item_price))
                             setErrorModalVisible(true)}
                             }>
-                            <Text style={styles.labelForBrandListSection}>{itemName.supply_item_name} - {itemName.supply_item_price}원</Text>
+                            <Text style={styles.labelForBrandListSection}>{itemName.supply_item_name}</Text>
+                            <Text style={styles.labelForBrandListSection2}>{itemName.supply_item_price}원</Text>
                         </Pressable>
                     ))}
                 </View>
@@ -160,7 +161,8 @@ function OrderSuppliesScreen({ navigation, route}){
                                 setModalItemPrice(numberThousandFormat(itemName.supply_item_price))
                                 setErrorModalVisible(true)}
                             }>
-                                <Text style={styles.labelForBrandListSection}>{itemName.supply_item_name} - {itemName.supply_item_price}원</Text>
+                                <Text style={styles.labelForBrandListSection}>{itemName.supply_item_name}</Text>
+                                <Text style={styles.labelForBrandListSection2}>{itemName.supply_item_price}원</Text>
                             </Pressable>
                         ))}
                     </ScrollView>
@@ -390,11 +392,18 @@ const styles = StyleSheet.create({
         textAlign : "center",
     },
     labelForBrandListSection : {
-        fontSize: 18,
+        fontSize: 12,
         fontWeight: 'bold',
         textAlign : "center",
         position:'absolute',
-        bottom:20,
+        bottom:30,
+    },
+    labelForBrandListSection2 : {
+        fontSize: 10,
+        fontWeight: 'bold',
+        textAlign : "center",
+        position:'absolute',
+        bottom:10,
     },
     scrollContainerStyle:{
         flex:0.5,

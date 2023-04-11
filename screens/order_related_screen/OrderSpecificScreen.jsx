@@ -68,24 +68,25 @@ function OrderSpecificScreen({ navigation, route}){
     const functionForMakingScrollView = () => {
         if (itemSpecificClassList.length <= 4){
             return(
-                <>
+                <View style={{width:'90%',flexDirection:'row',flexWrap:'wrap'}}>
                     {itemSpecificClassList.map((itemSpecificClass,index) => (
                         <Pressable key={index} style={styles.seperateDash}
                                    onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass, brandName : brandName})}>
-                            <Text style={styles.label}>{itemSpecificClass}</Text>
+                            <Text style={styles.labelForBrandListSection}>{itemSpecificClass}</Text>
                         </Pressable>
                     ))}
-                </>
+                </View>
             )
         }
         else {
             return (
                 <View style={styles.scrollContainerStyle}>
-                    <ScrollView style={styles.scrollStyle}>
+                    <ScrollView contentContainerStyle = {{ flexDirection:'row',
+                        flexWrap:'wrap',}} style={styles.scrollStyle}>
                         {itemSpecificClassList.map((itemSpecificClass,index) => (
                             <Pressable key={index} style={styles.seperateDash}
                                        onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass, brandName : brandName})}>
-                                <Text style={styles.label}>{itemSpecificClass}</Text>
+                                <Text style={styles.labelForBrandListSection}>{itemSpecificClass}</Text>
                             </Pressable>
                         ))}
                     </ScrollView>
@@ -233,8 +234,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor : '#D8D8D8',
-        width : 350,
-        height : 60,
+        width : 170,
+        height : 170,
+        marginLeft:10,
         borderRadius : 7,
         marginBottom : 12,
 
@@ -244,10 +246,20 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign : "center",
     },
+    labelForBrandListSection : {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign : "center",
+        position:'absolute',
+        bottom:20,
+    },
     scrollContainerStyle:{
-        flex:0.4,
+        flex:0.5,
         alignItems:'center',
         justifyContent:'center',
+        width:'90%',
+        flexDirection:'row',
+        flexWrap:'wrap',
     },
     scrollStyle: {
         flex:0.5,

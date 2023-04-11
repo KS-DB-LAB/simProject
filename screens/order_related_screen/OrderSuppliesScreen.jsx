@@ -153,7 +153,7 @@ function OrderSuppliesScreen({ navigation, route}){
             return (
                 <View style={styles.scrollContainerStyle}>
                     <ScrollView contentContainerStyle={{ flexDirection:'row',
-                        flexWrap:'wrap',}} style={styles.scrollStyle}>
+                        flexWrap:'wrap',alignItems:'center',}} style={styles.scrollStyle}>
                         {itemNameList.map((itemName,index) => (
                             <Pressable key={index} style={styles.seperateDash} onPress={() => {
                                 setModalItemName(itemName.supply_item_name)

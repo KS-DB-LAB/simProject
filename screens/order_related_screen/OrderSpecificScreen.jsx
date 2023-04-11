@@ -68,7 +68,7 @@ function OrderSpecificScreen({ navigation, route}){
     const functionForMakingScrollView = () => {
         if (itemSpecificClassList.length <= 4){
             return(
-                <View style={{width:'100%',flexDirection:'row',flexWrap:'wrap',justifyContent:'space-around',}}>
+                <View style={{width:'90%',flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between',}}>
                     {itemSpecificClassList.map((itemSpecificClass,index) => (
                         <Pressable key={index} style={styles.seperateDash}
                                    onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass, brandName : brandName})}>
@@ -82,7 +82,7 @@ function OrderSpecificScreen({ navigation, route}){
             return (
                 <View style={styles.scrollContainerStyle}>
                     <ScrollView contentContainerStyle = {{ flexDirection:'row',
-                        flexWrap:'wrap',justifyContent:'space-around',}} style={styles.scrollStyle}>
+                        flexWrap:'wrap',justifyContent:'space-between',}} style={styles.scrollStyle}>
                         {itemSpecificClassList.map((itemSpecificClass,index) => (
                             <Pressable key={index} style={styles.seperateDash}
                                        onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass, brandName : brandName})}>
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
         flex:0.5,
         alignItems:'center',
         justifyContent:'center',
-        width:'100%',
+        width:'90%',
         flexDirection:'row',
         flexWrap:'wrap',
     },

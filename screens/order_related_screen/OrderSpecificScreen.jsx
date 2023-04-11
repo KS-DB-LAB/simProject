@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor : '#D8D8D8',
-        width : 170,
+        width : '47%',
         height : 170,
         marginLeft:10,
         borderRadius : 7,
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
         textAlign : "center",
     },
     labelForBrandListSection : {
-        fontSize: 18,
+        fontSize: 13,
         fontWeight: 'bold',
         textAlign : "center",
         position:'absolute',

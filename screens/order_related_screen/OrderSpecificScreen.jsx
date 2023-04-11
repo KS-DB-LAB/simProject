@@ -68,7 +68,7 @@ function OrderSpecificScreen({ navigation, route}){
     const functionForMakingScrollView = () => {
         if (itemSpecificClassList.length <= 4){
             return(
-                <View style={{width:'90%',flexDirection:'row',flexWrap:'wrap',alignItems:'center',}}>
+                <View style={{width:'100%',flexDirection:'row',flexWrap:'wrap',alignItems:'center',}}>
                     {itemSpecificClassList.map((itemSpecificClass,index) => (
                         <Pressable key={index} style={styles.seperateDash}
                                    onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass, brandName : brandName})}>
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
         flex:0.5,
         alignItems:'center',
         justifyContent:'center',
-        width:'90%',
+        width:'100%',
         flexDirection:'row',
         flexWrap:'wrap',
     },

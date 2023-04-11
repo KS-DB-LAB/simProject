@@ -74,7 +74,7 @@ function OrderScreen({navigation, route}){
 
         if (itemClassList.length <= 4){
             return(
-                <View style={{width:'90%',flexDirection:'row',flexWrap:'wrap',alignItems:'center',}}>
+                <View style={{width:'100%',flexDirection:'row',flexWrap:'wrap',alignItems:'center',}}>
                 {itemClassList.map((itemClass,index) => (
                         <Pressable key={index} style={styles.seperateDash}
                                    onPress={() => navigation.navigate('OrderSpecificScreen', {drawer: drawer, itemClass : itemClass, brandName : brandName})}>
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
         flex:0.5,
         alignItems:'center',
         justifyContent:'center',
-        width:'90%',
+        width:'100%',
         flexDirection:'row',
         flexWrap:'wrap',
     },

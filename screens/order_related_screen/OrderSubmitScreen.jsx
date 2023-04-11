@@ -292,7 +292,7 @@ function OrderSubmitScreen({navigation}){
                     setBuyingPriceTotal(0)
                     setPiledItemList([])
                     setTimeout( () => {
-                        navigation.navigate('OrderScreen')
+                        navigation.navigate('BrandListScreen')
                         },50)
                 }
                 else {

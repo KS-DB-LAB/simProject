@@ -71,18 +71,10 @@ function OrderScreen({navigation, route}){
 
     const functionForMakingScrollView = () => {
         // console.log('getScrollView')
-        if (itemClassList.length == 0){
+
+        if (itemClassList.length <= 4){
             return(
-                <>
-                    <Text style={{marginBottom : 5, fontWeight:'bold'}}>아직 브랜드가 승인되지 않았습니다!</Text>
-                    <Text style={{marginBottom : 20, fontWeight:'bold'}}>브랜드 관리자에게 문의하시기 바랍니다.</Text>
-                    <Pressable onPress={() => {navigation.navigate('LoadingForReRenderScreen')}}><Text>요청 후 새로고침으로 확인해보세요! (터치)</Text></Pressable>
-                </>
-            )
-        }
-        else if (itemClassList.length <= 4){
-            return(
-                <View style={{width:'90%',flexDirection:'row',flexWrap:'wrap'}}>
+                <View style={{width:'90%',flexDirection:'row',flexWrap:'wrap',alignItems:'center',}}>
                 {itemClassList.map((itemClass,index) => (
                         <Pressable key={index} style={styles.seperateDash}
                                    onPress={() => navigation.navigate('OrderSpecificScreen', {drawer: drawer, itemClass : itemClass, brandName : brandName})}>
@@ -96,7 +88,7 @@ function OrderScreen({navigation, route}){
             return (
                 <View style={styles.scrollContainerStyle}>
                     <ScrollView contentContainerStyle = {{ flexDirection:'row',
-                        flexWrap:'wrap',}}  style={styles.scrollStyle}>
+                        flexWrap:'wrap',alignItems:'center',}}  style={styles.scrollStyle}>
                         {itemClassList.map((itemClass,index) => (
                             <Pressable key={index} style={styles.seperateDash}
                                        onPress={() => navigation.navigate('OrderSpecificScreen', {drawer: drawer, itemClass : itemClass, brandList : brandList})}>

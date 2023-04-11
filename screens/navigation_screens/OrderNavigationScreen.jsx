@@ -22,7 +22,7 @@ function OrderNavigationScreen({navigation}) {
     const isFocused = useIsFocused()
     useEffect(() => {
 
-        console.log('open')
+        console.log('open')//
         navigationRef.current.navigate('LoadingForReRenderScreen')
     },[isFocused])
 

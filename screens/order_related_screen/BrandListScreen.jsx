@@ -124,7 +124,7 @@ function BrandListScreen({navigation,route}){
         }
         else if (orderList.length <= 4){
             return(
-                <View style={{width:'90%',flexDirection:'row',flexWrap:'wrap'}}>
+                <View style={{width:'100%',flexDirection:'row',flexWrap:'wrap',alignItems:'center',}}>
                     {orderList.map((listName,index) => (
                         <Pressable key={index} style={styles.seperateDash} onPress={() => {
                             navigation.navigate('OrderScreen', {drawer:drawer, brandName:listName})
@@ -139,7 +139,7 @@ function BrandListScreen({navigation,route}){
             return (
                 <View style={styles.scrollContainerStyle}>
                     <ScrollView contentContainerStyle = {{ flexDirection:'row',
-                        flexWrap:'wrap',}} style={styles.scrollStyle}>
+                        flexWrap:'wrap', alignItems:'center',}} style={styles.scrollStyle}>
                         {orderList.map((listName,index) => (
                             <Pressable key={index} style={styles.seperateDash} onPress={() => {
                                 navigation.navigate('OrderScreen', {drawer:drawer, brandName:listName})
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor : '#D8D8D8',
-        width : 170,
+        width : '47%',
         height : 170,
         marginLeft:10,
         borderRadius : 7,
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
         flex:0.5,
         alignItems:'center',
         justifyContent:'center',
-        width:'90%',
+        width:'100%',
         flexDirection:'row',
         flexWrap:'wrap',
     },

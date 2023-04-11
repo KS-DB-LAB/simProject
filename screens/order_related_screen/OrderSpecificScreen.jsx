@@ -82,7 +82,7 @@ function OrderSpecificScreen({ navigation, route}){
             return (
                 <View style={styles.scrollContainerStyle}>
                     <ScrollView contentContainerStyle = {{ flexDirection:'row',
-                        flexWrap:'wrap',}} style={styles.scrollStyle}>
+                        flexWrap:'wrap',alignItems:'center',}} style={styles.scrollStyle}>
                         {itemSpecificClassList.map((itemSpecificClass,index) => (
                             <Pressable key={index} style={styles.seperateDash}
                                        onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass, brandName : brandName})}>

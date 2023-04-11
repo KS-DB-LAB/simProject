@@ -124,7 +124,7 @@ function BrandListScreen({navigation,route}){
         }
         else if (orderList.length <= 4){
             return(
-                <View style={{width:'100%',flexDirection:'row',flexWrap:'wrap',alignItems:'center',}}>
+                <View style={{width:'100%',flexDirection:'row',justifyContent:'space-around',flexWrap:'wrap',}}>
                     {orderList.map((listName,index) => (
                         <Pressable key={index} style={styles.seperateDash} onPress={() => {
                             navigation.navigate('OrderScreen', {drawer:drawer, brandName:listName})
@@ -139,7 +139,7 @@ function BrandListScreen({navigation,route}){
             return (
                 <View style={styles.scrollContainerStyle}>
                     <ScrollView contentContainerStyle = {{ flexDirection:'row',
-                        flexWrap:'wrap', alignItems:'center',}} style={styles.scrollStyle}>
+                        flexWrap:'wrap',justifyContent:'space-around',}} style={styles.scrollStyle}>
                         {orderList.map((listName,index) => (
                             <Pressable key={index} style={styles.seperateDash} onPress={() => {
                                 navigation.navigate('OrderScreen', {drawer:drawer, brandName:listName})
@@ -266,7 +266,6 @@ const styles = StyleSheet.create({
         backgroundColor : '#D8D8D8',
         width : '47%',
         height : 170,
-        marginLeft:10,
         borderRadius : 7,
         marginBottom : 12,
 

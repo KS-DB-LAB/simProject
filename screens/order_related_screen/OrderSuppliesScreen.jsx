@@ -134,7 +134,7 @@ function OrderSuppliesScreen({ navigation, route}){
     const functionForMakingScrollView = () => {
         if (itemNameList.length <= 4){
             return(
-                <View style={{width:'100%',flexDirection:'row',flexWrap:'wrap',alignItems:'center',}}>
+                <View style={{width:'100%',flexDirection:'row',flexWrap:'wrap',justifyContent:'space-around',}}>
                     {itemNameList.map((itemName,index) => (
                         <Pressable key={index} style={styles.seperateDash} onPress={() => {
                             setModalItemName(itemName.supply_item_name)
@@ -153,7 +153,7 @@ function OrderSuppliesScreen({ navigation, route}){
             return (
                 <View style={styles.scrollContainerStyle}>
                     <ScrollView contentContainerStyle={{ flexDirection:'row',
-                        flexWrap:'wrap',alignItems:'center',}} style={styles.scrollStyle}>
+                        flexWrap:'wrap',justifyContent:'space-around',}} style={styles.scrollStyle}>
                         {itemNameList.map((itemName,index) => (
                             <Pressable key={index} style={styles.seperateDash} onPress={() => {
                                 setModalItemName(itemName.supply_item_name)
@@ -381,7 +381,6 @@ const styles = StyleSheet.create({
         backgroundColor : '#D8D8D8',
         width : '47%',
         height : 170,
-        marginLeft:10,
         borderRadius : 7,
         marginBottom : 12,
 

@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
         textAlign : "center",
     },
     labelForBrandListSection : {
-        fontSize: 18,
+        fontSize: 13,
         fontWeight: 'bold',
         textAlign : "center",
         position:'absolute',

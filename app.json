@@ -2,7 +2,7 @@
   "expo": {
     "name": "sim",
     "slug": "sim",
-    "version": "1.2.4",
+    "version": "1.3.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -14,7 +14,7 @@
       "bundleIdentifier": "com.qnoze.sim"
     },
     "android": {
-      "versionCode": 7,
+      "versionCode": 8,
       "adaptiveIcon": {
         "foregroundImage": "./images/logo-icon.jpg",
         "backgroundColor": "#ffffff"

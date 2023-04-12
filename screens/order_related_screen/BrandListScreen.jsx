@@ -92,7 +92,6 @@ function BrandListScreen({navigation,route}){
                 // navigation.navigate('LoadingForReRenderScreen')
             })
         }, 500)
-
         },[isFocused])
 
 

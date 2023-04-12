@@ -9,7 +9,7 @@ import {useIsFocused} from "@react-navigation/native";
 function ChargingMoneyScreen ({navigation}){
     const isFocused = useIsFocused();
     const [chargingMoneyInteger, setChargingMoneyInteger] = useState(100000)
-
+    const [allocatedAdmin, setAllocatedAdmin] = useState('')
 
     const [chargingMoney, setChargingMoney] = useState('100,000')
     const numberThousandFormat = (chargedMoneyString) => {
@@ -38,6 +38,7 @@ function ChargingMoneyScreen ({navigation}){
                 {
                     owner_id : ownerId,
                     requested_charging_money : chargingMoneyInteger,
+                    allocated_admin : allocatedAdmin,
                 }
             ])
     }
@@ -60,17 +61,29 @@ function ChargingMoneyScreen ({navigation}){
 
         }
     }
+    const getAllocatedAdminFromSupabase = async (ownerId) => {
+        const {data, error} = await supabase
+            .from('shop_owner_table')
+            .select('allocated_admin')
+            .eq('member_id',ownerId)
+        if(error){
+        }
+        else {
+            setAllocatedAdmin(data[0].allocated_admin)
+        }
+    }
 
 
-    const getBankAccountComponent = () => {
+    const getAllocatedAdminComponent = () => {
         getData('owner_id').then(ownerId => {
             //console.log(ownerId)
             getBankAccountFromSupabase(ownerId)
+            getAllocatedAdminFromSupabase(ownerId)
         })
     }
 
     useEffect(() => {
-        getBankAccountComponent()
+        getAllocatedAdminComponent()
     },[isFocused])
 
     const [errorModalVisible, setErrorModalVisible] = useState(false);

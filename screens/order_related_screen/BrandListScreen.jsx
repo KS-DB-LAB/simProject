@@ -22,7 +22,9 @@ function BrandListScreen({navigation,route}){
             .eq('member_id',ownerId)
         if (error) {
         } else {
-            setOrderList([].concat(data[0].member_brands.split(', ')))
+            data[0].member_brands === "" ? setOrderList([]) : setOrderList([].concat(data[0].member_brands.split(', ')))
+
+
             // console.log(orderList)
             // brandsList.map(item => console.log(item))
         }

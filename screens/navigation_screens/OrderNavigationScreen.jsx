@@ -19,25 +19,18 @@ import LoadingForReRenderScreen from "../order_related_screen/LoadingForReRender
 const Stack = createStackNavigator();
 function OrderNavigationScreen({navigation}) {
 
-    const isFocused = useIsFocused()
-    useEffect(() => {
-
-        // console.log('open')
-        navigationRef.current.navigate('LoadingForReRenderScreen')
-    },[isFocused])
-
     const navigationRef = React.useRef(null);
     return (
         <NavigationContainer ref={navigationRef} independent={true}>
             <Stack.Navigator initialRouteName="BrandListScreen" screenOptions={{headerShown : false}}>
                 <Stack.Screen name="BrandListScreen" component={BrandListScreen} initialParams={{drawer:navigation}}/>
+                <Stack.Screen name="LoadingForReRenderScreen" component={LoadingForReRenderScreen} />
                 <Stack.Screen name="OrderScreen" component={OrderScreen}/>
                 <Stack.Screen name="OrderSpecificScreen" component={OrderSpecificScreen}/>
                 <Stack.Screen name="OrderSuppliesScreen" component={OrderSuppliesScreen}/>
                 <Stack.Screen name="OrderSubmitScreen" component={OrderSubmitScreen}/>
                 <Stack.Screen name="ChargingMoneyScreen" component={ChargingMoneyScreen}/>
                 <Stack.Screen name="ChargingMoneyHistoryScreen" component={ChargingMoneyHistoryScreen}/>
-                <Stack.Screen name="LoadingForReRenderScreen" component={LoadingForReRenderScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

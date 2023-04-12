@@ -12,9 +12,6 @@ const SettingMenuScreen = ({navigation, route}) => {
         // console.log(navigationScreenNavigator)
         // console.log(navigatorForInitialScreen)
 
-        navigationScreenNavigator.navigate('LoadingForLoginToMainScreen')
-        navigatorForInitialScreen.navigate('LoginScreen')
-
         storeData('loginStatus', 'false')
         storeData('owner_name', '')
         storeData('owner_id', '')

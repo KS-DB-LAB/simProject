@@ -11,7 +11,7 @@ import JoinScreen from "../JoinScreen";
 import PlatformAddScreen from "../PlatformAddScreen";
 import SideMenu from "../../components/SideMenu"
 
-import {getData} from "../../lib/asyncstorage";
+import {storeData, getData} from "../../lib/asyncstorage";
 
 const Stack = createStackNavigator();
 function NavigationScreen() {

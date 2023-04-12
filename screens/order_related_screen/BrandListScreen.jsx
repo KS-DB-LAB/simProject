@@ -82,19 +82,19 @@ function BrandListScreen({navigation,route}){
     const isFocused = useIsFocused()
 
 
-
     useEffect(() => {
-
         setTimeout(() => {
             getData('owner_id').then(ownerId => {
                 handleSearch(ownerId)
                 handleChargedMoney(ownerId)
                 setValuesForBottomPopUp(ownerId)
                 bottomUp()
+                // navigation.navigate('LoadingForReRenderScreen')
             })
         }, 500)
 
         },[isFocused])
+
 
     const bottomUp = () => {
         if (hiddenState == true){

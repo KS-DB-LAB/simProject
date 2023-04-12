@@ -2,7 +2,7 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 // @ts-ignore
 import React, {useEffect} from 'react';
-
+import {useIsFocused} from "@react-navigation/native";
 
 import {Pressable, View, Image, Text,StyleSheet} from 'react-native';
 

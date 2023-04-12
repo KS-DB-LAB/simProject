@@ -19,11 +19,15 @@ const SettingMenuScreen = ({navigation, route}) => {
         storeData('owner_location_address','')
         storeData('allocated_admin','')
 
+        navigationScreenNavigator.navigate('LoadingForLoginToMainScreen')
+        // navigatorForInitialScreen.navigate('LoginScreen')
+        navigatorForInitialScreen.reset({
+            index: 0,
+            routes: [{ name: 'LoginScreen' }],
+        });
     }
 
     return (
-
-
         <View style={styles.container}>
 
             <Modal

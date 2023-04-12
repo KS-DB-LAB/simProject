@@ -2,10 +2,11 @@ import React,{useEffect} from "react";
 import { StyleSheet, View ,Image } from "react-native";
 import { FastImage } from "react-native-fast-image"
 import {useIsFocused} from "@react-navigation/native";
-
+import {storeData} from '../../lib/asyncstorage';
 function LoadingForReRenderScreen({navigation}) {
     const isFocused = useIsFocused()
     useEffect(() => {
+        // console.log('LoadingForReRenderScreen')
         setTimeout(() => {
             navigation.navigate('BrandListScreen')
         },500)

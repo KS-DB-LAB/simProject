@@ -104,7 +104,7 @@ function BrandListScreen({navigation,route}){
             return(
                 <>
                     <Pressable onPress = {() => {
-                        navigation.navigate('OrderSubmitScreen')}} style ={styles.underPopUpBarForNavigatingSubmitScreen}>
+                        navigation.navigate('OrderSubmitScreen' , {drawer: drawer})}} style ={styles.underPopUpBarForNavigatingSubmitScreen}>
                         <Text style ={styles.label}>발주하기({itemCountForBottom})</Text>
                     </Pressable>
                 </>

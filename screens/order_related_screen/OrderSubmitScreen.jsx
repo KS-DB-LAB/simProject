@@ -330,7 +330,7 @@ function OrderSubmitScreen({navigation, route}){
                         member_order_list: piledItemList,
                         member_order_total_price : buyingPriceTotal,
                         order_status : '발주 준비 중',
-                        allocated_admin : allocatedAdmina,
+                        allocated_admin : allocatedAdmin,
                     }
                 ])
         }))

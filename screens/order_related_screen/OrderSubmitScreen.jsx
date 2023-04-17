@@ -5,7 +5,8 @@ import {getData} from "../../lib/asyncstorage";
 import {supabase} from "../../lib/supabase";
 import {useNavigation} from "@react-navigation/native";
 
-function OrderSubmitScreen({navigation}){
+function OrderSubmitScreen({navigation, route}){
+    const {drawer} = route.params;
 
     const [errorModalVisible, setErrorModalVisible] = useState(false);
     const [errorModalForMoneyNotSatisfiedVisible, setErrorModalForMoneyNotSatisfiedVisible] = useState(false)
@@ -318,18 +319,22 @@ function OrderSubmitScreen({navigation}){
         },[piledItemInfoJSON])
 
     const saveToOrderHistory = async () => {
-        await supabase
-            .from('order_history_table')
-            .insert([
-                {
-                    owner_id : ownerIdLocal,
-                    member_name : ownerNameLocal,
-                    member_location_address : ownerLocationAddressLocal,
-                    member_order_list: piledItemList,
-                    member_order_total_price : buyingPriceTotal,
-                    order_status : '발주 준비 중'
-                }
-            ])
+        getData('allocated_admin').then(( async allocatedAdmin => {
+            await supabase
+                .from('order_history_table')
+                .insert([
+                    {
+                        owner_id : ownerIdLocal,
+                        member_name : ownerNameLocal,
+                        member_location_address : ownerLocationAddressLocal,
+                        member_order_list: piledItemList,
+                        member_order_total_price : buyingPriceTotal,
+                        order_status : '발주 준비 중',
+                        allocated_admin : allocatedAdmina,
+                    }
+                ])
+        }))
+
 
 
         await supabase
@@ -472,7 +477,7 @@ function OrderSubmitScreen({navigation}){
                         </Text>
                         <View style={{flexDirection: 'row'}}>
                             <Pressable onPress={() => {
-                                navigation.navigate('OrderScreen')
+                                navigation.navigate('BrandListScreen', {drawer : drawer})
                                 // setTimeout(() => {
                                 //
                                 // }, 100)

@@ -71,7 +71,7 @@ function OrderSpecificScreen({ navigation, route}){
                 <View style={{width:'90%',flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between',}}>
                     {itemSpecificClassList.map((itemSpecificClass,index) => (
                         <Pressable key={index} style={styles.seperateDash}
-                                   onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer: drawer, itemClass : itemClass, itemSpecificClass : itemSpecificClass, brandName : brandName})}>
+                                   onPress={() => navigation.navigate('OrderSuppliesScreen', {drawer:drawer, itemClass:itemClass, itemSpecificClass:itemSpecificClass, brandName:brandName})}>
                             <Text style={styles.labelForBrandListSection}>{itemSpecificClass}</Text>
                         </Pressable>
                     ))}
@@ -144,7 +144,7 @@ function OrderSpecificScreen({ navigation, route}){
             return(
                 <>
                     <Pressable onPress = {() => {
-                        navigation.navigate('OrderSubmitScreen')}} style ={styles.underPopUpBarForNavigatingSubmitScreen}>
+                        navigation.navigate('OrderSubmitScreen', {drawer:drawer})}} style ={styles.underPopUpBarForNavigatingSubmitScreen}>
                         <Text style ={styles.label}>발주하기({itemCountForBottom})</Text>
                     </Pressable>
                 </>

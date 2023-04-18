@@ -5,7 +5,9 @@ import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable,
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import 'react-native-url-polyfill/auto';
 import {supabase} from "../lib/supabase";
-import {getData, storeData} from "../lib/asyncstorage"
+import {storeData} from "../lib/asyncstorage"
+
+import {decode} from "../lib/cryptofunction";
 
 import SideMenu from "../components/SideMenu";
 import JoinScreen from "../screens/JoinScreen";
@@ -26,7 +28,7 @@ function LoginScreen({navigation}) {
     }
 
     const checkForAvailable = (data) => {
-        data[0].member_password == memberPassword ? ifLoginSucceededFunction(data) : setErrorModalVisible(true)
+        decode(data[0].member_password) === memberPassword ? ifLoginSucceededFunction(data) : setErrorModalVisible(true)
     }
 
     const handleSearch = async () => {

@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from "react";
-import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, Dimensions, TextInput, Modal, KeyboardAvoidingView} from "react-native";
-import SettingMenuScreen from "./setting_related_screen/SettingMenuScreen"
+import {View, Text, StyleSheet, Pressable, TextInput, Modal, } from "react-native";
 import {getData} from "../lib/asyncstorage"
-import {idContext} from "./PasswordInputScreen"
 import {supabase} from "../lib/supabase"
-import { Formik } from 'formik';
+import {encode} from "../lib/cryptofunction"
 
 function UserPasswordOnChangeScreen({navigation}){
     const [modalVisible, setModalVisible] = useState(false)
@@ -25,7 +23,7 @@ function UserPasswordOnChangeScreen({navigation}){
                 await supabase
                     .from('shop_owner_table')
                     .update({
-                        member_password : newPassword
+                        member_password : encode(newPassword)
                     })
                     .eq('member_id', ownerId)
             }

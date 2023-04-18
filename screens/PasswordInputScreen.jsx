@@ -4,6 +4,7 @@ import SettingMenuScreen from "./setting_related_screen/SettingMenuScreen"
 import UserPasswordOnChangeScreen from "./UserPasswordOnChangeScreen"
 import {supabase} from "../lib/supabase"
 import {getData} from "../lib/asyncstorage"
+import {decode} from "../lib/cryptofunction"
 
 export const idContext = createContext();
 
@@ -33,7 +34,7 @@ function PasswordInputScreen({navigation, route}){
                 .select('*')
                 .eq('member_id', owner_id)
         // console.log(data[0].member_password)
-        data[0].member_password == inputPassword ?
+        decode(data[0].member_password) == inputPassword ?
             navigation.navigate(redirectScreen) : setErrorModalVisible(true)
     }
 

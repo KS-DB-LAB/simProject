@@ -8,6 +8,8 @@ import {
 	ScrollView,
 	BackHandler,
 } from "react-native";
+
+import { encode } from "../lib/cryptofunction"
 import { supabase } from "../lib/supabase";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
@@ -53,7 +55,7 @@ const JoinScreen = ({ navigation }) => {
 								{
 									member_name: values.name,
 									member_id: values.id,
-									member_password: values.password,
+									member_password: encode(values.password),
 									location_address:
 										values.address + " " + values.addressDetail,
 									business_number: values.businessRegNumber,
@@ -120,7 +122,9 @@ const JoinScreen = ({ navigation }) => {
 								/>
 								<View style={styles.submitContainerStyle}>
 									<Pressable
-										onPress={() => handleSubmit()}
+										onPress={() => {
+											handleSubmit()
+										}}
 										disabled={!isValid || values.id === ""}
 										style={styles.joinButtonStyle}
 									>

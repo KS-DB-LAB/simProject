@@ -1,14 +1,14 @@
 // @ts-ignore
 import React, {useEffect} from "react";
 import 'react-native-gesture-handler'
-import PasswordInputScreen from "../PasswordInputScreen"
-import UserShopInfoOnChangeScreen from "../UserShopInfoOnChangeScreen"
+import PasswordInputScreen from "../setting_related_screen/PasswordInputScreen"
+import UserShopInfoOnChangeScreen from "../setting_related_screen/UserShopInfoOnChangeScreen"
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import SettingMenuScreen from "../setting_related_screen/SettingMenuScreen"
-import PlatformChangeScreen from "../PlatformChangeScreen";
-import UserPasswordOnChangeScreen from "../UserPasswordOnChangeScreen"
+import PlatformChangeScreen from "../setting_related_screen/PlatformChangeScreen";
+import UserPasswordOnChangeScreen from "../setting_related_screen/UserPasswordOnChangeScreen"
 import SettingForAllocatedAdminScreen from "../setting_related_screen/SettingForAllocatedAdminScreen"
 
 const Stack = createStackNavigator();

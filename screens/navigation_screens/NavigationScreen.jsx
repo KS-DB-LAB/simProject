@@ -7,7 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import LoadingScreen from "../LoadingScreen";
 import LoginScreen from "../LoginScreen";``
-import JoinScreen from "../JoinScreen";
+import JoinScreen from "../account_related_screen/JoinScreen";
 import PlatformAddScreen from "../PlatformAddScreen";
 import SideMenu from "../../components/SideMenu"
 

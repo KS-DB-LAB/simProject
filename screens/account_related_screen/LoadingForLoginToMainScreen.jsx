@@ -12,7 +12,7 @@ function LoadingForLoginToMainScreen({navigation}) {
 
     return(
         <View style={styles.container}>
-            <Image source = {require('../images/loading-image.gif')} style = {styles.loadingGifStyle}  />
+            <Image source = {require('../../images/loading-image.gif')} style = {styles.loadingGifStyle}  />
         </View>
     )
 }

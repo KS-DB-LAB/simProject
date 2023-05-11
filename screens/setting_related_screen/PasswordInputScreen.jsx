@@ -1,10 +1,10 @@
 import React, {useState, useEffect, createContext} from "react";
 import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, Dimensions, TextInput, Modal} from "react-native";
-import SettingMenuScreen from "./setting_related_screen/SettingMenuScreen"
-import UserPasswordOnChangeScreen from "./UserPasswordOnChangeScreen"
-import {supabase} from "../lib/supabase"
-import {getData} from "../lib/asyncstorage"
-import {decode} from "../lib/cryptofunction"
+// import SettingMenuScreen from "./setting_related_screen/SettingMenuScreen"
+// import UserPasswordOnChangeScreen from "./UserPasswordOnChangeScreen"
+import {supabase} from "../../lib/supabase"
+import {getData} from "../../lib/asyncstorage"
+import {decode} from "../../lib/cryptofunction"
 
 export const idContext = createContext();
 

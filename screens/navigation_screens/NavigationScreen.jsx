@@ -6,9 +6,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import LoadingScreen from "../LoadingScreen";
-import LoginScreen from "../LoginScreen";``
+import LoginScreen from "../account_related_screen/LoginScreen";``
 import JoinScreen from "../account_related_screen/JoinScreen";
-import PlatformAddScreen from "../PlatformAddScreen";
+import PlatformAddScreen from "../setting_related_screen/PlatformAddScreen";
 import SideMenu from "../../components/SideMenu"
 
 import {storeData, getData} from "../../lib/asyncstorage";

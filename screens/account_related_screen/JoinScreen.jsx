@@ -9,11 +9,11 @@ import {
 	BackHandler,
 } from "react-native";
 
-import { encode } from "../lib/cryptofunction"
-import { supabase } from "../lib/supabase";
+import { encode } from "../../lib/cryptofunction"
+import { supabase } from "../../lib/supabase";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
-import CustomInput from "../components/CustomInput";
+import CustomInput from "../../components/CustomInput";
 
 const JoinScreen = ({ navigation }) => {
 

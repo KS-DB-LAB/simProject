@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, Dimensions, TextInput, Modal} from "react-native";
-import SettingMenuScreen from "./setting_related_screen/SettingMenuScreen"
-import {getData} from "../lib/asyncstorage"
-import {supabase} from "../lib/supabase"
+import SettingMenuScreen from "../setting_related_screen/SettingMenuScreen"
+import {getData} from "../../lib/asyncstorage"
+import {supabase} from "../../lib/supabase"
 
 
 function UserShopInfoOnChangeScreen({navigation}){

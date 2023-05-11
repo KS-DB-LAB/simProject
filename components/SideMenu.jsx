@@ -12,7 +12,7 @@ import OrderNavigationScreen from "../screens/navigation_screens/OrderNavigation
 import SettingNavigationScreen from "../screens/navigation_screens/SettingNavigationScreen";
 import OrderHistoryScreen from "../screens/order_related_screen/OrderHistoryScreen";
 
-import LoadingForLoginToMainScreen from "../screens/LoadingForLoginToMainScreen";
+import LoadingForLoginToMainScreen from "../screens/account_related_screen/LoadingForLoginToMainScreen";
 
 const Drawer = createDrawerNavigator();
 

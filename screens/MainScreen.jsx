@@ -5,7 +5,7 @@ import {View, Text, StyleSheet, Image, Button, Pressable, TouchableOpacity, Dime
 import 'react-native-gesture-handler'
 import SalesAndProfitScreen from "./SalesAndProfitScreen";
 import SideMenu from "../components/SideMenu.jsx";
-import LoginScreen from "./LoginScreen.jsx";
+import LoginScreen from "./account_related_screen/LoginScreen.jsx";
 
 
 const DashboardList =

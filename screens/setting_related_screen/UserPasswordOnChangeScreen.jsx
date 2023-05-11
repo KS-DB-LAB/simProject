@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import {View, Text, StyleSheet, Pressable, TextInput, Modal, } from "react-native";
-import {getData} from "../lib/asyncstorage"
-import {supabase} from "../lib/supabase"
-import {encode} from "../lib/cryptofunction"
+import {getData} from "../../lib/asyncstorage"
+import {supabase} from "../../lib/supabase"
+import {encode} from "../../lib/cryptofunction"
 
 function UserPasswordOnChangeScreen({navigation}){
     const [modalVisible, setModalVisible] = useState(false)

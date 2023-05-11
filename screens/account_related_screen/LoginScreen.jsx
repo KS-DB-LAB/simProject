@@ -4,13 +4,13 @@ import {View, Text, StyleSheet, Image, TextInput, Modal, Pressable,
     KeyboardAvoidingView, Platform, StatusBar, BackHandler, Alert } from "react-native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import 'react-native-url-polyfill/auto';
-import {supabase} from "../lib/supabase";
-import {storeData} from "../lib/asyncstorage"
+import {supabase} from "../../lib/supabase";
+import {storeData} from "../../lib/asyncstorage"
 
-import {decode} from "../lib/cryptofunction";
+import {decode} from "../../lib/cryptofunction";
 
-import SideMenu from "../components/SideMenu";
-import JoinScreen from "../screens/JoinScreen";
+// import SideMenu from "../components/SideMenu";
+// import JoinScreen from "../screens/JoinScreen";
 
 function LoginScreen({navigation}) {
 
@@ -106,7 +106,7 @@ function LoginScreen({navigation}) {
 
             </Modal>
             <View style={styles.container}>
-                <Image source = {require('../images/slogan.jpg')} style = {styles.logoImage}  />
+                <Image source = {require('../../images/slogan.jpg')} style = {styles.logoImage}  />
             </View>
 
             <View style={styles.loginSectionContainer}>

@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View, TextInput, ScrollView, BackHandler } from "react-native";
 import React, { useState, useEffect } from "react";
-import { supabase } from "../lib/supabase";
-import { getData } from "../lib/asyncstorage";
+import { supabase } from "../../lib/supabase";
+import { getData } from "../../lib/asyncstorage";
 
 
 function PlatformAddScreen({ route, navigation }) {
